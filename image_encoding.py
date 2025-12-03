@@ -1,5 +1,5 @@
 
-# 建立 image_encoding.py → Z碼圖片編碼模組
+# 建立 image_encoding.py → Z碼圖編碼模組
 
 import numpy as np
 import math
