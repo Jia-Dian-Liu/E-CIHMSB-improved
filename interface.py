@@ -524,13 +524,13 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 側邊欄輸入框和選單 */
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] textarea {
-    background-color: white !important;
+    background-color: rgba(255, 255, 255, 0.7) !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
 }
 [data-testid="stSidebar"] .stTextInput > div > div,
 [data-testid="stSidebar"] .stSelectbox > div > div {
-    background-color: white !important;
+    background-color: rgba(255, 255, 255, 0.7) !important;
     color: #333 !important;
 }
 
@@ -539,7 +539,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     background-color: transparent !important;
 }
 [data-testid="stSidebar"] details[open] > div {
-    background-color: rgba(255,255,255,0.5) !important;
+    background-color: rgba(74, 107, 138, 0.1) !important;
     border-radius: 8px !important;
     padding: 10px !important;
 }
@@ -1038,7 +1038,7 @@ figcaption,
 
 /* ===== 側邊欄 Selectbox 樣式 - 保持原樣 ===== */
 [data-testid="stSidebar"] .stSelectbox > div > div {
-    background-color: white !important;
+    background-color: rgba(255, 255, 255, 0.7) !important;
     border-radius: 8px !important;
     font-size: 14px !important;
     font-weight: normal !important;
