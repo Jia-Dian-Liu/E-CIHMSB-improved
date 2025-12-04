@@ -440,43 +440,13 @@ header[data-testid="stHeader"],
     visibility: hidden !important;
 }
 
-/* 強力隱藏右下角的 Streamlit 徽章和 GitHub 圖標 */
+/* 隱藏右下角的 Streamlit 徽章和 GitHub 圖標（保守版本）*/
 .viewerBadge_container__r5tak,
 .viewerBadge_link__qRIco,
-[data-testid="stStatusWidget"],
-.stStatusWidget,
-a[href*="streamlit.io"],
-a[href*="github.com"][target="_blank"],
 div[class*="viewerBadge"],
-div[class*="StatusWidget"],
-iframe[title="streamlit"],
-.st-emotion-cache-h4xjwg,
-.st-emotion-cache-1dp5vir,
-.st-emotion-cache-1wbqy5l,
-.st-emotion-cache-19rxjzo,
-.st-emotion-cache-czk5ss,
-.st-emotion-cache-1aehpvj,
-.st-emotion-cache-1v0mbdj > a,
-.st-emotion-cache-1kyxreq,
-/* 針對右下角固定定位的所有連結 */
-a[style*="position: fixed"][style*="bottom"],
-div[style*="position: fixed"][style*="bottom"][style*="right"] a {
+div[class*="StatusWidget"] {
     display: none !important;
     visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    position: absolute !important;
-    left: -9999px !important;
-    top: -9999px !important;
-    z-index: -9999 !important;
-}
-
-/* 隱藏所有右下角的固定元素（除了我們自己的按鈕）*/
-body > div:not([data-testid]) > a,
-body > a[target="_blank"] {
-    display: none !important;
 }
 
 .block-container { padding-top: 1rem !important; }
@@ -1547,29 +1517,9 @@ if st.session_state.current_mode is None:
     
     setTimeout(bindCardClicks, 100);
     
-    // 隱藏 Streamlit 右下角徽章
-    function hideStreamlitBadges() {
-        doc.querySelectorAll('a').forEach(el => {
-            if (el.href && (el.href.includes('github.com') || el.href.includes('streamlit.io'))) {
-                const rect = el.getBoundingClientRect();
-                if (rect.bottom > window.innerHeight - 100) {
-                    el.remove();
-                }
-            }
-        });
-        doc.querySelectorAll('[class*="viewerBadge"], [class*="StatusWidget"]').forEach(el => el.remove());
-    }
-    
-    hideStreamlitBadges();
-    setTimeout(hideStreamlitBadges, 100);
-    setTimeout(hideStreamlitBadges, 500);
-    setTimeout(hideStreamlitBadges, 1000);
-    setTimeout(hideStreamlitBadges, 2000);
-    
     const observer = new MutationObserver(() => {
         hideHomeButtons();
         bindCardClicks();
-        hideStreamlitBadges();
     });
     observer.observe(doc.body, { childList: true, subtree: true });
     </script>
@@ -1891,35 +1841,10 @@ elif st.session_state.current_mode == 'embed':
         });
     }
     
-    // 強力隱藏並移除 Streamlit 右下角徽章（GitHub 和 Streamlit 圖標）
+    // 隱藏 Streamlit 徽章（保守版本）
     function hideStreamlitBadges() {
-        const selectors = [
-            '[class*="viewerBadge"]',
-            '[class*="StatusWidget"]',
-            'a[href*="streamlit.io"]',
-            'a[href*="github.com"]',
-            'iframe[title*="streamlit"]',
-            '[data-testid="stStatusWidget"]',
-            '.stStatusWidget',
-            '[class*="st-emotion-cache"]'
-        ];
-        selectors.forEach(selector => {
-            doc.querySelectorAll(selector).forEach(el => {
-                // 檢查是否在右下角
-                const rect = el.getBoundingClientRect();
-                if (rect.bottom > window.innerHeight - 80 && rect.right > window.innerWidth - 200) {
-                    el.remove(); // 直接移除元素
-                }
-            });
-        });
-        // 額外檢查所有連結
-        doc.querySelectorAll('a').forEach(el => {
-            if (el.href && (el.href.includes('github.com') || el.href.includes('streamlit.io'))) {
-                const rect = el.getBoundingClientRect();
-                if (rect.bottom > window.innerHeight - 80) {
-                    el.remove();
-                }
-            }
+        doc.querySelectorAll('[class*="viewerBadge"]').forEach(el => {
+            el.style.display = 'none';
         });
     }
     
@@ -2572,35 +2497,10 @@ else:
         });
     }
     
-    // 強力隱藏並移除 Streamlit 右下角徽章（GitHub 和 Streamlit 圖標）
+    // 隱藏 Streamlit 徽章（保守版本）
     function hideStreamlitBadges() {
-        const selectors = [
-            '[class*="viewerBadge"]',
-            '[class*="StatusWidget"]',
-            'a[href*="streamlit.io"]',
-            'a[href*="github.com"]',
-            'iframe[title*="streamlit"]',
-            '[data-testid="stStatusWidget"]',
-            '.stStatusWidget',
-            '[class*="st-emotion-cache"]'
-        ];
-        selectors.forEach(selector => {
-            doc.querySelectorAll(selector).forEach(el => {
-                // 檢查是否在右下角
-                const rect = el.getBoundingClientRect();
-                if (rect.bottom > window.innerHeight - 80 && rect.right > window.innerWidth - 200) {
-                    el.remove(); // 直接移除元素
-                }
-            });
-        });
-        // 額外檢查所有連結
-        doc.querySelectorAll('a').forEach(el => {
-            if (el.href && (el.href.includes('github.com') || el.href.includes('streamlit.io'))) {
-                const rect = el.getBoundingClientRect();
-                if (rect.bottom > window.innerHeight - 80) {
-                    el.remove();
-                }
-            }
+        doc.querySelectorAll('[class*="viewerBadge"]').forEach(el => {
+            el.style.display = 'none';
         });
     }
     
