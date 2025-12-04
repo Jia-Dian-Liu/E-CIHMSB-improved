@@ -439,7 +439,7 @@ header[data-testid="stHeader"],
     display: none !important; 
     visibility: hidden !important;
 }
-.block-container { padding-top: 1rem !important; }
+
 /* ==================== 隱藏右下角圖示按鈕 ==================== */
 .stActionButton,
 [data-testid="stActionButton"],
@@ -464,6 +464,8 @@ div[data-testid="stStatusWidget"] {
 div[style*="position: fixed"][style*="bottom"][style*="right"]:not(#next-step-fixed):not(#back-step-fixed) {
     display: none !important;
 }
+
+.block-container { padding-top: 1rem !important; }
 
 /* 完全隱藏 Streamlit 所有側邊欄控制按鈕 */
 button[data-testid="collapsedControl"],
