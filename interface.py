@@ -510,6 +510,40 @@ section[data-testid="stSidebar"] button[kind="header"],
     transform: translateX(0) !important;
 }
 
+/* 側邊欄內部所有文字和元素顏色 */
+[data-testid="stSidebar"] * {
+    color: #333 !important;
+}
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] div {
+    color: #333 !important;
+}
+
+/* 側邊欄輸入框和選單 */
+[data-testid="stSidebar"] input,
+[data-testid="stSidebar"] textarea {
+    background-color: white !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+}
+[data-testid="stSidebar"] .stTextInput > div > div,
+[data-testid="stSidebar"] .stSelectbox > div > div {
+    background-color: white !important;
+    color: #333 !important;
+}
+
+/* 側邊欄 Expander 內容區域 */
+[data-testid="stSidebar"] [data-testid="stExpander"] > div {
+    background-color: transparent !important;
+}
+[data-testid="stSidebar"] details[open] > div {
+    background-color: rgba(255,255,255,0.5) !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+}
+
 /* 側邊欄標題字體放大 */
 [data-testid="stSidebar"] h3,
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h3 {
@@ -1147,8 +1181,8 @@ div[data-testid="stVerticalBlock"] > div {
 }
 #next-step-fixed {
     position: fixed !important;
-    bottom: max(5px, 1vh) !important;
-    right: max(20px, 2vw) !important;
+    bottom: max(15px, 2vh) !important;
+    right: max(120px, 10vw) !important;
     z-index: 1000 !important;
     width: auto !important;
     min-width: 100px !important;
@@ -1833,6 +1867,17 @@ elif st.session_state.current_mode == 'embed':
         if st.session_state.embed_step == 1:
             st.markdown('<p style="font-size: clamp(22px, 2vw, 30px); font-weight: bold; margin-bottom: 10px;">選擇對象</p>', unsafe_allow_html=True)
             if contact_names:
+                # 強制 selectbox 文字顏色
+                st.markdown("""
+                <style>
+                .stSelectbox div, .stSelectbox span, .stSelectbox input,
+                [data-baseweb="select"] div, [data-baseweb="select"] span,
+                [data-baseweb="select"] input, [data-baseweb="select"] [class*="Value"] {
+                    color: #333 !important;
+                }
+                </style>
+                """, unsafe_allow_html=True)
+                
                 options = ["選擇"] + contact_names
                 saved_contact = st.session_state.get('selected_contact_saved', None)
                 default_idx = options.index(saved_contact) if saved_contact and saved_contact in contact_names else 0
@@ -2472,6 +2517,17 @@ else:
         if st.session_state.extract_step == 1:
             st.markdown('<p style="font-size: clamp(22px, 2vw, 30px); font-weight: bold; margin-bottom: 10px;">選擇對象</p>', unsafe_allow_html=True)
             if contact_names:
+                # 強制 selectbox 文字顏色
+                st.markdown("""
+                <style>
+                .stSelectbox div, .stSelectbox span, .stSelectbox input,
+                [data-baseweb="select"] div, [data-baseweb="select"] span,
+                [data-baseweb="select"] input, [data-baseweb="select"] [class*="Value"] {
+                    color: #333 !important;
+                }
+                </style>
+                """, unsafe_allow_html=True)
+                
                 options = ["選擇"] + contact_names
                 saved_contact = st.session_state.get('extract_contact_saved', None)
                 default_idx = options.index(saved_contact) if saved_contact and saved_contact in contact_names else 0
