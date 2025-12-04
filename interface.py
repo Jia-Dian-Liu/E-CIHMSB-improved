@@ -440,6 +440,30 @@ header[data-testid="stHeader"],
     visibility: hidden !important;
 }
 .block-container { padding-top: 1rem !important; }
+/* ==================== 隱藏右下角圖示按鈕 ==================== */
+.stActionButton,
+[data-testid="stActionButton"],
+[data-testid="baseButton-headerNoPadding"],
+button[kind="headerNoPadding"],
+.stApp > header button,
+[class*="viewerBadge"],
+[data-testid="stStatusWidget"],
+button[title="View app"],
+button[title="Fork app"],
+a[data-testid="stAppDeployButton"],
+.viewerBadge_container__r5tak,
+div[data-testid="stDecoration"],
+div[data-testid="stStatusWidget"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* 強制隱藏所有右下角固定元素 */
+.stApp > div > div:last-child > div[style*="position: fixed"],
+div[style*="position: fixed"][style*="bottom"][style*="right"]:not(#next-step-fixed):not(#back-step-fixed) {
+    display: none !important;
+}
 
 /* 完全隱藏 Streamlit 所有側邊欄控制按鈕 */
 button[data-testid="collapsedControl"],
