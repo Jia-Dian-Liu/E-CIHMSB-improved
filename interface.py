@@ -620,15 +620,15 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     min-height: 2vh;
     text-align: center;
-    margin-bottom: clamp(0.5rem, 1.5vh, 2rem);
-    margin-top: clamp(-4rem, -4vh, -1rem);
+    margin-bottom: clamp(0.5rem, 1vh, 1.5rem);
+    margin-top: clamp(1rem, 3vh, 4rem);  /* 往下移 */
 }
 
 .welcome-title {
     /* 根據視窗寬度等比例縮放，確保所有螢幕看起來一致 */
     font-size: clamp(28px, 4.5vw, 85px);
     font-weight: bold;
-    margin-bottom: clamp(1rem, 2vh, 2.5rem);
+    margin-bottom: clamp(0.5rem, 1vh, 1.5rem);  /* 減少標題與卡片間距 */
     letter-spacing: clamp(0.08em, 0.15em, 0.25em);
     padding-left: 0.2em;
     white-space: nowrap;
@@ -647,10 +647,10 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* ==================== 動畫卡片樣式（純等比例縮放）==================== */
 .anim-card {
     width: 90%;
-    /* 用 vw 控制寬度，vh 控制高度 */
-    max-width: clamp(320px, 30vw, 580px);
-    min-height: clamp(140px, 22vh, 300px);
-    padding: clamp(10px, 1.5vh, 30px) clamp(10px, 1.5vw, 25px);
+    /* 卡片變大 */
+    max-width: clamp(350px, 35vw, 650px);
+    min-height: clamp(180px, 30vh, 380px);
+    padding: clamp(15px, 2vh, 35px) clamp(15px, 2vw, 30px);
     border-radius: clamp(12px, 1.5vw, 25px);
     text-align: center;
     cursor: pointer;
@@ -679,22 +679,22 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(6px, 1vw, 18px);
-    margin-bottom: clamp(10px, 2vh, 30px);
-    font-size: clamp(28px, 3.5vw, 58px);
-    height: clamp(50px, 10vh, 120px);
+    gap: clamp(8px, 1.2vw, 20px);
+    margin-bottom: clamp(12px, 2.5vh, 35px);
+    font-size: clamp(32px, 4vw, 65px);
+    height: clamp(60px, 12vh, 140px);
 }
 
 /* ===== 首頁圖示響應式（用 vmin 確保等比例）===== */
 .anim-flow .anim-icon,
 .anim-flow img {
     /* vmin = 取 vw 和 vh 的較小值，確保圖示在任何螢幕都等比例 */
-    width: clamp(40px, 8vmin, 100px) !important;
-    height: clamp(40px, 8vmin, 100px) !important;
+    width: clamp(50px, 10vmin, 120px) !important;
+    height: clamp(50px, 10vmin, 120px) !important;
 }
 .anim-flow .anim-icon-arrow {
-    width: clamp(30px, 6vmin, 80px) !important;
-    height: clamp(30px, 6vmin, 80px) !important;
+    width: clamp(35px, 7vmin, 90px) !important;
+    height: clamp(35px, 7vmin, 90px) !important;
 }
 
 .anim-icon {
@@ -755,15 +755,15 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 卡片文字（純等比例縮放）*/
 .anim-title {
     /* 用 vmin 確保文字大小同時考慮寬度和高度 */
-    font-size: clamp(22px, 4.5vmin, 55px);
+    font-size: clamp(26px, 5.5vmin, 65px);
     font-weight: bold;
     color: #FFFFFF;
-    margin-bottom: clamp(8px, 1.5vh, 20px);
+    margin-bottom: clamp(10px, 2vh, 25px);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .anim-desc {
-    font-size: clamp(16px, 3.5vmin, 45px);
+    font-size: clamp(18px, 4vmin, 50px);
     color: rgba(255,255,255,0.9);
     line-height: 1.6;
     margin-bottom: 0;
@@ -783,7 +783,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* ===== 底部組員文字響應式（純等比例）===== */
 .footer-credits {
     position: fixed;
-    bottom: clamp(5px, 1.5vh, 20px);
+    bottom: clamp(15px, 4vh, 50px);  /* 往上移 */
     left: 0;
     right: 0;
     text-align: center;
