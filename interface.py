@@ -648,7 +648,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 .anim-card {
     width: 90%;
     /* 卡片變大 */
-    max-width: clamp(350px, 35vw, 650px);
+    max-width: clamp(350px, 35vw, 700px);
     min-height: clamp(180px, 30vh, 380px);
     padding: clamp(15px, 2vh, 35px) clamp(15px, 2vw, 30px);
     border-radius: clamp(12px, 1.5vw, 25px);
