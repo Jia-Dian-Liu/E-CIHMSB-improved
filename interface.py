@@ -647,9 +647,9 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* ==================== 動畫卡片樣式（純等比例縮放）==================== */
 .anim-card {
     width: 90%;
-    /* 卡片變大 */
-    max-width: clamp(350px, 35vw, 700px);
-    min-height: clamp(180px, 30vh, 380px);
+    /* 卡片變大 - 使用 vmin 確保在各種螢幕比例下都適當 */
+    max-width: clamp(350px, 42vw, 650px);
+    min-height: clamp(180px, 32vh, 380px);
     padding: clamp(15px, 2vh, 35px) clamp(15px, 2vw, 30px);
     border-radius: clamp(12px, 1.5vw, 25px);
     text-align: center;
@@ -1420,7 +1420,7 @@ if st.session_state.current_mode is None:
     
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
     
-    col_spacer1, col_embed, col_spacer_mid, col_extract, col_spacer2 = st.columns([0.35, 2, 0.15, 2, 0.4], gap="large")
+    col_spacer1, col_embed, col_spacer_mid, col_extract, col_spacer2 = st.columns([0.2, 2.2, 0.2, 2.2, 0.2], gap="large")
     
     with col_embed:
         st.markdown(f"""
