@@ -1330,12 +1330,6 @@ if st.session_state.current_mode is None:
         max-height: 100vh !important;
         overflow: hidden !important;
     }
-    /* 強制隱藏所有右下角固定元素 */
-.stApp > div > div:last-child,
-div[style*="position: fixed"][style*="bottom"],
-div[style*="position: fixed"][style*="right"] {
-    display: none !important;
-}
     </style>
     """, unsafe_allow_html=True)
     
