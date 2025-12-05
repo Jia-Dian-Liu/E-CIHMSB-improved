@@ -1406,7 +1406,6 @@ if st.session_state.current_mode is None:
     
     st.markdown("""
     <div class="welcome-container">
-        <div class="welcome-title">藏圖密語</div>
         <div class="welcome-title">高效能無載體之機密編碼技術</div>
     </div>
     <div class="footer-credits">
