@@ -620,8 +620,8 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     min-height: 2vh;
     text-align: center;
-    margin-bottom: clamp(0.3rem, 0.5vh, 1rem);
-    margin-top: clamp(2rem, 5vh, 6rem);  /* 往下移更多 */
+    margin-bottom: clamp(1rem, 3vh, 4rem);  /* 標題和卡片間距加大 */
+    margin-top: clamp(2rem, 5vh, 6rem);
 }
 
 .welcome-title {
@@ -783,7 +783,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* ===== 底部組員文字響應式（純等比例）===== */
 .footer-credits {
     position: fixed;
-    bottom: clamp(20px, 6vh, 70px);  /* 往上移更多 */
+    bottom: clamp(15px, 3vh, 40px);  /* 和標題到卡片間距一致 */
     left: 0;
     right: 0;
     text-align: center;
