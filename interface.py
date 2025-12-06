@@ -620,16 +620,16 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     min-height: 2vh;
     text-align: center;
-    margin-bottom: 60px;
-    margin-top: 80px;
+    margin-bottom: 30px;
+    margin-top: 40px;
 }
 
 .welcome-title {
-    font-size: 75px;
+    font-size: 68px;
     font-weight: bold;
-    margin-bottom: 50px;
-    letter-spacing: 0.2em;
-    padding-left: 0.2em;
+    margin-bottom: 30px;
+    letter-spacing: 0.18em;
+    padding-left: 0.18em;
     white-space: nowrap;
     background: linear-gradient(135deg, #4A6B8A 0%, #7D5A6B 100%);
     -webkit-background-clip: text;
@@ -779,12 +779,12 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 底部組員文字 - 固定尺寸 */
 .footer-credits {
     position: fixed;
-    bottom: 35px;
+    bottom: 25px;
     left: 0;
     right: 0;
     text-align: center;
     color: #5D5D5D;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 500;
     z-index: 10;
 }
@@ -1482,8 +1482,9 @@ function bindCardClicks() {
 setTimeout(bindCardClicks, 100);
 
 // ===== 方案 A：等比例縮放（首頁專用）=====
-const DESIGN_WIDTH = 1920;
-const DESIGN_HEIGHT = 1080;
+// 設計基準改小 = 內容放大
+const DESIGN_WIDTH = 1440;
+const DESIGN_HEIGHT = 810;
 
 function applyHomeScale() {
     const windowWidth = window.innerWidth || doc.documentElement.clientWidth;
