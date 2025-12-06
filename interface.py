@@ -621,9 +621,9 @@ section[data-testid="stSidebar"] button[kind="header"],
     opacity: 0 !important;
 }
 
-/* ==================== 全屏選擇頁面樣式（Flexbox 垂直置中）==================== */
+/* ==================== 全屏選擇頁面樣式（Flexbox 垂直等距）==================== */
 
-/* 首頁全屏容器 - 垂直置中 */
+/* 首頁全屏容器 - 三個區塊垂直等距分佈 */
 .home-fullscreen {
     position: fixed;
     top: 0;
@@ -632,8 +632,9 @@ section[data-testid="stSidebar"] button[kind="header"],
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    padding: 35px 0;
     box-sizing: border-box;
     pointer-events: none;
     z-index: 100;
@@ -1410,26 +1411,26 @@ if st.session_state.current_mode is None:
         <div class="cards-container">
             <div class="anim-card anim-card-embed" id="embed-card">
                 <div class="anim-flow">
-                    <img src="{icon_secret}" class="anim-icon anim-icon-secret">
+                    <img src="{icon_secret}" class="anim-icon anim-icon-secret" />
                     <span class="anim-icon">+</span>
-                    <img src="{icon_image}" class="anim-icon">
-                    <img src="{icon_arrow}" class="anim-icon anim-icon-arrow">
-                    <img src="{icon_zcode}" class="anim-icon anim-icon-result">
+                    <img src="{icon_image}" class="anim-icon" />
+                    <img src="{icon_arrow}" class="anim-icon anim-icon-arrow" />
+                    <img src="{icon_zcode}" class="anim-icon anim-icon-result" />
                 </div>
                 <div class="anim-title">嵌入機密</div>
-                <div class="anim-desc">基於載體圖像<br>生成編碼圖像</div>
+                <div class="anim-desc">基於載體圖像<br/>生成編碼圖像</div>
             </div>
             
             <div class="anim-card anim-card-extract" id="extract-card">
                 <div class="anim-flow">
-                    <img src="{icon_zcode}" class="anim-icon anim-icon-source">
+                    <img src="{icon_zcode}" class="anim-icon anim-icon-source" />
                     <span class="anim-icon">+</span>
-                    <img src="{icon_image}" class="anim-icon">
-                    <img src="{icon_arrow}" class="anim-icon anim-icon-arrow">
-                    <img src="{icon_secret}" class="anim-icon anim-icon-result">
+                    <img src="{icon_image}" class="anim-icon" />
+                    <img src="{icon_arrow}" class="anim-icon anim-icon-arrow" />
+                    <img src="{icon_secret}" class="anim-icon anim-icon-result" />
                 </div>
                 <div class="anim-title">提取機密</div>
-                <div class="anim-desc">參考相同載體圖像<br>重建機密訊息</div>
+                <div class="anim-desc">參考相同載體圖像<br/>重建機密訊息</div>
             </div>
         </div>
         
@@ -1520,11 +1521,16 @@ function applyHomeScale() {
     const scaleY = windowHeight / DESIGN_HEIGHT;
     const scale = Math.min(scaleX, scaleY);
     
-    // 套用縮放到首頁容器
+    // 套用到首頁 Flexbox 容器
     const homeContainer = doc.querySelector('.home-fullscreen');
     if (homeContainer) {
+        homeContainer.style.transformOrigin = 'top center';
         homeContainer.style.transform = `scale(${scale})`;
-        homeContainer.style.transformOrigin = 'center center';
+        homeContainer.style.width = `${DESIGN_WIDTH}px`;
+        homeContainer.style.height = `${DESIGN_HEIGHT}px`;
+        // 置中
+        homeContainer.style.left = `${(windowWidth - DESIGN_WIDTH * scale) / 2}px`;
+        homeContainer.style.top = `${(windowHeight - DESIGN_HEIGHT * scale) / 2}px`;
     }
     
     // 隱藏捲軸
