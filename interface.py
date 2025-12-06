@@ -629,14 +629,14 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     min-height: 2vh;
     text-align: center;
-    margin-bottom: 30px;
-    margin-top: 40px;
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 .welcome-title {
     font-size: 68px;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     letter-spacing: 0.18em;
     padding-left: 0.18em;
     white-space: nowrap;
@@ -789,7 +789,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 底部組員文字 - 固定尺寸 */
 .footer-credits {
     position: fixed;
-    bottom: 25px;
+    bottom: 50px;
     left: 0;
     right: 0;
     text-align: center;
@@ -1524,16 +1524,28 @@ function applyHomeScale() {
     }
 }
 
+// 隱藏 Streamlit 徽章
+function hideStreamlitBadges() {
+    doc.querySelectorAll('[class*="viewerBadge"], a[href*="streamlit.io"], div[class*="StatusWidget"], [data-testid="manage-app-button"]').forEach(el => {
+        el.style.display = 'none';
+        el.style.visibility = 'hidden';
+    });
+}
+
 applyHomeScale();
+hideStreamlitBadges();
 window.addEventListener('resize', applyHomeScale);
 setTimeout(applyHomeScale, 100);
 setTimeout(applyHomeScale, 300);
 setTimeout(applyHomeScale, 500);
+setTimeout(hideStreamlitBadges, 100);
+setTimeout(hideStreamlitBadges, 500);
 
 const observer = new MutationObserver(() => {
     hideHomeButtons();
     bindCardClicks();
     applyHomeScale();
+    hideStreamlitBadges();
 });
 observer.observe(doc.body, { childList: true, subtree: true });
 </script>
@@ -1855,10 +1867,15 @@ elif st.session_state.current_mode == 'embed':
         });
     }
     
-    // 隱藏 Streamlit 徽章（保守版本）
+    // 隱藏 Streamlit 徽章（加強版）
     function hideStreamlitBadges() {
         doc.querySelectorAll('[class*="viewerBadge"]').forEach(el => {
             el.style.display = 'none';
+        });
+        // 隱藏底部的 "Hosted with Streamlit" 和 "Created by"
+        doc.querySelectorAll('a[href*="streamlit.io"], div[class*="StatusWidget"], [data-testid="manage-app-button"]').forEach(el => {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
         });
     }
     
@@ -2511,10 +2528,15 @@ else:
         });
     }
     
-    // 隱藏 Streamlit 徽章（保守版本）
+    // 隱藏 Streamlit 徽章（加強版）
     function hideStreamlitBadges() {
         doc.querySelectorAll('[class*="viewerBadge"]').forEach(el => {
             el.style.display = 'none';
+        });
+        // 隱藏底部的 "Hosted with Streamlit" 和 "Created by"
+        doc.querySelectorAll('a[href*="streamlit.io"], div[class*="StatusWidget"], [data-testid="manage-app-button"]').forEach(el => {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
         });
     }
     
