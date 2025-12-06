@@ -625,23 +625,14 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 首頁全屏容器 - 三個區塊垂直等距分佈 */
 .home-fullscreen {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 35px 0;
     box-sizing: border-box;
-    pointer-events: none;
-    z-index: 100;
-}
-
-.home-fullscreen > * {
-    pointer-events: auto;
 }
 
 /* 標題區域 */
@@ -1401,8 +1392,30 @@ if st.session_state.current_mode is None:
     icon_arrow = get_icon_base64("arrow")
     icon_zcode = get_icon_base64("z-code")
     
-    # 純 HTML Flexbox 結構
+    # 動態 CSS 設定圖標背景
     st.markdown(f"""
+    <style>
+    .icon-secret {{ background-image: url('{icon_secret}'); }}
+    .icon-image {{ background-image: url('{icon_image}'); }}
+    .icon-arrow {{ background-image: url('{icon_arrow}'); }}
+    .icon-zcode {{ background-image: url('{icon_zcode}'); }}
+    .icon-box {{
+        width: 90px;
+        height: 90px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: inline-block;
+    }}
+    .icon-box.arrow {{
+        width: 70px;
+        height: 70px;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # 純 HTML Flexbox 結構（使用 div 背景圖片代替 img）
+    st.markdown("""
     <div class="home-fullscreen">
         <div class="welcome-container">
             <div class="welcome-title">高效能無載體之機密編碼技術</div>
@@ -1411,11 +1424,11 @@ if st.session_state.current_mode is None:
         <div class="cards-container">
             <div class="anim-card anim-card-embed" id="embed-card">
                 <div class="anim-flow">
-                    <img src="{icon_secret}" class="anim-icon anim-icon-secret" />
+                    <div class="icon-box icon-secret anim-icon anim-icon-secret"></div>
                     <span class="anim-icon">+</span>
-                    <img src="{icon_image}" class="anim-icon" />
-                    <img src="{icon_arrow}" class="anim-icon anim-icon-arrow" />
-                    <img src="{icon_zcode}" class="anim-icon anim-icon-result" />
+                    <div class="icon-box icon-image anim-icon"></div>
+                    <div class="icon-box icon-arrow arrow anim-icon anim-icon-arrow"></div>
+                    <div class="icon-box icon-zcode anim-icon anim-icon-result"></div>
                 </div>
                 <div class="anim-title">嵌入機密</div>
                 <div class="anim-desc">基於載體圖像<br/>生成編碼圖像</div>
@@ -1423,11 +1436,11 @@ if st.session_state.current_mode is None:
             
             <div class="anim-card anim-card-extract" id="extract-card">
                 <div class="anim-flow">
-                    <img src="{icon_zcode}" class="anim-icon anim-icon-source" />
+                    <div class="icon-box icon-zcode anim-icon anim-icon-source"></div>
                     <span class="anim-icon">+</span>
-                    <img src="{icon_image}" class="anim-icon" />
-                    <img src="{icon_arrow}" class="anim-icon anim-icon-arrow" />
-                    <img src="{icon_secret}" class="anim-icon anim-icon-result" />
+                    <div class="icon-box icon-image anim-icon"></div>
+                    <div class="icon-box icon-arrow arrow anim-icon anim-icon-arrow"></div>
+                    <div class="icon-box icon-secret anim-icon anim-icon-result"></div>
                 </div>
                 <div class="anim-title">提取機密</div>
                 <div class="anim-desc">參考相同載體圖像<br/>重建機密訊息</div>
@@ -1513,25 +1526,9 @@ const DESIGN_WIDTH = 1440;
 const DESIGN_HEIGHT = 810;
 
 function applyHomeScale() {
+    // 暫時禁用縮放，測試基本佈局
     const windowWidth = window.innerWidth || doc.documentElement.clientWidth;
     const windowHeight = window.innerHeight || doc.documentElement.clientHeight;
-    
-    // 計算縮放比例（取較小值，確保不超出畫面）
-    const scaleX = windowWidth / DESIGN_WIDTH;
-    const scaleY = windowHeight / DESIGN_HEIGHT;
-    const scale = Math.min(scaleX, scaleY);
-    
-    // 套用到首頁 Flexbox 容器
-    const homeContainer = doc.querySelector('.home-fullscreen');
-    if (homeContainer) {
-        homeContainer.style.transformOrigin = 'top center';
-        homeContainer.style.transform = `scale(${scale})`;
-        homeContainer.style.width = `${DESIGN_WIDTH}px`;
-        homeContainer.style.height = `${DESIGN_HEIGHT}px`;
-        // 置中
-        homeContainer.style.left = `${(windowWidth - DESIGN_WIDTH * scale) / 2}px`;
-        homeContainer.style.top = `${(windowHeight - DESIGN_HEIGHT * scale) / 2}px`;
-    }
     
     // 隱藏捲軸
     const container = doc.querySelector('[data-testid="stAppViewContainer"]');
