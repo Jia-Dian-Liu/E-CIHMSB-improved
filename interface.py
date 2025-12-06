@@ -647,16 +647,16 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* ==================== 動畫卡片樣式（純等比例縮放）==================== */
 .anim-card {
     width: 90%;
-    /* 用 vmin 確保平板和電腦都適當 */
-    max-width: clamp(350px, 45vmin, 650px);
-    min-height: clamp(180px, 35vh, 400px);
-    padding: clamp(15px, 2vh, 35px) clamp(15px, 2vw, 30px);
+    /* 增大卡片寬度 */
+    max-width: clamp(450px, 44vw, 750px);
+    min-height: clamp(220px, 38vh, 440px);
+    padding: clamp(20px, 2.5vh, 40px) clamp(35px, 4vw, 60px);
     border-radius: clamp(12px, 1.5vw, 25px);
     text-align: center;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    overflow: visible;
+    overflow: hidden;  /* 防止圖示超出 */
     margin: 0 auto;
     box-shadow: 8px 8px 0px 0px rgba(60, 80, 100, 0.4);
 }
@@ -679,22 +679,22 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(8px, 1.2vw, 20px);
+    gap: clamp(5px, 0.8vw, 15px);  /* 縮小間距 */
     margin-bottom: clamp(12px, 2.5vh, 35px);
-    font-size: clamp(32px, 4vw, 65px);
-    height: clamp(60px, 12vh, 140px);
+    font-size: clamp(28px, 3.5vw, 55px);
+    height: clamp(50px, 10vh, 120px);
 }
 
 /* ===== 首頁圖示響應式（用 vmin 確保等比例）===== */
 .anim-flow .anim-icon,
 .anim-flow img {
-    /* vmin = 取 vw 和 vh 的較小值，確保圖示在任何螢幕都等比例 */
-    width: clamp(55px, 12vmin, 140px) !important;
-    height: clamp(55px, 12vmin, 140px) !important;
+    /* 縮小圖示，確保在卡片內 */
+    width: clamp(45px, 7vmin, 90px) !important;
+    height: clamp(45px, 7vmin, 90px) !important;
 }
 .anim-flow .anim-icon-arrow {
-    width: clamp(40px, 8vmin, 100px) !important;
-    height: clamp(40px, 8vmin, 100px) !important;
+    width: clamp(30px, 5vmin, 65px) !important;
+    height: clamp(30px, 5vmin, 65px) !important;
 }
 
 .anim-icon {
@@ -1420,7 +1420,7 @@ if st.session_state.current_mode is None:
     
     st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
     
-    col_spacer1, col_embed, col_spacer_mid, col_extract, col_spacer2 = st.columns([0.2, 2.2, 0.2, 2.2, 0.2], gap="large")
+    col_spacer1, col_embed, col_spacer_mid, col_extract, col_spacer2 = st.columns([0.1, 2.4, 0.1, 2.4, 0.1], gap="large")
     
     with col_embed:
         st.markdown(f"""
