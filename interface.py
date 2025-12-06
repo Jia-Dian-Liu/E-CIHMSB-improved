@@ -621,22 +621,40 @@ section[data-testid="stSidebar"] button[kind="header"],
     opacity: 0 !important;
 }
 
-/* ==================== 全屏選擇頁面樣式（方案 A：固定尺寸）==================== */
+/* ==================== 全屏選擇頁面樣式（Flexbox 垂直置中）==================== */
+
+/* 首頁全屏容器 - 垂直置中 */
+.home-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.home-fullscreen > * {
+    pointer-events: auto;
+}
+
+/* 標題區域 */
 .welcome-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 2vh;
     text-align: center;
-    margin-bottom: 35px;
-    margin-top: 35px;
 }
 
 .welcome-title {
     font-size: 68px;
     font-weight: bold;
-    margin-bottom: 35px;
     letter-spacing: 0.18em;
     padding-left: 0.18em;
     white-space: nowrap;
@@ -646,26 +664,38 @@ section[data-testid="stSidebar"] button[kind="header"],
     background-clip: text;
 }
 
-.welcome-subtitle {
-    font-size: 1rem;
+/* 卡片區域容器 */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+/* 底部組員文字 */
+.footer-credits {
+    text-align: center;
     color: #5D5D5D;
-    margin-bottom: 3rem;
+    font-size: 28px;
+    font-weight: 500;
 }
 
 /* ==================== 動畫卡片樣式（方案 A：固定尺寸）==================== */
 .anim-card {
-    width: 90%;
-    max-width: 580px;
-    min-height: 340px;
-    padding: 35px 50px;
+    width: 500px;
+    height: 340px;
+    padding: 30px 40px;
     border-radius: 20px;
     text-align: center;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
-    margin: 0 auto;
     box-shadow: 8px 8px 0px 0px rgba(60, 80, 100, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .anim-card:hover {
@@ -786,18 +816,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     margin-top: 8px;
 }
 
-/* 底部組員文字 - 固定尺寸 */
-.footer-credits {
-    position: fixed;
-    bottom: 35px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    color: #5D5D5D;
-    font-size: 28px;
-    font-weight: 500;
-    z-index: 10;
-}
+/* 底部組員文字已在 home-fullscreen 中定義 */
 
 /* ==================== 功能頁面樣式 ==================== */
 .page-title-embed {
@@ -1377,65 +1396,62 @@ if st.session_state.current_mode is None:
     </style>
     """, unsafe_allow_html=True)
     
-    st.markdown("""
-    <div class="welcome-container">
-        <div class="welcome-title">高效能無載體之機密編碼技術</div>
-    </div>
-    <div class="footer-credits">
-        組員：鄭凱譽、劉佳典、王于婕
-    </div>
-    """, unsafe_allow_html=True)
-    
     icon_secret = get_icon_base64("secret-message")
     icon_image = get_icon_base64("public-image")
     icon_arrow = get_icon_base64("arrow")
     icon_zcode = get_icon_base64("z-code")
     
-    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
-    
-    col_spacer1, col_embed, col_spacer_mid, col_extract, col_spacer2 = st.columns([0.1, 2.4, 0.1, 2.4, 0.1], gap="large")
-    
-    with col_embed:
-        st.markdown(f"""
-        <div class="anim-card anim-card-embed" id="embed-card">
-            <div class="anim-flow">
-                <img src="{icon_secret}" class="anim-icon anim-icon-secret">
-                <span class="anim-icon">+</span>
-                <img src="{icon_image}" class="anim-icon">
-                <img src="{icon_arrow}" class="anim-icon anim-icon-arrow">
-                <img src="{icon_zcode}" class="anim-icon anim-icon-result">
-            </div>
-            <div class="anim-title">嵌入機密</div>
-            <div class="anim-desc">基於載體圖像<br>生成編碼圖像</div>
+    # 純 HTML Flexbox 結構
+    st.markdown(f"""
+    <div class="home-fullscreen">
+        <div class="welcome-container">
+            <div class="welcome-title">高效能無載體之機密編碼技術</div>
         </div>
-        <div class="home-page-btn">
-        """, unsafe_allow_html=True)
+        
+        <div class="cards-container">
+            <div class="anim-card anim-card-embed" id="embed-card">
+                <div class="anim-flow">
+                    <img src="{icon_secret}" class="anim-icon anim-icon-secret">
+                    <span class="anim-icon">+</span>
+                    <img src="{icon_image}" class="anim-icon">
+                    <img src="{icon_arrow}" class="anim-icon anim-icon-arrow">
+                    <img src="{icon_zcode}" class="anim-icon anim-icon-result">
+                </div>
+                <div class="anim-title">嵌入機密</div>
+                <div class="anim-desc">基於載體圖像<br>生成編碼圖像</div>
+            </div>
+            
+            <div class="anim-card anim-card-extract" id="extract-card">
+                <div class="anim-flow">
+                    <img src="{icon_zcode}" class="anim-icon anim-icon-source">
+                    <span class="anim-icon">+</span>
+                    <img src="{icon_image}" class="anim-icon">
+                    <img src="{icon_arrow}" class="anim-icon anim-icon-arrow">
+                    <img src="{icon_secret}" class="anim-icon anim-icon-result">
+                </div>
+                <div class="anim-title">提取機密</div>
+                <div class="anim-desc">參考相同載體圖像<br>重建機密訊息</div>
+            </div>
+        </div>
+        
+        <div class="footer-credits">
+            組員：鄭凱譽、劉佳典、王于婕
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # 隱藏的按鈕供 JavaScript 觸發
+    col1, col2 = st.columns(2)
+    with col1:
         if st.button("開始嵌入", key="btn_embed", use_container_width=True):
             st.session_state.current_mode = 'embed'
             st.session_state.prev_embed_image_select = None
             st.session_state.prev_contact = None
             st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col_extract:
-        st.markdown(f"""
-        <div class="anim-card anim-card-extract" id="extract-card">
-            <div class="anim-flow">
-                <img src="{icon_zcode}" class="anim-icon anim-icon-source">
-                <span class="anim-icon">+</span>
-                <img src="{icon_image}" class="anim-icon">
-                <img src="{icon_arrow}" class="anim-icon anim-icon-arrow">
-                <img src="{icon_secret}" class="anim-icon anim-icon-result">
-            </div>
-            <div class="anim-title">提取機密</div>
-            <div class="anim-desc">參考相同載體圖像<br>重建機密訊息</div>
-        </div>
-        <div class="home-page-btn">
-        """, unsafe_allow_html=True)
+    with col2:
         if st.button("開始提取", key="btn_extract", use_container_width=True):
             st.session_state.current_mode = 'extract'
             st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
     
     # ==================== 方案 A：等比例縮放 JavaScript ====================
     components.html("""
@@ -1505,15 +1521,16 @@ function applyHomeScale() {
     const scaleY = windowHeight / DESIGN_HEIGHT;
     const scale = Math.min(scaleX, scaleY);
     
-    // 套用到主容器
-    const main = doc.querySelector('[data-testid="stMain"]');
-    if (main) {
-        main.style.transformOrigin = 'top center';
-        main.style.transform = `scale(${scale})`;
-        main.style.width = `${DESIGN_WIDTH}px`;
-        main.style.minHeight = `${DESIGN_HEIGHT}px`;
+    // 套用到首頁 Flexbox 容器
+    const homeContainer = doc.querySelector('.home-fullscreen');
+    if (homeContainer) {
+        homeContainer.style.transformOrigin = 'top center';
+        homeContainer.style.transform = `scale(${scale})`;
+        homeContainer.style.width = `${DESIGN_WIDTH}px`;
+        homeContainer.style.height = `${DESIGN_HEIGHT}px`;
         // 置中
-        main.style.marginLeft = `${(windowWidth - DESIGN_WIDTH * scale) / 2}px`;
+        homeContainer.style.left = `${(windowWidth - DESIGN_WIDTH * scale) / 2}px`;
+        homeContainer.style.top = `${(windowHeight - DESIGN_HEIGHT * scale) / 2}px`;
     }
     
     // 隱藏捲軸
