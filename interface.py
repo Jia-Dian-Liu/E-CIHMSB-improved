@@ -1599,7 +1599,10 @@ if st.session_state.current_mode is None:
         const scaleX = windowWidth / DESIGN_WIDTH;
         const scaleY = windowHeight / DESIGN_HEIGHT;
         const scale = Math.min(scaleX, scaleY, 1.0); // 最大 1.0 倍
-        
+
+        // 加這行來 debug
+        console.log('螢幕:', windowWidth, 'x', windowHeight, '縮放:', scale);
+    
         container.style.transform = `scale(${{scale}})`;
         container.style.transformOrigin = 'top center';
     }}
