@@ -679,9 +679,9 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(5px, 0.8vw, 15px);  /* 縮小間距 */
+    gap: clamp(3px, 0.5vw, 10px);  /* 更小間距 */
     margin-bottom: clamp(12px, 2.5vh, 35px);
-    font-size: clamp(28px, 3.5vw, 55px);
+    font-size: clamp(20px, 2.5vw, 40px);  /* + 號變小 */
     height: clamp(50px, 10vh, 120px);
 }
 
@@ -689,12 +689,12 @@ section[data-testid="stSidebar"] button[kind="header"],
 .anim-flow .anim-icon,
 .anim-flow img {
     /* 縮小圖示，確保在卡片內 */
-    width: clamp(45px, 7vmin, 90px) !important;
-    height: clamp(45px, 7vmin, 90px) !important;
+    width: clamp(35px, 5.5vmin, 70px) !important;
+    height: clamp(35px, 5.5vmin, 70px) !important;
 }
 .anim-flow .anim-icon-arrow {
-    width: clamp(30px, 5vmin, 65px) !important;
-    height: clamp(30px, 5vmin, 65px) !important;
+    width: clamp(25px, 4vmin, 50px) !important;
+    height: clamp(25px, 4vmin, 50px) !important;
 }
 
 .anim-icon {
@@ -1247,6 +1247,46 @@ div[data-testid="stVerticalBlock"] > div {
 }
 
 /* ==================== 響應式媒體查詢（簡化版 - 只處理極端情況）==================== */
+
+/* 強制 Streamlit columns 保持橫向排列 */
+[data-testid="stHorizontalBlock"] {
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+}
+
+/* 平板直式（寬度 600-900px）*/
+@media (max-width: 900px) {
+    .anim-card {
+        max-width: 280px !important;
+        min-height: 180px !important;
+        padding: 15px 20px !important;
+    }
+    .anim-flow img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    .anim-flow .anim-icon-arrow {
+        width: 28px !important;
+        height: 28px !important;
+    }
+    .anim-flow {
+        gap: 3px !important;
+        font-size: 18px !important;
+    }
+    .anim-title {
+        font-size: 22px !important;
+    }
+    .anim-desc {
+        font-size: 16px !important;
+    }
+    .welcome-title {
+        font-size: 28px !important;
+    }
+    .footer-credits {
+        font-size: 16px !important;
+        bottom: 10px !important;
+    }
+}
 
 /* 極小螢幕（手機，寬度 < 480px）- 確保最小可讀性 */
 @media (max-width: 480px) {
