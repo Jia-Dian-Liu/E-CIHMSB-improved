@@ -1409,9 +1409,9 @@ if st.session_state.current_mode is None:
         height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        padding: 35px 0;
+        gap: 35px;
     }}
     
     .welcome-container {{
