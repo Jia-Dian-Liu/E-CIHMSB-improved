@@ -1406,7 +1406,7 @@ if st.session_state.current_mode is None:
         height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
     }}
     
     .home-fullscreen {{
@@ -1416,7 +1416,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 35px 0 75px 0;
+        padding: 35px 0 45px 0;
     }}
     
     .welcome-container {{
