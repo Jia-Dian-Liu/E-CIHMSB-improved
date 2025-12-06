@@ -1446,8 +1446,8 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-card {{
-        width: 640px;
-        height: 440px;
+        width: 550px;
+        height: 380px;
         padding: 35px 50px;
         border-radius: 20px;
         text-align: center;
