@@ -647,9 +647,9 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* ==================== 動畫卡片樣式（純等比例縮放）==================== */
 .anim-card {
     width: 90%;
-    /* 卡片變大 - 使用 vmin 確保在各種螢幕比例下都適當 */
-    max-width: clamp(350px, 45vw, 650px);
-    min-height: clamp(180px, 32vh, 380px);
+    /* 用 vmin 確保平板和電腦都適當 */
+    max-width: clamp(350px, 45vmin, 650px);
+    min-height: clamp(180px, 35vh, 400px);
     padding: clamp(15px, 2vh, 35px) clamp(15px, 2vw, 30px);
     border-radius: clamp(12px, 1.5vw, 25px);
     text-align: center;
