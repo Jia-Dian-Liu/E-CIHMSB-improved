@@ -1520,7 +1520,7 @@ if st.session_state.current_mode is None:
     .footer-credits {{
         text-align: center;
         color: #5D5D5D;
-        font-size: 50px;
+        font-size: 60px;
         font-weight: 500;
     }}
     
