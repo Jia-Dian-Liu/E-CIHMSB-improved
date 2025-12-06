@@ -1411,7 +1411,7 @@ if st.session_state.current_mode is None:
     
     .home-fullscreen {{
         width: 100%;
-        height: 850px;
+        height: 920px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -1427,7 +1427,7 @@ if st.session_state.current_mode is None:
     }}
     
     .welcome-title {{
-        font-size: 72px;
+        font-size: 96px;
         font-weight: bold;
         letter-spacing: 0.18em;
         padding-left: 0.18em;
@@ -1442,13 +1442,13 @@ if st.session_state.current_mode is None:
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 40px;
+        gap: 70px;
     }}
     
     .anim-card {{
-        width: 550px;
-        height: 380px;
-        padding: 30px 40px;
+        width: 640px;
+        height: 440px;
+        padding: 35px 50px;
         border-radius: 20px;
         text-align: center;
         cursor: pointer;
@@ -1480,38 +1480,38 @@ if st.session_state.current_mode is None:
         align-items: center;
         justify-content: center;
         gap: 10px;
-        margin-bottom: 22px;
+        margin-bottom: 28px;
         font-size: 36px;
-        height: 110px;
+        height: 130px;
     }}
     
     .anim-flow img {{
-        width: 95px;
+        width: 115px;
         height: 95px;
         object-fit: contain;
     }}
     
     .anim-flow img.arrow {{
-        width: 72px;
+        width: 88px;
         height: 72px;
     }}
     
     .anim-flow span {{
-        font-size: 36px;
+        font-size: 44px;
         color: white;
         font-weight: bold;
     }}
     
     .anim-title {{
-        font-size: 44px;
+        font-size: 56px;
         font-weight: bold;
         color: white;
-        margin-bottom: 18px;
+        margin-bottom: 22px;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }}
     
     .anim-desc {{
-        font-size: 38px;
+        font-size: 46px;
         color: rgba(255,255,255,0.9);
         line-height: 1.4;
         white-space: nowrap;
@@ -1520,7 +1520,7 @@ if st.session_state.current_mode is None:
     .footer-credits {{
         text-align: center;
         color: #5D5D5D;
-        font-size: 30px;
+        font-size: 40px;
         font-weight: 500;
     }}
     
