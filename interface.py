@@ -632,9 +632,8 @@ section[data-testid="stSidebar"] button[kind="header"],
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    gap: 35px;
     box-sizing: border-box;
     pointer-events: none;
     z-index: 100;
@@ -1521,16 +1520,11 @@ function applyHomeScale() {
     const scaleY = windowHeight / DESIGN_HEIGHT;
     const scale = Math.min(scaleX, scaleY);
     
-    // 套用到首頁 Flexbox 容器
+    // 套用縮放到首頁容器
     const homeContainer = doc.querySelector('.home-fullscreen');
     if (homeContainer) {
-        homeContainer.style.transformOrigin = 'top center';
         homeContainer.style.transform = `scale(${scale})`;
-        homeContainer.style.width = `${DESIGN_WIDTH}px`;
-        homeContainer.style.height = `${DESIGN_HEIGHT}px`;
-        // 置中
-        homeContainer.style.left = `${(windowWidth - DESIGN_WIDTH * scale) / 2}px`;
-        homeContainer.style.top = `${(windowHeight - DESIGN_HEIGHT * scale) / 2}px`;
+        homeContainer.style.transformOrigin = 'center center';
     }
     
     // 隱藏捲軸
