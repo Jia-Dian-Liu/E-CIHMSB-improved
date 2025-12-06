@@ -1376,13 +1376,13 @@ if st.session_state.current_mode is None:
     st.markdown("""
     <style>
     html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stMain"] {
-        overflow: visible !important;
+        overflow: hidden !important;
         max-height: 100vh !important;
     }
     .block-container {
         padding-bottom: 0 !important;
         max-height: 100vh !important;
-        overflow: visible !important;
+        overflow: hidden !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -1598,11 +1598,8 @@ if st.session_state.current_mode is None:
         // 計算縮放比例（取較小值，確保不超出畫面）
         const scaleX = windowWidth / DESIGN_WIDTH;
         const scaleY = windowHeight / DESIGN_HEIGHT;
-        const scale = Math.min(scaleX, scaleY, 1.0); // 最大 1.0 倍
-
-        // 加這行來 debug
-        console.log('螢幕:', windowWidth, 'x', windowHeight, '縮放:', scale);
-    
+        const scale = Math.min(scaleX, scaleY, 1.2); // 最大 1.2 倍
+        
         container.style.transform = `scale(${{scale}})`;
         container.style.transformOrigin = 'top center';
     }}
