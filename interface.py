@@ -670,16 +670,16 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 .stTextArea textarea {
     font-size: clamp(22px, 2.5vw, 30px) !important;
     background-color: #ecefef !important;
-    border: 2px solid #ccc !important;
+    border: 1px solid #ccc !important;
     border-radius: 8px !important;
     color: #333 !important;
     padding: 12px !important;
+    caret-color: #333 !important;
 }
 
 .stTextArea textarea:focus {
-    border-color: #4A6B8A !important;
     outline: none !important;
-    box-shadow: 0 0 0 2px rgba(74, 107, 138, 0.2) !important;
+    border-color: #ccc !important;
 }
 
 .stTextArea textarea::placeholder {
