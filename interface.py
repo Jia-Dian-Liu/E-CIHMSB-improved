@@ -368,24 +368,11 @@ section[data-testid="stSidebar"] button[kind="header"],
     flex-direction: column !important;
     align-items: center !important;
     padding: 1rem !important;
-    padding-top: 80px !important;
 }
 
 [data-testid="stSidebar"] > div > div {
     width: 100% !important;
     text-align: center !important;
-}
-
-/* 確保 expander 可點擊 */
-[data-testid="stSidebar"] [data-testid="stExpander"] {
-    pointer-events: auto !important;
-    cursor: pointer !important;
-}
-
-[data-testid="stSidebar"] [data-testid="stExpander"] summary,
-[data-testid="stSidebar"] [data-testid="stExpander"] > div:first-child {
-    pointer-events: auto !important;
-    cursor: pointer !important;
 }
 
 [data-testid="stSidebar"].sidebar-open {
