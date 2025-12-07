@@ -1684,51 +1684,33 @@ elif st.session_state.current_mode == 'embed':
                 st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
                 st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
         
-        # 返回首頁按鈕 - 與標題垂直對齊
-        st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
-        
-        # 使用全寬容器讓按鈕置中
-        st.markdown("""
-        <style>
-        .center-btn-container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-        
-        _, btn_col, _ = st.columns([2, 1, 2])
+        # 返回首頁按鈕 - 固定在底部中央（和開始嵌入一樣）
+        _, btn_col, _ = st.columns([1, 1, 1])
         with btn_col:
-            if st.button("返回首頁", key="back_to_home_from_embed", type="primary", use_container_width=True):
+            if st.button("返回首頁", key="back_to_home_from_embed", type="primary"):
                 st.session_state.embed_page = 'input'
                 st.session_state.embed_result = None
                 st.session_state.embed_step = 1
                 st.session_state.current_mode = None
                 st.rerun()
         
-        # 強制置中對齊標題
+        # 固定定位到底部中央
         components.html("""
         <script>
-        function centerBackButton() {
+        function fixBackButton() {
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
                 if (btn.innerText === '返回首頁') {
-                    // 找到按鈕的最外層容器
-                    let stButton = btn.closest('.stButton');
-                    if (stButton) {
-                        stButton.style.cssText = 'display:flex!important;justify-content:center!important;';
-                    }
-                    let column = btn.closest('[data-testid="column"]');
-                    if (column) {
-                        column.style.cssText = 'display:flex!important;justify-content:center!important;align-items:center!important;';
+                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    if (container) {
+                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                     }
                 }
             }
         }
-        centerBackButton();
-        setTimeout(centerBackButton, 100);
-        setTimeout(centerBackButton, 300);
+        fixBackButton();
+        setTimeout(fixBackButton, 100);
+        setTimeout(fixBackButton, 300);
         </script>
         """, height=0)
     
