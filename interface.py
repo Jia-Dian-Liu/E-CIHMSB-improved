@@ -1642,8 +1642,8 @@ elif st.session_state.current_mode == 'embed':
         # ===== 第一步：選擇對象 =====
         with col1:
             st.markdown(f"""
-            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #4A6B8A' if not step1_done else '4px solid #28a745'}; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: {'#4A6B8A' if not step1_done else '#28a745'};">第一步: 選擇對象</span>
+            <div style="text-align: center; padding: 10px; border-bottom: 4px solid #4A6B8A; margin-bottom: 15px;">
+                <span style="font-size: 28px; font-weight: bold; color: #4A6B8A;">第一步: 選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1669,8 +1669,8 @@ elif st.session_state.current_mode == 'embed':
         # ===== 第二步：機密內容 =====
         with col2:
             st.markdown(f"""
-            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step1_done else ('4px solid #28a745' if step2_done else '4px solid #4A6B8A')}; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step1_done else ('#28a745' if step2_done else '#4A6B8A')};">第二步: 機密內容</span>
+            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step1_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
+                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步: 機密內容</span>
             </div>
             """, unsafe_allow_html=True)
             
