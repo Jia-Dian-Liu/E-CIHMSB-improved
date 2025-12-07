@@ -371,7 +371,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] textarea {
-    background-color: #e8ecec !important;
+    background-color: #ecefef !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
 }
@@ -416,7 +416,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄下拉選單 */
 [data-testid="stSidebar"] .stSelectbox > div > div {
-    background-color: #e8ecec !important;
+    background-color: #ecefef !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
     min-height: 45px !important;
@@ -446,7 +446,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄輸入框 - 確保可以輸入 */
 [data-testid="stSidebar"] .stTextInput input {
-    background-color: #e8ecec !important;
+    background-color: #ecefef !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
     pointer-events: auto !important;
@@ -462,7 +462,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄按鈕白色背景 */
 [data-testid="stSidebar"] .stButton button {
-    background-color: #e8ecec !important;
+    background-color: #ecefef !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
 }
@@ -832,7 +832,7 @@ if st.session_state.current_mode is not None:
         # 新增對象
         with st.expander("新增對象", expanded=False):
             add_counter = st.session_state.get('add_contact_counter', 0)
-            new_name = st.text_input("名稱", key=f"sidebar_new_name_{add_counter}", placeholder="例如：小明、老媽、閨蜜")
+            new_name = st.text_input("名稱", key=f"sidebar_new_name_{add_counter}")
             new_style = st.selectbox("綁定風格", style_options, key=f"sidebar_new_style_{add_counter}")
             
             can_add = new_name and new_name.strip() and new_style != "選擇"
