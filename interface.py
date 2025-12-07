@@ -1584,8 +1584,9 @@ if st.session_state.current_mode is None:
         const container = document.querySelector('.home-fullscreen');
         if (!container) return;
         
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
+        // 使用父視窗尺寸
+        const windowWidth = window.parent.innerWidth || window.innerWidth;
+        const windowHeight = window.parent.innerHeight || window.innerHeight;
         
         // 計算縮放比例（取較小值，確保不超出畫面）
         const scaleX = windowWidth / DESIGN_WIDTH;
@@ -1617,6 +1618,7 @@ if st.session_state.current_mode is None:
     applyScale();
     hideStreamlitBadges();
     window.addEventListener('resize', applyScale);
+    window.parent.addEventListener('resize', applyScale);
     setTimeout(applyScale, 100);
     setTimeout(hideStreamlitBadges, 500);
     setTimeout(hideStreamlitBadges, 1000);
