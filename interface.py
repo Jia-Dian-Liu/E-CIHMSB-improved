@@ -1581,9 +1581,10 @@ elif st.session_state.current_mode == 'embed':
             border: none !important; 
             border-radius: 8px !important; 
             font-size: 22px !important; 
-            padding: 10px 30px !important;
+            padding: 10px 50px !important;
             writing-mode: horizontal-tb !important;
             white-space: nowrap !important;
+            min-width: 150px !important;
         }
         </style>
         """, unsafe_allow_html=True)
