@@ -1097,33 +1097,25 @@ components.html("""
 <script>
 function injectScrollbarStyle() {
     const css = `
-        /* 下拉選單滾動條 - 米色風格（排除 textarea）*/
-        [data-baseweb="popover"] *::-webkit-scrollbar,
-        [data-baseweb="menu"]::-webkit-scrollbar,
-        ul[role="listbox"]::-webkit-scrollbar { 
-            width: 8px !important; 
+        /* 全局滾動條 - 米色風格 */
+        *::-webkit-scrollbar { width: 8px !important; }
+        *::-webkit-scrollbar-track { background: #f5f0e6 !important; border-radius: 4px !important; }
+        *::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
+        *::-webkit-scrollbar-thumb:hover { background: #9a8b6e !important; }
+        * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
+        
+        /* textarea 外層強制隱藏滾動條 */
+        .stTextArea::-webkit-scrollbar,
+        .stTextArea *::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
         }
-        [data-baseweb="popover"] *::-webkit-scrollbar-track,
-        [data-baseweb="menu"]::-webkit-scrollbar-track,
-        ul[role="listbox"]::-webkit-scrollbar-track { 
-            background: #f5f0e6 !important; 
-            border-radius: 4px !important; 
-        }
-        [data-baseweb="popover"] *::-webkit-scrollbar-thumb,
-        [data-baseweb="menu"]::-webkit-scrollbar-thumb,
-        ul[role="listbox"]::-webkit-scrollbar-thumb { 
-            background: #b8a88a !important; 
-            border-radius: 4px !important; 
-        }
-        [data-baseweb="popover"] *::-webkit-scrollbar-thumb:hover,
-        [data-baseweb="menu"]::-webkit-scrollbar-thumb:hover,
-        ul[role="listbox"]::-webkit-scrollbar-thumb:hover { 
-            background: #9a8b6e !important; 
-        }
-        [data-baseweb="popover"], [data-baseweb="popover"] > div, [data-baseweb="popover"] ul,
-        [data-baseweb="menu"], ul[role="listbox"] { 
-            scrollbar-width: thin !important; 
-            scrollbar-color: #b8a88a #f5f0e6 !important; 
+        .stTextArea,
+        .stTextArea * {
+            scrollbar-width: none !important;
+            scrollbar-color: transparent transparent !important;
         }
     `;
     
@@ -1874,7 +1866,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
-                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=160, key="embed_text_h", label_visibility="collapsed")
+                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=130, key="embed_text_h", label_visibility="collapsed")
                     if embed_text_raw and embed_text_raw.strip():
                         embed_text = embed_text_raw.strip()
                         secret_bits_needed = len(text_to_binary(embed_text))
