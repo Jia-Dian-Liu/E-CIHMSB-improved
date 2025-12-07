@@ -838,7 +838,7 @@ if st.session_state.current_mode is not None:
                         save_contacts(st.session_state.contacts)
                         st.rerun()
                     
-                    if st.button("刪除", key=f"del_{name}", use_container_width=True, type="primary"):
+                    if st.button("刪除", key=f"del_{name}", use_container_width=True):
                         del st.session_state.contacts[name]
                         save_contacts(st.session_state.contacts)
                         st.rerun()
