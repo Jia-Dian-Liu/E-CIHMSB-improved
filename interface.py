@@ -371,9 +371,9 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] textarea {
-    background-color: rgba(255, 255, 255, 0.8) !important;
+    background-color: #f3f3f3 !important;
     color: #333 !important;
-    border: 1px solid #a99b8a !important;
+    border: 1px solid #ccc !important;
 }
 
 [data-testid="stSidebar"] h3 {
