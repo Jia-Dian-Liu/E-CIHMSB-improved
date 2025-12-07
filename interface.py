@@ -397,6 +397,12 @@ section[data-testid="stSidebar"] button[kind="header"],
     margin-bottom: 8px !important;
 }
 
+/* Expander 標題列背景 */
+[data-testid="stSidebar"] [data-testid="stExpander"] > details > summary {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 8px !important;
+}
+
 /* Expander 展開後內容背景 */
 [data-testid="stSidebar"] [data-testid="stExpander"] > div {
     background-color: transparent !important;
@@ -410,11 +416,19 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] .stSelectbox > div > div {
     background-color: white !important;
     color: #333 !important;
+    border: 1px solid #ccc !important;
 }
 
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] div {
     color: #333 !important;
+}
+
+/* 側邊欄輸入框 */
+[data-testid="stSidebar"] .stTextInput input {
+    background-color: white !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
 }
 
 [data-testid="stSidebar"] input,
