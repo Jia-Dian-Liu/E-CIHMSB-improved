@@ -436,18 +436,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     padding-bottom: 6px !important;
 }
 
-/* 側邊欄下拉選單文字靠左 */
-[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] [class*="valueContainer"] {
-    justify-content: flex-start !important;
-    padding-left: 12px !important;
-}
-
-[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] [class*="singleValue"],
-[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span {
-    margin-left: 0 !important;
-    text-align: left !important;
-}
-
 /* 只禁用 selectbox 的搜索輸入，不影響 text_input */
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] input {
     pointer-events: none !important;
