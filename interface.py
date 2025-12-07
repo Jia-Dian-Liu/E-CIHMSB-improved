@@ -524,8 +524,8 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 動畫卡片 */
 .anim-card {
-    width: 500px;
-    height: 340px;
+    width: 550px;
+    height: 380px;
     padding: 30px 40px;
     border-radius: 20px;
     text-align: center;
@@ -1025,8 +1025,8 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-card {{
-        width: clamp(280px, 35vw, 550px);
-        height: clamp(200px, 26vw, 380px);
+        width: clamp(350px, 38vw, 600px);
+        height: clamp(260px, 30vw, 420px);
         padding: clamp(15px, 2vw, 35px) clamp(20px, 3vw, 50px);
         border-radius: 20px;
         text-align: center;
