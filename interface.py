@@ -378,6 +378,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-size: 38px !important;
     font-weight: bold !important;
     color: #4A6B8A !important;
+    text-align: center !important;
 }
 
 [data-testid="stSidebar"] strong { font-size: 24px !important; }
@@ -385,11 +386,15 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] [data-testid="stExpander"] summary,
 [data-testid="stSidebar"] details summary span {
     font-size: 24px !important;
-    text-align: center !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stExpander"] {
     width: 100% !important;
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    border: 2px solid rgba(200, 200, 200, 0.8) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    margin-bottom: 8px !important;
 }
 
 [data-testid="stSidebar"] input,
@@ -763,7 +768,7 @@ if st.session_state.current_mode is not None:
                 st.rerun()
         
         st.markdown("---")
-        st.markdown('<div id="built-contacts-title">已建立的對象：</div>', unsafe_allow_html=True)
+        st.markdown('<div id="built-contacts-title">已建立的對象</div>', unsafe_allow_html=True)
         
         if contacts:
             for name, style in contacts.items():
