@@ -647,14 +647,14 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     color: white !important;
     border: none !important;
     border-radius: 8px !important;
-    font-size: 50px !important;
-    padding: 12px 40px !important;
-    min-width: 100px !important;
+    font-size: 22px !important;
+    padding: 10px 30px !important;
+    min-width: 80px !important;
 }
 
 [data-testid="stMain"] .stButton button[kind="primary"] span,
 [data-testid="stMain"] .stButton button[kind="primary"] p {
-    font-size: 50px !important;
+    font-size: 22px !important;
 }
 
 [data-testid="stSidebar"] .stButton button[kind="primary"] {
