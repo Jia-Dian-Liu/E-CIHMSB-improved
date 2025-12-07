@@ -1525,22 +1525,14 @@ if st.session_state.current_mode is None:
     }}
     
     /* 動畫效果 */
-    .anim-card-embed img:first-child {{
-        animation: embedPulse 2s ease-in-out infinite;
+    .anim-card-embed img,
+    .anim-card-extract img {{
+        animation: pulse 2s ease-in-out infinite;
     }}
     
-    .anim-card-embed img.arrow {{
-        animation: arrowBounce 1.5s ease-in-out infinite;
-    }}
-    
-    @keyframes embedPulse {{
-        0%, 100% {{ transform: scale(1); opacity: 1; }}
-        50% {{ transform: scale(1.15); opacity: 0.8; }}
-    }}
-    
-    @keyframes arrowBounce {{
-        0%, 100% {{ transform: translateX(0); }}
-        50% {{ transform: translateX(8px); }}
+    @keyframes pulse {{
+        0%, 100% {{ transform: scale(1); }}
+        50% {{ transform: scale(1.1); }}
     }}
     </style>
     </head>
