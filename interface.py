@@ -652,9 +652,19 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 .stRadio [role="radiogroup"] label,
 .stRadio [role="radiogroup"] label p {
     font-size: clamp(20px, 2.2vw, 28px) !important;
+    color: #443C3C !important;
 }
 
-.stTextArea textarea { font-size: clamp(22px, 2.5vw, 30px) !important; }
+.stTextArea textarea {
+    font-size: clamp(22px, 2.5vw, 30px) !important;
+    background-color: #ecefef !important;
+}
+
+/* 隱藏 Ctrl+Enter 提示 */
+.stTextArea [data-testid="stTextAreaRootContainer"] > div:last-child,
+.stTextArea .st-emotion-cache-1gulkj5 {
+    display: none !important;
+}
 
 .stCaption, [data-testid="stCaptionContainer"] {
     color: #443C3C !important;
