@@ -636,7 +636,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 }
 
 [data-testid="stSidebar"] .stButton button[kind="primary"] {
-    background: linear-gradient(135deg, #4A6B8A 0%, #5C8AAD 100%) !important;
+    background: #8ba7c8 !important;
     color: white !important;
     border: none !important;
     border-radius: 8px !important;
