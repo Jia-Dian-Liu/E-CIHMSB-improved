@@ -1638,7 +1638,7 @@ elif st.session_state.current_mode == 'embed':
         </style>
         """, unsafe_allow_html=True)
         
-        col1, col2, col3 = st.columns([0.6, 1, 1.4], gap="large")
+        col1, col2, col3 = st.columns([1, 1, 1], gap="large")
         
         # ===== 第一步：選擇對象 =====
         with col1:
@@ -1756,10 +1756,10 @@ elif st.session_state.current_mode == 'embed':
                 auto_style = contacts.get(selected_contact, None)
                 default_style_index = style_list.index(auto_style) if auto_style and auto_style != "選擇" and auto_style in style_list else 0
                 
-                # 風格、圖片、尺寸水平排列
-                sub_col1, sub_col2, sub_col3 = st.columns([1, 1.5, 1.2])
+                # 第一行：風格、圖片
+                row1_col1, row1_col2 = st.columns(2)
                 
-                with sub_col1:
+                with row1_col1:
                     selected_style = st.selectbox("風格", style_list, index=default_style_index, key="embed_style_h")
                 
                 style_name = STYLE_CATEGORIES.get(selected_style, "建築")
@@ -1768,7 +1768,7 @@ elif st.session_state.current_mode == 'embed':
                 if images:
                     image_options = [f"{i+1}. {images[i]['name']}" for i in range(len(images))]
                     
-                    with sub_col2:
+                    with row1_col2:
                         img_idx = st.selectbox("圖片", range(len(images)), format_func=lambda i: image_options[i], key="embed_img_select_h")
                     
                     available_sizes = [s for s in AVAILABLE_SIZES if calculate_image_capacity(s) >= secret_bits_needed]
@@ -1778,8 +1778,8 @@ elif st.session_state.current_mode == 'embed':
                     
                     size_options = [f"{s}×{s} ⭐" if s == recommended_size else f"{s}×{s}" for s in available_sizes]
                     
-                    with sub_col3:
-                        size_idx = st.selectbox("尺寸", range(len(available_sizes)), format_func=lambda i: size_options[i], key="embed_size_h")
+                    # 第二行：尺寸
+                    size_idx = st.selectbox("尺寸", range(len(available_sizes)), format_func=lambda i: size_options[i], key="embed_size_h")
                     selected_size = available_sizes[size_idx]
                     
                     selected_image = images[img_idx]
