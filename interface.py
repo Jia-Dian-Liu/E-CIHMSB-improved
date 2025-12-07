@@ -1344,7 +1344,7 @@ elif st.session_state.current_mode == 'embed':
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #4A6B8A' if not step1_done else '4px solid #28a745'}; margin-bottom: 15px;">
-                <span style="font-size: 22px; font-weight: bold; color: {'#4A6B8A' if not step1_done else '#28a745'};">第一步: 選擇對象</span>
+                <span style="font-size: 28px; font-weight: bold; color: {'#4A6B8A' if not step1_done else '#28a745'};">第一步: 選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1357,21 +1357,21 @@ elif st.session_state.current_mode == 'embed':
                 
                 if selected != "選擇":
                     st.session_state.selected_contact_saved = selected
-                    st.markdown(f'<p style="font-size: 18px; color: #28a745;">✅ 已選擇：{selected}</p>', unsafe_allow_html=True)
+                    st.markdown(f'<p style="font-size: 22px; color: #28a745;">✅ 已選擇：{selected}</p>', unsafe_allow_html=True)
                     step1_done = True
                 else:
                     st.session_state.selected_contact_saved = None
                     step1_done = False
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 10px; text-align: center;">
-                    <div style="font-size: 14px; font-weight: bold; color: #856404;">⚠️ 請先新增對象</div>
+                    <div style="font-size: 20px; font-weight: bold; color: #856404;">⚠️ 請先新增對象</div>
                 </div>""", unsafe_allow_html=True)
         
         # ===== 第二步：機密內容 =====
         with col2:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step1_done else ('4px solid #28a745' if step2_done else '4px solid #4A6B8A')}; margin-bottom: 15px;">
-                <span style="font-size: 22px; font-weight: bold; color: {'#B8C8D8' if not step1_done else ('#28a745' if step2_done else '#4A6B8A')};">第二步: 機密內容</span>
+                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step1_done else ('#28a745' if step2_done else '#4A6B8A')};">第二步: 機密內容</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1382,14 +1382,14 @@ elif st.session_state.current_mode == 'embed':
                 
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
-                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=80, key="embed_text_h", label_visibility="collapsed")
+                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=100, key="embed_text_h", label_visibility="collapsed")
                     if embed_text_raw and embed_text_raw.strip():
                         embed_text = embed_text_raw.strip()
                         secret_bits_needed = len(text_to_binary(embed_text))
                         st.session_state.secret_bits_saved = secret_bits_needed
                         st.session_state.embed_text_saved = embed_text
                         st.session_state.embed_secret_type_saved = "文字"
-                        st.markdown(f'<p style="font-size: 14px; color: #28a745;">✅ {secret_bits_needed:,} bits</p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 20px; color: #28a745;">✅ {secret_bits_needed:,} bits</p>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
@@ -1405,25 +1405,25 @@ elif st.session_state.current_mode == 'embed':
                         embed_img_file.seek(0)
                         st.session_state.embed_secret_image_data = embed_img_file.read()
                         st.session_state.embed_secret_image_name = embed_img_file.name
-                        st.image(secret_img, width=100)
-                        st.markdown(f'<p style="font-size: 14px; color: #28a745;">✅ {secret_bits_needed:,} bits</p>', unsafe_allow_html=True)
+                        st.image(secret_img, width=120)
+                        st.markdown(f'<p style="font-size: 20px; color: #28a745;">✅ {secret_bits_needed:,} bits</p>', unsafe_allow_html=True)
                         step2_done = True
                     elif st.session_state.get('embed_secret_image_data'):
                         secret_img = Image.open(BytesIO(st.session_state.embed_secret_image_data))
-                        st.image(secret_img, width=100)
-                        st.markdown(f'<p style="font-size: 14px; color: #28a745;">✅ {st.session_state.get("secret_bits_saved", 0):,} bits</p>', unsafe_allow_html=True)
+                        st.image(secret_img, width=120)
+                        st.markdown(f'<p style="font-size: 20px; color: #28a745;">✅ {st.session_state.get("secret_bits_saved", 0):,} bits</p>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
                         step2_done = False
             else:
-                st.markdown('<p style="color: #999; text-align: center;">請先完成第一步</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第一步</p>', unsafe_allow_html=True)
         
         # ===== 第三步：載體圖像 =====
         with col3:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step2_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
-                <span style="font-size: 22px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步: 載體圖像</span>
+                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步: 載體圖像</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1456,19 +1456,19 @@ elif st.session_state.current_mode == 'embed':
                     selected_image = images[img_idx]
                     preview_size = 150
                     img_display, _ = download_image_by_id(selected_image["id"], preview_size)
-                    st.image(img_display, width=120)
+                    st.image(img_display, width=150)
                     
                     capacity = calculate_image_capacity(selected_size)
                     usage = secret_bits_needed / capacity * 100
                     color = "#ffa726" if usage > 90 else "#28a745"
-                    st.markdown(f'<p style="font-size: 12px; color: {color};">{usage:.1f}% 使用</p>', unsafe_allow_html=True)
+                    st.markdown(f'<p style="font-size: 18px; color: {color};">{usage:.1f}% 使用</p>', unsafe_allow_html=True)
                     
                     st.session_state.embed_image_id = selected_image["id"]
                     st.session_state.embed_image_size = selected_size
                     st.session_state.embed_image_name = selected_image["name"]
                     embed_image_choice = f"{style_name}-{img_idx+1}-{selected_size}"
             else:
-                st.markdown('<p style="color: #999; text-align: center;">請先完成第二步</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第二步</p>', unsafe_allow_html=True)
         
         # ===== 開始嵌入按鈕 =====
         st.markdown("<br>", unsafe_allow_html=True)
