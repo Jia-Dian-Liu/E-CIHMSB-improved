@@ -275,9 +275,8 @@ st.markdown("""
 <style>
 /* 背景圖片 */
 .stApp {
-    background-color: #5c4a3a;
     background-image: url('https://i.pinimg.com/736x/53/1a/01/531a01457eca178f01c83ac2ede3f102.jpg');
-    background-size: contain;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
