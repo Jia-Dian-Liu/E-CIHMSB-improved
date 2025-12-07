@@ -682,7 +682,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 }
 
 .stTextArea textarea {
-    font-size: 20px !important;
+    font-size: 24px !important;
     background-color: #ecefef !important;
     border: 1px solid #ccc !important;
     border-radius: 8px !important;
