@@ -685,6 +685,16 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 .stTextArea [data-baseweb="base-input"] {
     border-bottom: none !important;
+    border: none !important;
+}
+
+.stTextArea > div > div {
+    border-bottom: none !important;
+}
+
+.stTextArea [data-baseweb="textarea"]::after,
+.stTextArea [data-baseweb="base-input"]::after {
+    display: none !important;
 }
 
 /* 隱藏 Ctrl+Enter 提示 */
