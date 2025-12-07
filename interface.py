@@ -293,7 +293,9 @@ iframe[title="Streamlit"], div[class*="styles_viewerBadge"],
 button[kind="manage-app"], section[data-testid="stStatusWidget"],
 div[class*="stDeployButton"], [data-testid="stAppViewBlockContainer"] > footer,
 div[class*="AppDeployButton"], a[href*="streamlit.io/cloud"],
-[data-testid="stDecoration"], div[class*="StatusWidget"] {
+[data-testid="stDecoration"], div[class*="StatusWidget"],
+div[class*="stToolbar"], div[class*="manage-app"],
+button[class*="manage"], div[class*="manage"] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -303,6 +305,12 @@ div[class*="AppDeployButton"], a[href*="streamlit.io/cloud"],
     position: absolute !important;
     top: -9999px !important;
     left: -9999px !important;
+}
+
+/* 隱藏右下角固定元素 */
+body > div[style*="position: fixed"][style*="bottom"],
+.stApp > div[style*="position: fixed"][style*="bottom"] {
+    display: none !important;
 }
 
 .block-container { padding-top: 1rem !important; }
@@ -750,11 +758,13 @@ if st.session_state.current_mode is None:
         height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
     }}
     
     .home-fullscreen {{
         width: 100%;
+        max-width: 1920px;
+        margin: 0 auto;
         height: 100vh;
         display: flex;
         flex-direction: column;
@@ -786,8 +796,9 @@ if st.session_state.current_mode is None:
         justify-content: center;
         align-items: center;
         gap: clamp(20px, 4vw, 70px);
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         padding: 0 2vw;
+        max-width: 1600px;
     }}
     
     .anim-card {{
@@ -938,13 +949,26 @@ if st.session_state.current_mode is None:
         ];
         selectors.forEach(sel => {{
             parentDoc.querySelectorAll(sel).forEach(el => {{
-                el.style.cssText = 'display:none!important;visibility:hidden!important;opacity:0!important;position:absolute!important;top:-9999px!important;left:-9999px!important;height:0!important;width:0!important;';
+                el.remove();
             }});
+        }});
+        
+        // 強制移除右下角任何固定定位的元素
+        parentDoc.querySelectorAll('*').forEach(el => {{
+            const style = window.parent.getComputedStyle(el);
+            if (style.position === 'fixed' && 
+                parseInt(style.bottom) < 100 && 
+                parseInt(style.right) < 200) {{
+                const text = el.innerText || '';
+                if (text.includes('Manage') || text.includes('app') || text.includes('streamlit')) {{
+                    el.remove();
+                }}
+            }}
         }});
     }}
     
     hideStreamlitBadges();
-    setInterval(hideStreamlitBadges, 500);
+    setInterval(hideStreamlitBadges, 300);
     </script>
     </body>
     </html>
