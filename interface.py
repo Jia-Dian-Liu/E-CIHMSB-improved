@@ -585,10 +585,12 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     border: 1px solid #ccc !important;
     display: flex !important;
     align-items: center !important;
+    justify-content: flex-start !important;
 }
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] {
     min-height: 45px !important;
+    text-align: left !important;
 }
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
@@ -597,6 +599,8 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     font-weight: bold !important;
     color: #333 !important;
     line-height: 1.4 !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
 }
 
 [data-baseweb="popover"] li {
