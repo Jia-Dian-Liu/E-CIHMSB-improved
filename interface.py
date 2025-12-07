@@ -663,7 +663,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 /* Selectbox 樣式 */
 [data-testid="stMain"] .stSelectbox > div > div {
-    background-color: white !important;
+    background-color: #ecefef !important;
     border-radius: 8px !important;
     min-height: 55px !important;
     border: 1px solid #ccc !important;
@@ -1367,7 +1367,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if selected != "選擇":
                     st.session_state.selected_contact_saved = selected
-                    st.markdown(f'<p style="font-size: 22px; color: #28a745;">✅ 已選擇：{selected}</p>', unsafe_allow_html=True)
+                    st.markdown(f'<p style="font-size: 22px; color: #443C3C;">已選擇：{selected}</p>', unsafe_allow_html=True)
                     step1_done = True
                 else:
                     st.session_state.selected_contact_saved = None
