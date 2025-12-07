@@ -678,15 +678,30 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 }
 
 /* 隱藏 textarea 滾動條 */
-.stTextArea textarea::-webkit-scrollbar {
+.stTextArea textarea::-webkit-scrollbar,
+.stTextArea *::-webkit-scrollbar,
+.stTextArea > div::-webkit-scrollbar,
+.stTextArea > div > div::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
 }
 
-.stTextArea textarea {
+.stTextArea textarea,
+.stTextArea *,
+.stTextArea > div,
+.stTextArea > div > div {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
-    overflow-y: hidden !important;
+}
+
+.stTextArea textarea {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+.stTextArea [data-baseweb="textarea"],
+.stTextArea [data-baseweb="base-input"] {
+    overflow: hidden !important;
 }
 
 .stTextArea textarea:focus {
@@ -984,14 +999,12 @@ function injectScrollbarStyle() {
         * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
         
         /* 隱藏 textarea 滾動條 */
+        .stTextArea *::-webkit-scrollbar { display: none !important; width: 0 !important; }
+        .stTextArea * { scrollbar-width: none !important; -ms-overflow-style: none !important; }
         textarea::-webkit-scrollbar { display: none !important; width: 0 !important; }
-        textarea { scrollbar-width: none !important; -ms-overflow-style: none !important; overflow-y: hidden !important; }
-        .stTextArea textarea::-webkit-scrollbar { display: none !important; width: 0 !important; }
-        .stTextArea textarea { overflow-y: hidden !important; }
-        [data-baseweb="textarea"]::-webkit-scrollbar { display: none !important; width: 0 !important; }
-        [data-baseweb="textarea"] { overflow-y: hidden !important; }
-        [data-baseweb="base-input"]::-webkit-scrollbar { display: none !important; width: 0 !important; }
-        [data-baseweb="base-input"] { overflow-y: hidden !important; }
+        textarea { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+        [data-baseweb="textarea"] *::-webkit-scrollbar { display: none !important; width: 0 !important; }
+        [data-baseweb="base-input"] *::-webkit-scrollbar { display: none !important; width: 0 !important; }
     `;
     
     // 注入到當前 document
