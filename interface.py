@@ -963,13 +963,14 @@ if st.session_state.current_mode is None:
         align-items: center;
         gap: clamp(40px, 6vw, 100px);
         flex-wrap: nowrap;
-        padding: 0 2vw;
-        max-width: 1600px;
+        padding: 0 5vw;
+        max-width: 1400px;
+        margin: 0 auto;
     }}
     
     .anim-card {{
-        width: clamp(280px, 38vw, 620px);
-        height: clamp(200px, 28vw, 420px);
+        width: clamp(280px, 35vw, 550px);
+        height: clamp(200px, 26vw, 380px);
         padding: clamp(15px, 2vw, 35px) clamp(20px, 3vw, 50px);
         border-radius: 20px;
         text-align: center;
