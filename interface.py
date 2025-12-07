@@ -1540,10 +1540,30 @@ elif st.session_state.current_mode == 'embed':
         
         st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 30px;">嵌入結果</div>', unsafe_allow_html=True)
         
+        # 下載按鈕樣式
+        st.markdown("""
+        <style>
+        /* 下載 Z碼圖 按鈕樣式 */
+        [data-testid="stDownloadButton"] button {
+            background-color: #e9ded0 !important;
+            color: #443C3C !important;
+            border: none !important;
+        }
+        [data-testid="stDownloadButton"] button:hover {
+            background-color: #d9cec0 !important;
+        }
+        [data-testid="stDownloadButton"] button:active,
+        [data-testid="stDownloadButton"] button:focus {
+            background-color: #f7f3ec !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
         spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.5, 3, 0.8, 2, 0.5])
         
         with col_left:
-            st.markdown(f'<div class="success-box">嵌入成功! ({r["elapsed_time"]:.2f} 秒)</div>', unsafe_allow_html=True)
+            # 嵌入成功 - 無框版
+            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">✅ 嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             img_num = r["embed_image_choice"].split("-")[1]
             img_name = r.get("image_name", "")
@@ -1560,13 +1580,22 @@ elif st.session_state.current_mode == 'embed':
                     truncated_text = original_text[:30] + "..."
                     secret_display = f'文字："{truncated_text}"'
                 else:
-                    # 原本格式也要改
                     secret_display = f'文字："{original_text}"'
             else:
                 size_info = r["secret_desc"].replace("圖片: ", "")
                 secret_display = f'圖片：{secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
             
-            st.markdown(f'<div class="info-box"><strong>嵌入資訊</strong><br><br>載體圖像編號：<strong>{img_num}</strong>（{img_name}）<br>載體圖像尺寸：{img_size}×{img_size}<br>機密內容：<br>{secret_display}<br>機密 / 容量：{secret_bits:,} / {capacity:,} bits ({usage_percent:.1f}%)</div>', unsafe_allow_html=True)
+            # 嵌入資訊 - 無框版
+            st.markdown(f'''
+            <div style="font-size: 28px; color: #443C3C; line-height: 2;">
+                <p style="font-weight: bold; font-size: 32px; margin-bottom: 15px;">嵌入資訊</p>
+                載體圖像編號：<strong>{img_num}</strong>（{img_name}）<br>
+                載體圖像尺寸：{img_size}×{img_size}<br>
+                機密內容：<br>
+                {secret_display}<br>
+                機密 / 容量：{secret_bits:,} / {capacity:,} bits ({usage_percent:.1f}%)
+            </div>
+            ''', unsafe_allow_html=True)
         
         with col_right:
             if r['embed_secret_type'] == "文字":
@@ -1585,7 +1614,7 @@ elif st.session_state.current_mode == 'embed':
                     qr_pil.save(buf, format='PNG')
                     qr_bytes = buf.getvalue()
                     
-                    st.markdown('<p style="font-size: 34px; font-weight: bold;">Z碼圖</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(qr_bytes, width=250)
                     st.download_button("下載 Z碼圖", qr_bytes, "z_code.png", "image/png", key="dl_z_qr")
                     st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
@@ -1594,45 +1623,26 @@ elif st.session_state.current_mode == 'embed':
                     img_size_int = int(img_size)
                     z_img, _ = encode_z_as_image_with_header(r['z_bits'], img_num_int, img_size_int)
                     
-                    st.markdown('<p style="font-size: 34px; font-weight: bold;">Z碼圖</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(z_img, width=250)
                     buf = BytesIO()
                     z_img.save(buf, format='PNG')
-                    st.download_button("下載圖片", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
+                    st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
                     st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
             else:
                 img_num = int(r["embed_image_choice"].split("-")[1])
                 img_size = int(r["embed_image_choice"].split("-")[2])
                 z_img, _ = encode_z_as_image_with_header(r['z_bits'], img_num, img_size)
                 
-                st.markdown('<p style="font-size: 34px; font-weight: bold;">Z碼圖</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
                 st.image(z_img, width=250)
                 buf = BytesIO()
                 z_img.save(buf, format='PNG')
-                st.download_button("下載圖片", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
+                st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
                 st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
         
-        st.markdown("""
-        <style>
-        #btn-back-home { 
-            position: fixed !important; 
-            bottom: 30px !important; 
-            left: 50% !important; 
-            transform: translateX(-50%) !important; 
-            z-index: 1000 !important; 
-            background: #4A6B8A !important; 
-            color: white !important; 
-            border: none !important; 
-            border-radius: 8px !important; 
-            font-size: 22px !important; 
-            padding: 10px 50px !important;
-            writing-mode: horizontal-tb !important;
-            white-space: nowrap !important;
-            min-width: 150px !important;
-            text-align: center !important;
-        }
-        </style>
-        """, unsafe_allow_html=True)
+        # 返回首頁按鈕置中
+        st.markdown("<div style='height: 50px;'></div>", unsafe_allow_html=True)
         
         col_left, col_center, col_right = st.columns([1, 1, 1])
         with col_center:
@@ -1643,24 +1653,24 @@ elif st.session_state.current_mode == 'embed':
                 st.session_state.current_mode = None
                 st.rerun()
         
+        # 置中按鈕的 CSS
         components.html("""
         <script>
-        function fixBackButton() {
+        function centerBackButton() {
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
                 if (btn.innerText === '返回首頁') {
-                    btn.id = 'btn-back-home';
                     btn.style.cssText = 'writing-mode:horizontal-tb!important;white-space:nowrap!important;text-align:center!important;';
-                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    let container = btn.closest('[data-testid="column"]');
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'display:flex!important;justify-content:center!important;';
                     }
                 }
             }
         }
-        fixBackButton();
-        setTimeout(fixBackButton, 100);
-        setTimeout(fixBackButton, 300);
+        centerBackButton();
+        setTimeout(centerBackButton, 100);
+        setTimeout(centerBackButton, 300);
         </script>
         """, height=0)
     
@@ -1809,7 +1819,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
-                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=170, key="embed_text_h", label_visibility="collapsed")
+                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=200, key="embed_text_h", label_visibility="collapsed")
                     if embed_text_raw and embed_text_raw.strip():
                         embed_text = embed_text_raw.strip()
                         secret_bits_needed = len(text_to_binary(embed_text))
