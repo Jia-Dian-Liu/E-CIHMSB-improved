@@ -1622,7 +1622,7 @@ elif st.session_state.current_mode == 'embed':
                         st.session_state.secret_bits_saved = secret_bits_needed
                         st.session_state.embed_text_saved = embed_text
                         st.session_state.embed_secret_type_saved = "文字"
-                        st.markdown(f'<p style="font-size: 20px; color: #28a745;">✅ {secret_bits_needed:,} bits</p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 20px; color: #28a745;">{secret_bits_needed:,} bits</p>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
@@ -1639,12 +1639,12 @@ elif st.session_state.current_mode == 'embed':
                         st.session_state.embed_secret_image_data = embed_img_file.read()
                         st.session_state.embed_secret_image_name = embed_img_file.name
                         st.image(secret_img, width=120)
-                        st.markdown(f'<p style="font-size: 20px; color: #28a745;">✅ {secret_bits_needed:,} bits</p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 20px; color: #28a745;">{secret_bits_needed:,} bits</p>', unsafe_allow_html=True)
                         step2_done = True
                     elif st.session_state.get('embed_secret_image_data'):
                         secret_img = Image.open(BytesIO(st.session_state.embed_secret_image_data))
                         st.image(secret_img, width=120)
-                        st.markdown(f'<p style="font-size: 20px; color: #28a745;">✅ {st.session_state.get("secret_bits_saved", 0):,} bits</p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 20px; color: #28a745;">{st.session_state.get("secret_bits_saved", 0):,} bits</p>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
