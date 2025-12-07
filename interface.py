@@ -767,26 +767,26 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     display: none !important;
 }
 
-/* 隱藏外層滾動條，只保留 textarea 本身的滾動條 */
+/* 強制隱藏 textarea 外層所有滾動條 */
+.stTextArea,
 .stTextArea > div,
 .stTextArea > div > div,
 .stTextArea > div > div > div,
 .stTextArea [data-baseweb="textarea"],
 .stTextArea [data-baseweb="textarea"] > div,
+.stTextArea [data-baseweb="base-input"],
 .stTextArea [data-testid="stTextAreaRootContainer"],
-.stTextArea [data-testid="stTextAreaRootContainer"] > div {
-    overflow: visible !important;
-    overflow-y: visible !important;
-    overflow-x: visible !important;
+.stTextArea [data-testid="stTextAreaRootContainer"] > div,
+.stTextArea [data-testid="stTextAreaRootContainer"] > div > div {
+    overflow: hidden !important;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
 }
 
-/* 隱藏外層容器的滾動條軌道 */
-.stTextArea > div::-webkit-scrollbar,
-.stTextArea > div > div::-webkit-scrollbar,
-.stTextArea [data-baseweb="textarea"] > div::-webkit-scrollbar,
-.stTextArea [data-testid="stTextAreaRootContainer"] > div:first-child::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
+/* 只有 textarea 元素本身可以滾動 */
+.stTextArea textarea {
+    overflow: auto !important;
+    overflow-y: auto !important;
 }
 
 .stCaption, [data-testid="stCaptionContainer"] {
@@ -1130,24 +1130,25 @@ function fixTextareaScrollbar() {
     if (window.parent && window.parent.document) {
         const textareas = window.parent.document.querySelectorAll('.stTextArea');
         textareas.forEach(ta => {
-            // 找到所有子元素並移除滾動條
-            const divs = ta.querySelectorAll('div');
-            divs.forEach(div => {
-                if (div.tagName === 'DIV' && !div.querySelector('textarea')) {
-                    div.style.overflow = 'visible';
-                    div.style.overflowY = 'visible';
-                }
+            // 找到所有子元素並隱藏滾動
+            const allDivs = ta.querySelectorAll('div');
+            allDivs.forEach(div => {
+                div.style.overflow = 'hidden';
+                div.style.overflowY = 'hidden';
+                div.style.overflowX = 'hidden';
             });
-            // 保留 textarea 本身的滾動
+            // 只有 textarea 本身可以滾動
             const textarea = ta.querySelector('textarea');
             if (textarea) {
                 textarea.style.overflow = 'auto';
+                textarea.style.overflowY = 'auto';
             }
         });
     }
 }
 
 fixTextareaScrollbar();
+setTimeout(fixTextareaScrollbar, 300);
 setTimeout(fixTextareaScrollbar, 500);
 setTimeout(fixTextareaScrollbar, 1000);
 setTimeout(fixTextareaScrollbar, 2000);
