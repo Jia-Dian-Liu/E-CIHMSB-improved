@@ -326,9 +326,9 @@ section[data-testid="stSidebar"] button[kind="header"],
     background: #4A6B8A;
     color: white;
     writing-mode: vertical-rl;
-    padding: 12px 5px;
+    padding: 15px 8px;
     border-radius: 0 6px 6px 0;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     z-index: 999999;
     cursor: pointer;
