@@ -653,6 +653,18 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 .stRadio [role="radiogroup"] label p {
     font-size: clamp(20px, 2.2vw, 28px) !important;
     color: #443C3C !important;
+    font-weight: bold !important;
+}
+
+/* Radio 按鈕水平對齊 */
+.stRadio [role="radiogroup"] label {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.stRadio [role="radiogroup"] label > div:first-child {
+    display: flex !important;
+    align-items: center !important;
 }
 
 .stTextArea textarea {
