@@ -677,23 +677,17 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     caret-color: #333 !important;
 }
 
-/* 隱藏 textarea 滾動條 - 用同色隱藏 */
-.stTextArea textarea::-webkit-scrollbar {
-    width: 8px !important;
-    background: #ecefef !important;
-}
-
-.stTextArea textarea::-webkit-scrollbar-track {
-    background: #ecefef !important;
-}
-
-.stTextArea textarea::-webkit-scrollbar-thumb {
-    background: #ecefef !important;
+/* 隱藏 textarea 滾動條 - 外層裁剪 */
+.stTextArea > div,
+.stTextArea > div > div,
+.stTextArea [data-baseweb="textarea"],
+.stTextArea [data-baseweb="base-input"] {
+    overflow: hidden !important;
 }
 
 .stTextArea textarea {
-    scrollbar-color: #ecefef #ecefef !important;
-    resize: both !important;
+    width: calc(100% + 20px) !important;
+    padding-right: 20px !important;
 }
 
 .stTextArea textarea:focus {
@@ -990,14 +984,9 @@ function injectScrollbarStyle() {
         *::-webkit-scrollbar-thumb:hover { background: #9a8b6e !important; }
         * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
         
-        /* 隱藏 textarea 滾動條 - 用同色隱藏 */
-        .stTextArea textarea::-webkit-scrollbar { width: 8px !important; background: #ecefef !important; }
-        .stTextArea textarea::-webkit-scrollbar-track { background: #ecefef !important; }
-        .stTextArea textarea::-webkit-scrollbar-thumb { background: #ecefef !important; }
-        textarea::-webkit-scrollbar { width: 8px !important; background: #ecefef !important; }
-        textarea::-webkit-scrollbar-track { background: #ecefef !important; }
-        textarea::-webkit-scrollbar-thumb { background: #ecefef !important; }
-        .stTextArea textarea, textarea { scrollbar-color: #ecefef #ecefef !important; }
+        /* 隱藏 textarea 滾動條 - 外層裁剪 */
+        .stTextArea > div, .stTextArea > div > div, .stTextArea [data-baseweb="textarea"], .stTextArea [data-baseweb="base-input"] { overflow: hidden !important; }
+        .stTextArea textarea { width: calc(100% + 20px) !important; padding-right: 20px !important; }
     `;
     
     // 注入到當前 document
@@ -1016,25 +1005,44 @@ function injectScrollbarStyle() {
         
         // 強制隱藏 textarea 滾動條
         function hideTextareaScrollbar() {
-            const textareas = window.parent.document.querySelectorAll('textarea');
-            textareas.forEach(ta => {
-                // 外層容器設定 overflow hidden
-                let parent = ta.parentElement;
-                for (let i = 0; i < 3; i++) {
-                    if (parent) {
-                        parent.style.setProperty('overflow', 'hidden', 'important');
-                        parent = parent.parentElement;
-                    }
-                }
+            // 注入額外的 style 標籤
+            const extraStyle = document.createElement('style');
+            extraStyle.textContent = `
+                .stTextArea * { overflow: hidden !important; }
+                .stTextArea textarea { overflow: auto !important; width: calc(100% + 30px) !important; margin-right: -30px !important; }
+            `;
+            if (!window.parent.document.getElementById('hide-scrollbar-style')) {
+                extraStyle.id = 'hide-scrollbar-style';
+                window.parent.document.head.appendChild(extraStyle);
+            }
+            
+            // 直接操作 DOM
+            const containers = window.parent.document.querySelectorAll('.stTextArea');
+            containers.forEach(container => {
+                // 設定所有層級 overflow hidden
+                const allDivs = container.querySelectorAll('div');
+                allDivs.forEach(div => {
+                    div.style.setProperty('overflow', 'hidden', 'important');
+                });
                 
-                // textarea 本身：寬度多出 20px，用 margin 推到外面
-                ta.style.setProperty('width', 'calc(100% + 20px)', 'important');
-                ta.style.setProperty('padding-right', '20px', 'important');
+                // textarea 本身擴寬並推出滾動條
+                const ta = container.querySelector('textarea');
+                if (ta) {
+                    ta.style.setProperty('width', 'calc(100% + 30px)', 'important');
+                    ta.style.setProperty('margin-right', '-30px', 'important');
+                    ta.style.setProperty('overflow-y', 'auto', 'important');
+                    ta.style.setProperty('overflow-x', 'hidden', 'important');
+                }
             });
         }
         hideTextareaScrollbar();
-        setTimeout(hideTextareaScrollbar, 500);
+        setTimeout(hideTextareaScrollbar, 300);
+        setTimeout(hideTextareaScrollbar, 800);
         setTimeout(hideTextareaScrollbar, 1500);
+        
+        // 監聽 DOM 變化
+        const textareaObserver = new MutationObserver(hideTextareaScrollbar);
+        textareaObserver.observe(window.parent.document.body, { childList: true, subtree: true });
     }
 }
 
