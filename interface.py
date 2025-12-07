@@ -361,6 +361,18 @@ section[data-testid="stSidebar"] button[kind="header"],
     box-shadow: 4px 0 15px rgba(0,0,0,0.2) !important;
 }
 
+[data-testid="stSidebar"] > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 1rem !important;
+}
+
+[data-testid="stSidebar"] > div > div {
+    width: 100% !important;
+    text-align: center !important;
+}
+
 [data-testid="stSidebar"].sidebar-open {
     transform: translateX(0) !important;
 }
@@ -378,6 +390,8 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-size: 38px !important;
     font-weight: bold !important;
     color: #4A6B8A !important;
+    text-align: center !important;
+    width: 100% !important;
 }
 
 [data-testid="stSidebar"] strong { font-size: 24px !important; }
@@ -385,6 +399,11 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] [data-testid="stExpander"] summary,
 [data-testid="stSidebar"] details summary span {
     font-size: 24px !important;
+    text-align: center !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stExpander"] {
+    width: 100% !important;
 }
 
 [data-testid="stSidebar"] input,
@@ -730,7 +749,7 @@ if st.session_state.current_mode is not None:
         st.markdown("""
         <style>
         section[data-testid="stSidebar"] details summary span p { font-size: 22px !important; }
-        #built-contacts-title { font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; }
+        #built-contacts-title { font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; text-align: center !important; }
         </style>
         <div id="sidebar-close-btn" style="position: absolute; top: 5px; right: 10px; 
             width: 30px; height: 30px; background: #e0e0e0; border-radius: 50%; 
