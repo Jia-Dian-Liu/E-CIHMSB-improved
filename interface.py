@@ -677,6 +677,17 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     caret-color: #333 !important;
 }
 
+/* 隱藏 textarea 滾動條 */
+.stTextArea textarea::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+}
+
+.stTextArea textarea {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
 .stTextArea textarea:focus {
     outline: none !important;
     border-color: #ccc !important;
