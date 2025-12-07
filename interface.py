@@ -411,12 +411,12 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 [data-testid="stSidebar"] [data-testid="stExpander"] [data-testid="stExpanderDetails"] {
-    background-color: #efe7da !important;
+    background-color: #f7f3ec !important;
 }
 
 /* 側邊欄下拉選單 */
 [data-testid="stSidebar"] .stSelectbox > div > div {
-    background-color: white !important;
+    background-color: #f3f3f3 !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
     min-height: 45px !important;
@@ -446,7 +446,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄輸入框 - 確保可以輸入 */
 [data-testid="stSidebar"] .stTextInput input {
-    background-color: white !important;
+    background-color: #f3f3f3 !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
     pointer-events: auto !important;
@@ -462,13 +462,13 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄按鈕白色背景 */
 [data-testid="stSidebar"] .stButton button {
-    background-color: white !important;
+    background-color: #f3f3f3 !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
 }
 
 [data-testid="stSidebar"] .stButton button:hover {
-    background-color: #f5f5f5 !important;
+    background-color: #e8e8e8 !important;
     border-color: #999 !important;
 }
 
