@@ -434,7 +434,17 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div {
     padding-top: 3px !important;
     padding-bottom: 6px !important;
+}
+
+/* 側邊欄下拉選單文字靠左 */
+[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] [class*="valueContainer"] {
     justify-content: flex-start !important;
+    padding-left: 12px !important;
+}
+
+[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] [class*="singleValue"],
+[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span {
+    margin-left: 0 !important;
     text-align: left !important;
 }
 
