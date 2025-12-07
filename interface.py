@@ -647,7 +647,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     color: white !important;
     border: none !important;
     border-radius: 8px !important;
-    font-size: 32px !important;
+    font-size: 40px !important;
     padding: 12px 40px !important;
     min-width: 100px !important;
 }
