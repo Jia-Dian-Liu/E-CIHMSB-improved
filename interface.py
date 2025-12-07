@@ -1809,7 +1809,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
-                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=200, key="embed_text_h", label_visibility="collapsed")
+                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=170, key="embed_text_h", label_visibility="collapsed")
                     if embed_text_raw and embed_text_raw.strip():
                         embed_text = embed_text_raw.strip()
                         secret_bits_needed = len(text_to_binary(embed_text))
