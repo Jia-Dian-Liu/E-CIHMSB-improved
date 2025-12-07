@@ -432,8 +432,10 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div {
-    padding-top: 3 !important;
+    padding-top: 3px !important;
     padding-bottom: 6px !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
 }
 
 /* 只禁用 selectbox 的搜索輸入，不影響 text_input */
