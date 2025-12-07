@@ -1679,6 +1679,22 @@ elif st.session_state.current_mode == 'embed':
                 type_idx = 0 if saved_type == "文字" else 1
                 embed_secret_type = st.radio("類型", ["文字", "圖片"], index=type_idx, key="embed_type_h", horizontal=True, label_visibility="collapsed")
                 
+                # 切換類型時清除另一種類型的資料
+                if embed_secret_type == "文字" and st.session_state.get('embed_secret_type_saved') == "圖片":
+                    # 從圖片切換到文字，清除圖片資料
+                    for key in ['embed_secret_image_data', 'embed_secret_image_name']:
+                        if key in st.session_state:
+                            del st.session_state[key]
+                    st.session_state.secret_bits_saved = 0
+                elif embed_secret_type == "圖片" and st.session_state.get('embed_secret_type_saved') == "文字":
+                    # 從文字切換到圖片，清除文字資料
+                    if 'embed_text_saved' in st.session_state:
+                        del st.session_state['embed_text_saved']
+                    st.session_state.secret_bits_saved = 0
+                
+                # 更新當前類型
+                st.session_state.embed_secret_type_saved = embed_secret_type
+                
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
                     embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=100, key="embed_text_h", label_visibility="collapsed")
