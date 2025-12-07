@@ -981,6 +981,13 @@ function injectScrollbarStyle() {
         *::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
         *::-webkit-scrollbar-thumb:hover { background: #9a8b6e !important; }
         * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
+        
+        /* 隱藏 textarea 滾動條 */
+        textarea::-webkit-scrollbar { display: none !important; width: 0 !important; }
+        textarea { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+        .stTextArea textarea::-webkit-scrollbar { display: none !important; width: 0 !important; }
+        [data-baseweb="textarea"]::-webkit-scrollbar { display: none !important; width: 0 !important; }
+        [data-baseweb="base-input"]::-webkit-scrollbar { display: none !important; width: 0 !important; }
     `;
     
     // 注入到當前 document
