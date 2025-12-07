@@ -621,14 +621,14 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* bits 資訊專用樣式 */
 .bits-info {
-    font-size: 30px !important;
+    font-size: 28px !important;
     color: #b28084 !important;
     font-weight: bold !important;
 }
 
 /* 已選擇資訊專用樣式 */
 .selected-info {
-    font-size: 30px !important;
+    font-size: 28px !important;
     color: #b28084 !important;
     font-weight: bold !important;
 }
@@ -770,6 +770,15 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 [data-testid="stFileUploader"] [data-testid="stFileUploaderDropzone"] {
     background-color: #ecefef !important;
+}
+
+/* Browse files 按鈕背景顏色 */
+[data-testid="stFileUploader"] button,
+[data-testid="stFileUploader"] [data-testid="stBaseButton-secondary"],
+[data-testid="stFileUploader"] [data-testid="stFileUploaderDropzone"] button {
+    background-color: #ecefef !important;
+    color: #443C3C !important;
+    border: 1px solid #ccc !important;
 }
 
 /* 已上傳檔案名稱和大小的字體顏色 */
