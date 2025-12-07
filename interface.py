@@ -671,6 +671,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     font-size: clamp(22px, 2.5vw, 30px) !important;
     background-color: #ecefef !important;
     border: 1px solid #ccc !important;
+    color: #443C3C !important;
 }
 
 .stTextArea textarea::placeholder {
@@ -681,15 +682,23 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 /* 移除 textarea 底部黑線 */
 .stTextArea [data-baseweb="textarea"] {
     border: none !important;
+    background-color: transparent !important;
 }
 
 .stTextArea [data-baseweb="base-input"] {
     border-bottom: none !important;
     border: none !important;
+    background-color: transparent !important;
 }
 
 .stTextArea > div > div {
     border-bottom: none !important;
+    background-color: transparent !important;
+}
+
+.stTextArea > div > div > div {
+    border-bottom: none !important;
+    background-color: #ecefef !important;
 }
 
 .stTextArea [data-baseweb="textarea"]::after,
