@@ -420,6 +420,8 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #333 !important;
     border: 1px solid #ccc !important;
     min-height: 45px !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span,
@@ -427,6 +429,11 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #333 !important;
     font-size: 18px !important;
     overflow: visible !important;
+}
+
+[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div {
+    padding-top: 0 !important;
+    padding-bottom: 8px !important;
 }
 
 /* 只禁用 selectbox 的搜索輸入，不影響 text_input */
