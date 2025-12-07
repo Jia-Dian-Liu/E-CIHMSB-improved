@@ -1525,8 +1525,8 @@ if st.session_state.current_mode is None:
     }}
     
     /* 動畫效果 */
-    .anim-card-embed img,
-    .anim-card-extract img {{
+    .anim-card-embed img:not(:nth-of-type(2)),
+    .anim-card-extract img:not(:nth-of-type(2)) {{
         animation: pulse 2s ease-in-out infinite;
     }}
     
