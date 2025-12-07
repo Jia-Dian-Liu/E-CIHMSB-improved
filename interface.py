@@ -435,11 +435,14 @@ section[data-testid="stSidebar"] button[kind="header"],
     width: 1px !important;
 }
 
-/* 側邊欄輸入框 */
+/* 側邊欄輸入框 - 確保可以輸入 */
 [data-testid="stSidebar"] .stTextInput input {
     background-color: white !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    caret-color: #333 !important;
 }
 
 [data-testid="stSidebar"] input,
