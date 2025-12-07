@@ -1768,7 +1768,7 @@ elif st.session_state.current_mode == 'embed':
                 default_style_index = style_list.index(auto_style) if auto_style and auto_style != "選擇" and auto_style in style_list else 0
                 
                 # 風格、圖片、尺寸三個水平排列
-                row1_col1, row1_col2, row1_col3 = st.columns([1, 2.2, 1.3])
+                row1_col1, row1_col2, row1_col3 = st.columns([1.2, 2.2, 1.5])
                 
                 with row1_col1:
                     selected_style = st.selectbox("風格", style_list, index=default_style_index, key="embed_style_h")
