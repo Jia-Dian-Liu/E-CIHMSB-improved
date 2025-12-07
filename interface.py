@@ -492,7 +492,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 功能頁面樣式 */
 .page-title-embed {
-    font-size: 48px;
+    font-size: clamp(36px, 4vw, 56px);
     font-weight: bold;
     background: linear-gradient(135deg, #4A6B8A 0%, #5C8AAD 100%);
     -webkit-background-clip: text;
@@ -501,7 +501,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 .page-title-extract {
-    font-size: 48px;
+    font-size: clamp(36px, 4vw, 56px);
     font-weight: bold;
     background: linear-gradient(135deg, #7D5A6B 0%, #A67B85 100%);
     -webkit-background-clip: text;
@@ -513,27 +513,27 @@ section[data-testid="stSidebar"] button[kind="header"],
 .success-box {
     background: linear-gradient(135deg, #4A6B8A 0%, #5C8AAD 100%);
     color: white; padding: 20px 30px; border-radius: 10px;
-    margin: 10px 0; display: inline-block; font-size: 28px; min-width: 350px;
+    margin: 10px 0; display: inline-block; font-size: clamp(20px, 2.5vw, 28px); min-width: 300px;
 }
 .info-box {
     background: linear-gradient(135deg, #4A6B8A 0%, #5C8AAD 100%);
     color: white; padding: 20px 30px; border-radius: 10px;
-    margin: 10px 0; display: inline-block; font-size: 26px; line-height: 1.9; min-width: 350px;
+    margin: 10px 0; display: inline-block; font-size: clamp(18px, 2vw, 26px); line-height: 1.9; min-width: 300px;
 }
 .error-box {
     background: linear-gradient(135deg, #8B5A5A 0%, #A67B7B 100%);
     color: white; padding: 20px 30px; border-radius: 10px;
-    margin: 10px 0; display: inline-block; font-size: 26px; min-width: 350px;
+    margin: 10px 0; display: inline-block; font-size: clamp(18px, 2vw, 26px); min-width: 300px;
 }
 
 /* 字體放大 */
 [data-testid="stMain"] .stMarkdown p,
 [data-testid="stMain"] .stText p {
-    font-size: 30px !important;
+    font-size: clamp(22px, 2.5vw, 30px) !important;
     font-weight: bold !important;
 }
 
-h3 { font-size: 36px !important; font-weight: bold !important; }
+h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important; }
 
 /* 按鈕樣式 */
 .stButton button span,
@@ -559,27 +559,27 @@ h3 { font-size: 36px !important; font-weight: bold !important; }
 /* 表單元素 */
 .stSelectbox label, .stRadio label, .stTextArea label, .stFileUploader label,
 [data-testid="stWidgetLabel"] p {
-    font-size: 24px !important;
+    font-size: clamp(18px, 2vw, 24px) !important;
     font-weight: bold !important;
 }
 
 .stRadio [role="radiogroup"] label,
 .stRadio [role="radiogroup"] label p {
-    font-size: 28px !important;
+    font-size: clamp(20px, 2.2vw, 28px) !important;
 }
 
-.stTextArea textarea { font-size: 30px !important; }
+.stTextArea textarea { font-size: clamp(22px, 2.5vw, 30px) !important; }
 
 .stCaption, [data-testid="stCaptionContainer"] {
     color: #443C3C !important;
-    font-size: 22px !important;
+    font-size: clamp(16px, 1.8vw, 22px) !important;
 }
 
 /* Selectbox 樣式 */
 [data-testid="stMain"] .stSelectbox > div > div {
     background-color: white !important;
     border-radius: 8px !important;
-    font-size: 24px !important;
+    font-size: clamp(18px, 2vw, 24px) !important;
     min-height: 50px !important;
     padding: 8px 12px !important;
     border: 1px solid #ccc !important;
@@ -587,13 +587,13 @@ h3 { font-size: 36px !important; font-weight: bold !important; }
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
-    font-size: 24px !important;
+    font-size: clamp(18px, 2vw, 24px) !important;
     color: #333 !important;
 }
 
 [data-baseweb="popover"] li {
     background-color: white !important;
-    font-size: 22px !important;
+    font-size: clamp(16px, 1.8vw, 22px) !important;
 }
 
 /* 固定按鈕 */
@@ -607,23 +607,67 @@ h3 { font-size: 36px !important; font-weight: bold !important; }
     border: none !important;
     border-radius: 8px !important;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+    font-size: 18px !important;
+    padding: 12px 28px !important;
 }
 
 #back-step-fixed {
     position: fixed !important;
-    bottom: 5px !important;
+    bottom: 15px !important;
     left: 20px !important;
     z-index: 1000 !important;
     background: white !important;
     color: #333 !important;
     border: 2px solid #ccc !important;
     border-radius: 8px !important;
+    font-size: 18px !important;
+    padding: 12px 28px !important;
+}
+
+/* 大螢幕按鈕位置調整 */
+@media (min-width: 1600px) {
+    #next-step-fixed {
+        right: calc(50% - 700px) !important;
+    }
+    #back-step-fixed {
+        left: calc(50% - 700px) !important;
+    }
 }
 
 /* 間距調整 */
 .block-container {
     padding-top: 0.5rem !important;
     padding-bottom: 7rem !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+}
+
+/* 功能頁面容器居中 */
+[data-testid="stMain"] > .block-container {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
+/* 大螢幕優化 */
+@media (min-width: 1600px) {
+    [data-testid="stMain"] > .block-container {
+        max-width: 1500px !important;
+        padding-left: 3rem !important;
+        padding-right: 3rem !important;
+    }
+    
+    .page-title-embed, .page-title-extract {
+        font-size: 56px !important;
+    }
+}
+
+/* 全螢幕模式優化 */
+@media (min-height: 900px) {
+    .block-container {
+        padding-top: 1rem !important;
+    }
 }
 
 .stMarkdown hr { margin: 0.5rem 0 !important; }
@@ -1152,10 +1196,10 @@ elif st.session_state.current_mode == 'embed':
         
         current_step = st.session_state.embed_step
         st.markdown(f"""
-        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 1 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 1 else '#7A8A9A'}; font-size: 24px; font-weight: 700;">第一步: 選擇對象</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 2 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 2 else '#7A8A9A'}; font-size: 24px; font-weight: 700;">第二步: 機密內容</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 3 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 3 else '#7A8A9A'}; font-size: 24px; font-weight: 700;">第三步: 載體圖像</div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 1 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 1 else '#7A8A9A'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第一步: 選擇對象</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 2 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 2 else '#7A8A9A'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第二步: 機密內容</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 3 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 3 else '#7A8A9A'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第三步: 載體圖像</div>
         </div>
         """, unsafe_allow_html=True)
         
@@ -1506,9 +1550,9 @@ else:
         
         current_step = st.session_state.extract_step
         st.markdown(f"""
-        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 1 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 1 else '#A08090'}; font-size: 24px; font-weight: 700;">第一步: 選擇對象</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 2 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 2 else '#A08090'}; font-size: 24px; font-weight: 700;">第二步: 上傳 Z碼圖</div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 1 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 1 else '#A08090'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第一步: 選擇對象</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 2 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 2 else '#A08090'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第二步: 上傳 Z碼圖</div>
         </div>
         """, unsafe_allow_html=True)
         
