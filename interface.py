@@ -1337,8 +1337,18 @@ elif st.session_state.current_mode == 'embed':
         secret_bits_saved = st.session_state.get('secret_bits_saved', 0)
         step2_done = secret_bits_saved > 0
         
-        # 三欄並排佈局
-        col1, col2, col3 = st.columns(3)
+        # 三欄並排佈局 - 加大寬度
+        st.markdown("""
+        <style>
+        [data-testid="stMain"] [data-testid="stHorizontalBlock"] {
+            max-width: 100% !important;
+            width: 100% !important;
+            gap: 2rem !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        col1, col2, col3 = st.columns([1, 1, 1], gap="large")
         
         # ===== 第一步：選擇對象 =====
         with col1:
