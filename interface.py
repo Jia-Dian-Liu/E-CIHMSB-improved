@@ -828,7 +828,7 @@ if st.session_state.current_mode is None:
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: clamp(20px, 4vw, 70px);
+        gap: clamp(40px, 6vw, 100px);
         flex-wrap: nowrap;
         padding: 0 2vw;
         max-width: 1600px;
