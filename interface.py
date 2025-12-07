@@ -628,8 +628,8 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 已選擇資訊專用樣式 */
 .selected-info {
-    font-size: 20px !important;
-    color: #d04d04 !important;
+    font-size: 25px !important;
+    color: #f1e4ed !important;
     font-weight: bold !important;
 }
 
