@@ -791,6 +791,21 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     color: #443C3C !important;
 }
 
+/* 已上傳檔案列表 - 強制覆蓋所有文字顏色 */
+[data-testid="stFileUploader"] section,
+[data-testid="stFileUploader"] section *,
+[data-testid="stFileUploader"] section div,
+[data-testid="stFileUploader"] section span,
+[data-testid="stFileUploader"] section p,
+[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] *,
+.uploadedFile,
+.uploadedFile *,
+[class*="uploadedFile"] *,
+[data-testid="stFileUploader"] li,
+[data-testid="stFileUploader"] li * {
+    color: #443C3C !important;
+}
+
 /* Selectbox 樣式 */
 [data-testid="stMain"] .stSelectbox > div > div {
     background-color: #ecefef !important;
