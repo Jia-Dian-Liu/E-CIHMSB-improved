@@ -599,8 +599,8 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 /* 固定按鈕 */
 #next-step-fixed {
     position: fixed !important;
-    bottom: 15px !important;
-    right: 120px !important;
+    bottom: 30px !important;
+    right: 30px !important;
     z-index: 1000 !important;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     color: white !important;
@@ -608,20 +608,22 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     border-radius: 8px !important;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
     font-size: 18px !important;
-    padding: 12px 28px !important;
+    padding: 12px 36px !important;
+    min-width: 120px !important;
 }
 
 #back-step-fixed {
     position: fixed !important;
-    bottom: 15px !important;
-    left: 20px !important;
+    bottom: 30px !important;
+    left: 30px !important;
     z-index: 1000 !important;
     background: white !important;
     color: #333 !important;
     border: 2px solid #ccc !important;
     border-radius: 8px !important;
     font-size: 18px !important;
-    padding: 12px 28px !important;
+    padding: 12px 36px !important;
+    min-width: 120px !important;
 }
 
 /* 大螢幕按鈕位置調整 */
@@ -650,6 +652,22 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     padding-right: 2rem !important;
 }
 
+/* 內容區域對齊步驟條 */
+[data-testid="stMain"] .stSelectbox,
+[data-testid="stMain"] .stTextArea,
+[data-testid="stMain"] .stFileUploader,
+[data-testid="stMain"] .stRadio {
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+[data-testid="stMain"] .stMarkdown {
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 /* 大螢幕優化 */
 @media (min-width: 1600px) {
     [data-testid="stMain"] > .block-container {
@@ -676,6 +694,9 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 [data-testid="stHorizontalBlock"] {
     flex-wrap: nowrap !important;
     gap: 0.5rem !important;
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -1183,7 +1204,7 @@ elif st.session_state.current_mode == 'embed':
 </script>
 """, height=0)
         
-        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 20px; margin-top: -4rem;">嵌入機密</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 20px; margin-top: 1rem;">嵌入機密</div>', unsafe_allow_html=True)
         
         embed_text, embed_image, secret_bits_needed = None, None, 0
         embed_image_choice, selected_size = None, None
@@ -1538,7 +1559,7 @@ else:
 </script>
 """, height=0)
         
-        st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 20px; margin-top: -4rem;">提取機密</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 20px; margin-top: 1rem;">提取機密</div>', unsafe_allow_html=True)
         
         extract_z_text, extract_img_num, extract_img_size = None, None, None
         
