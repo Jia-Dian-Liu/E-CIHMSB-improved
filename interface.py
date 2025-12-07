@@ -426,7 +426,7 @@ st.markdown("""
 <style>
 /* 背景圖片 - 復古紙張紋理 */
 .stApp {
-    background-image: url('https://i.pinimg.com/1200x/03/c9/99/03c999e78415b51ad02b3d4e92942bcd.jpg');
+    background-image: url('https://i.pinimg.com/736x/53/1a/01/531a01457eca178f01c83ac2ede3f102.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
