@@ -878,13 +878,7 @@ if st.session_state.current_mode is not None:
                         save_contacts(st.session_state.contacts)
                         st.rerun()
         else:
-            st.markdown('''
-            <div style="background-color: #f7f3ec; border: 2px solid rgba(200, 200, 200, 0.6); 
-                border-radius: 10px; padding: 15px; text-align: center; 
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                <p style="font-size: 22px; color: #666; margin: 0;">尚無對象</p>
-            </div>
-            ''', unsafe_allow_html=True)
+            st.markdown('<p style="font-size: 22px; color: #666;">尚無對象</p>', unsafe_allow_html=True)
 
 # ==================== 主要邏輯 ====================
 if st.session_state.current_mode is None:
