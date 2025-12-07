@@ -392,7 +392,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 [data-testid="stSidebar"] [data-testid="stExpander"] {
     width: 100% !important;
-    background-color: #efe7da !important;
+    background-color: #f7f3ec !important;
     border: 2px solid rgba(200, 200, 200, 0.6) !important;
     border-radius: 10px !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
@@ -401,7 +401,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* Expander 標題列背景 */
 [data-testid="stSidebar"] [data-testid="stExpander"] > details > summary {
-    background-color: #efe7da !important;
+    background-color: #f7f3ec !important;
     border-radius: 8px !important;
 }
 
