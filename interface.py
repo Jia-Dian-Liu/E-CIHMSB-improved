@@ -390,7 +390,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] select,
 [data-testid="stSidebar"] button {
-    font-size: 16px !important;
+    font-size: 15px !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stBaseButton-header"],
