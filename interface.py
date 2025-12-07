@@ -281,8 +281,19 @@ st.markdown("""
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    box-shadow: inset 80px 0 60px -40px rgba(80, 60, 40, 0.5), 
-                inset -80px 0 60px -40px rgba(80, 60, 40, 0.5);
+}
+
+/* 暗角效果 (vignette) */
+.stApp::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(60, 40, 30, 0.4) 100%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* 隱藏 Streamlit 預設元素 */
