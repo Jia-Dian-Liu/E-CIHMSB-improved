@@ -390,7 +390,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] select,
 [data-testid="stSidebar"] button {
-    font-size: 15px !important;
+    font-size: 18px !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stBaseButton-header"],
@@ -585,7 +585,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
-    font-size: 18px !important;
+    font-size: 16px !important;
     font-weight: bold !important;
     color: #333 !important;
 }
