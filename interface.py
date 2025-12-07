@@ -383,7 +383,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     text-align: center !important;
 }
 
-[data-testid="stSidebar"] strong { font-size: 24px !important; }
+[data-testid="stSidebar"] strong { font-size: 18px !important; }
 
 [data-testid="stSidebar"] [data-testid="stExpander"] summary,
 [data-testid="stSidebar"] details summary span {
