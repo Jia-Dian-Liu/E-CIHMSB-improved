@@ -1552,12 +1552,12 @@ elif st.session_state.current_mode == 'embed':
         
         st.markdown("""
         <style>
-        #btn-back-home { position: fixed !important; bottom: 5px !important; right: 30px !important; z-index: 1000 !important; background: white !important; color: #333 !important; border: 2px solid #ccc !important; border-radius: 8px !important; }
+        #btn-back-home { position: fixed !important; bottom: 30px !important; left: 49% !important; transform: translateX(-50%) !important; z-index: 1000 !important; background: #4A6B8A !important; color: white !important; border: none !important; border-radius: 8px !important; font-size: 22px !important; padding: 10px 30px !important; }
         </style>
         """, unsafe_allow_html=True)
         
-        col_left, col_right = st.columns([1, 1])
-        with col_right:
+        col_left, col_center, col_right = st.columns([1, 0.5, 1])
+        with col_center:
             if st.button("返回首頁", key="back_to_home_from_embed"):
                 st.session_state.embed_page = 'input'
                 st.session_state.embed_result = None
@@ -1567,8 +1567,20 @@ elif st.session_state.current_mode == 'embed':
         
         components.html("""
         <script>
-        const buttons = window.parent.document.querySelectorAll('button');
-        for (let btn of buttons) { if (btn.innerText === '返回首頁') btn.id = 'btn-back-home'; }
+        function fixBackButton() {
+            const buttons = window.parent.document.querySelectorAll('button');
+            for (let btn of buttons) { 
+                if (btn.innerText === '返回首頁') {
+                    btn.id = 'btn-back-home';
+                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    if (container) {
+                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:49%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                    }
+                }
+            }
+        }
+        fixBackButton();
+        setTimeout(fixBackButton, 100);
         </script>
         """, height=0)
     
@@ -1909,7 +1921,11 @@ else:
     
     # 結果頁
     if st.session_state.extract_page == 'result' and st.session_state.extract_result and st.session_state.extract_result.get('success'):
-        st.markdown('<style>.main { overflow: auto !important; }</style>', unsafe_allow_html=True)
+        st.markdown("""
+        <style>
+        .main { overflow: auto !important; }
+        </style>
+        """, unsafe_allow_html=True)
         
         r = st.session_state.extract_result
         
@@ -1966,6 +1982,24 @@ else:
             st.session_state.extract_result = None
             st.session_state.current_mode = None
             st.rerun()
+        
+        components.html("""
+        <script>
+        function fixExtractBackButton() {
+            const buttons = window.parent.document.querySelectorAll('button');
+            for (let btn of buttons) { 
+                if (btn.innerText === '返回首頁') {
+                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    if (container) {
+                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:49%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                    }
+                }
+            }
+        }
+        fixExtractBackButton();
+        setTimeout(fixExtractBackButton, 100);
+        </script>
+        """, height=0)
     
     # 輸入頁
     else:
