@@ -659,8 +659,9 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 /* 表單元素 */
 .stSelectbox label, .stRadio label, .stTextArea label, .stFileUploader label,
 [data-testid="stWidgetLabel"] p {
-    font-size: clamp(18px, 2vw, 24px) !important;
+    font-size: 26px !important;
     font-weight: bold !important;
+    color: #443C3C !important;
 }
 
 .stRadio [role="radiogroup"] label,
