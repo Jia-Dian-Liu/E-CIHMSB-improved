@@ -775,6 +775,52 @@ ul[role="listbox"] li:hover,
     background-color: #dce0e0 !important;
 }
 
+/* ===== 下拉選單勾選標記顏色 ===== */
+[data-baseweb="menu"] li svg,
+[data-baseweb="select"] svg[data-baseweb="icon"],
+ul[role="listbox"] li svg,
+[data-baseweb="popover"] li svg,
+[data-baseweb="menu"] [aria-selected="true"] svg,
+ul[role="listbox"] [aria-selected="true"] svg {
+    fill: #443C3C !important;
+    color: #443C3C !important;
+}
+
+/* ===== 下拉選單滾動條樣式 ===== */
+[data-baseweb="menu"]::-webkit-scrollbar,
+[data-baseweb="popover"]::-webkit-scrollbar,
+ul[role="listbox"]::-webkit-scrollbar {
+    width: 8px;
+}
+
+[data-baseweb="menu"]::-webkit-scrollbar-track,
+[data-baseweb="popover"]::-webkit-scrollbar-track,
+ul[role="listbox"]::-webkit-scrollbar-track {
+    background: #f5f0e6;
+    border-radius: 4px;
+}
+
+[data-baseweb="menu"]::-webkit-scrollbar-thumb,
+[data-baseweb="popover"]::-webkit-scrollbar-thumb,
+ul[role="listbox"]::-webkit-scrollbar-thumb {
+    background: #b8a88a;
+    border-radius: 4px;
+}
+
+[data-baseweb="menu"]::-webkit-scrollbar-thumb:hover,
+[data-baseweb="popover"]::-webkit-scrollbar-thumb:hover,
+ul[role="listbox"]::-webkit-scrollbar-thumb:hover {
+    background: #9a8b6e;
+}
+
+/* Firefox 滾動條 */
+[data-baseweb="menu"],
+[data-baseweb="popover"],
+ul[role="listbox"] {
+    scrollbar-width: thin;
+    scrollbar-color: #b8a88a #f5f0e6;
+}
+
 /* 確保選中的值完整顯示 */
 [data-baseweb="select"] > div {
     min-height: 45px !important;
