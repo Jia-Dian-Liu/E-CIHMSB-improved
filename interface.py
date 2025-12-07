@@ -878,7 +878,7 @@ if st.session_state.current_mode is not None:
                         save_contacts(st.session_state.contacts)
                         st.rerun()
         else:
-            st.markdown('<p style="font-size: 12px; color: #999;">尚無對象，請先新增</p>', unsafe_allow_html=True)
+            st.markdown('<p style="font-size: 18px; color: #666;">尚無對象</p>', unsafe_allow_html=True)
 
 # ==================== 主要邏輯 ====================
 if st.session_state.current_mode is None:
