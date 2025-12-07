@@ -579,23 +579,33 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 [data-testid="stMain"] .stSelectbox > div > div {
     background-color: white !important;
     border-radius: 8px !important;
-    font-size: clamp(18px, 2vw, 24px) !important;
-    min-height: 60px !important;
+    font-size: 20px !important;
+    min-height: 55px !important;
     padding: 12px 16px !important;
     border: 1px solid #ccc !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+[data-testid="stMain"] .stSelectbox [data-baseweb="select"] {
+    min-height: 45px !important;
 }
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
-    font-size: clamp(18px, 2vw, 24px) !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
     color: #333 !important;
-    line-height: 1.5 !important;
+    line-height: 1.4 !important;
 }
 
 [data-baseweb="popover"] li {
     background-color: white !important;
-    font-size: clamp(16px, 1.8vw, 22px) !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
     color: #333 !important;
+    min-height: 45px !important;
+    padding: 10px 16px !important;
 }
 
 [data-baseweb="popover"] li span,
@@ -608,11 +618,27 @@ ul[role="listbox"] li,
 ul[role="listbox"] li * {
     color: #333 !important;
     background-color: white !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
 }
 
 ul[role="listbox"] li:hover,
 [data-baseweb="menu"] li:hover {
     background-color: #f0f0f0 !important;
+}
+
+/* 確保選中的值完整顯示 */
+[data-baseweb="select"] > div {
+    min-height: 45px !important;
+    padding: 8px !important;
+}
+
+[data-baseweb="select"] [data-testid="stMarkdownContainer"],
+[data-baseweb="select"] .css-1dimb5e-singleValue,
+[data-baseweb="select"] div[class*="singleValue"] {
+    overflow: visible !important;
+    text-overflow: unset !important;
+    white-space: nowrap !important;
 }
 
 /* 固定按鈕容器 */
