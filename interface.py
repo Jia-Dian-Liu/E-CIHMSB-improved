@@ -361,16 +361,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     box-shadow: 4px 0 15px rgba(0,0,0,0.2) !important;
 }
 
-[data-testid="stSidebar"] > div {
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 1rem !important;
-}
-
-[data-testid="stSidebar"] > div > div {
-    width: 100% !important;
-}
-
 [data-testid="stSidebar"].sidebar-open {
     transform: translateX(0) !important;
 }
@@ -388,8 +378,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-size: 38px !important;
     font-weight: bold !important;
     color: #4A6B8A !important;
-    text-align: center !important;
-    width: 100% !important;
 }
 
 [data-testid="stSidebar"] strong { font-size: 24px !important; }
