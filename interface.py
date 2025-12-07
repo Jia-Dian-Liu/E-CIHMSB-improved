@@ -1756,14 +1756,20 @@ elif st.session_state.current_mode == 'embed':
                 auto_style = contacts.get(selected_contact, None)
                 default_style_index = style_list.index(auto_style) if auto_style and auto_style != "選擇" and auto_style in style_list else 0
                 
-                selected_style = st.selectbox("風格", style_list, index=default_style_index, key="embed_style_h")
+                # 風格、圖片、尺寸水平排列
+                sub_col1, sub_col2, sub_col3 = st.columns(3)
+                
+                with sub_col1:
+                    selected_style = st.selectbox("風格", style_list, index=default_style_index, key="embed_style_h")
                 
                 style_name = STYLE_CATEGORIES.get(selected_style, "建築")
                 images = IMAGE_LIBRARY.get(style_name, [])
                 
                 if images:
                     image_options = [f"{i+1}. {images[i]['name']}" for i in range(len(images))]
-                    img_idx = st.selectbox("圖片", range(len(images)), format_func=lambda i: image_options[i], key="embed_img_select_h")
+                    
+                    with sub_col2:
+                        img_idx = st.selectbox("圖片", range(len(images)), format_func=lambda i: image_options[i], key="embed_img_select_h")
                     
                     available_sizes = [s for s in AVAILABLE_SIZES if calculate_image_capacity(s) >= secret_bits_needed]
                     if not available_sizes:
@@ -1771,7 +1777,9 @@ elif st.session_state.current_mode == 'embed':
                     recommended_size = available_sizes[0]
                     
                     size_options = [f"{s}×{s} ⭐" if s == recommended_size else f"{s}×{s}" for s in available_sizes]
-                    size_idx = st.selectbox("尺寸", range(len(available_sizes)), format_func=lambda i: size_options[i], key="embed_size_h")
+                    
+                    with sub_col3:
+                        size_idx = st.selectbox("尺寸", range(len(available_sizes)), format_func=lambda i: size_options[i], key="embed_size_h")
                     selected_size = available_sizes[size_idx]
                     
                     selected_image = images[img_idx]
