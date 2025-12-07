@@ -321,7 +321,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 自訂標籤：可點擊 */
 #sidebar-toggle-label {
     position: fixed;
-    top: 8px;
+    top: 70px;
     left: 0;
     background: #4A6B8A;
     color: white;
@@ -585,7 +585,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
-    font-size: 20px !important;
+    font-size: 16px !important;
     font-weight: bold !important;
     color: #333 !important;
 }
