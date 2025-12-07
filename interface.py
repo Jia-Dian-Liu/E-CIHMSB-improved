@@ -665,7 +665,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 .stRadio [role="radiogroup"] label,
 .stRadio [role="radiogroup"] label p {
-    font-size: 20px !important;
+    font-size: 24px !important;
     color: #443C3C !important;
     font-weight: bold !important;
 }
