@@ -770,13 +770,23 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 /* 隱藏外層滾動條，只保留 textarea 本身的滾動條 */
 .stTextArea > div,
 .stTextArea > div > div,
+.stTextArea > div > div > div,
 .stTextArea [data-baseweb="textarea"],
-.stTextArea [data-testid="stTextAreaRootContainer"] {
+.stTextArea [data-baseweb="textarea"] > div,
+.stTextArea [data-testid="stTextAreaRootContainer"],
+.stTextArea [data-testid="stTextAreaRootContainer"] > div {
     overflow: visible !important;
+    overflow-y: visible !important;
+    overflow-x: visible !important;
 }
 
-.stTextArea [data-testid="stTextAreaRootContainer"] > div:first-child {
-    overflow: hidden !important;
+/* 隱藏外層容器的滾動條軌道 */
+.stTextArea > div::-webkit-scrollbar,
+.stTextArea > div > div::-webkit-scrollbar,
+.stTextArea [data-baseweb="textarea"] > div::-webkit-scrollbar,
+.stTextArea [data-testid="stTextAreaRootContainer"] > div:first-child::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
 }
 
 .stCaption, [data-testid="stCaptionContainer"] {
