@@ -1552,13 +1552,27 @@ elif st.session_state.current_mode == 'embed':
         
         st.markdown("""
         <style>
-        #btn-back-home { position: fixed !important; bottom: 30px !important; left: 49% !important; transform: translateX(-50%) !important; z-index: 1000 !important; background: #4A6B8A !important; color: white !important; border: none !important; border-radius: 8px !important; font-size: 22px !important; padding: 10px 30px !important; }
+        #btn-back-home { 
+            position: fixed !important; 
+            bottom: 30px !important; 
+            left: 49% !important; 
+            transform: translateX(-50%) !important; 
+            z-index: 1000 !important; 
+            background: #4A6B8A !important; 
+            color: white !important; 
+            border: none !important; 
+            border-radius: 8px !important; 
+            font-size: 22px !important; 
+            padding: 10px 30px !important;
+            writing-mode: horizontal-tb !important;
+            white-space: nowrap !important;
+        }
         </style>
         """, unsafe_allow_html=True)
         
-        col_left, col_center, col_right = st.columns([1, 0.5, 1])
+        col_left, col_center, col_right = st.columns([1, 1, 1])
         with col_center:
-            if st.button("返回首頁", key="back_to_home_from_embed"):
+            if st.button("返回首頁", key="back_to_home_from_embed", type="primary"):
                 st.session_state.embed_page = 'input'
                 st.session_state.embed_result = None
                 st.session_state.embed_step = 1
@@ -1572,6 +1586,7 @@ elif st.session_state.current_mode == 'embed':
             for (let btn of buttons) { 
                 if (btn.innerText === '返回首頁') {
                     btn.id = 'btn-back-home';
+                    btn.style.cssText = 'writing-mode:horizontal-tb!important;white-space:nowrap!important;';
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
                         container.style.cssText = 'position:fixed!important;bottom:30px!important;left:49%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
@@ -1581,6 +1596,7 @@ elif st.session_state.current_mode == 'embed':
         }
         fixBackButton();
         setTimeout(fixBackButton, 100);
+        setTimeout(fixBackButton, 300);
         </script>
         """, height=0)
     
@@ -1977,7 +1993,7 @@ else:
                         else:
                             st.markdown(f'<p style="color: #F57C00;">MSE: {mse:.4f}</p>', unsafe_allow_html=True)
         
-        if st.button("返回首頁", key="back_to_home_from_extract"):
+        if st.button("返回首頁", key="back_to_home_from_extract", type="primary"):
             st.session_state.extract_page = 'input'
             st.session_state.extract_result = None
             st.session_state.current_mode = None
@@ -1989,6 +2005,7 @@ else:
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
                 if (btn.innerText === '返回首頁') {
+                    btn.style.cssText = 'writing-mode:horizontal-tb!important;white-space:nowrap!important;';
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
                         container.style.cssText = 'position:fixed!important;bottom:30px!important;left:49%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
@@ -1998,6 +2015,7 @@ else:
         }
         fixExtractBackButton();
         setTimeout(fixExtractBackButton, 100);
+        setTimeout(fixExtractBackButton, 300);
         </script>
         """, height=0)
     
