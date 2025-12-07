@@ -1767,8 +1767,8 @@ elif st.session_state.current_mode == 'embed':
                 auto_style = contacts.get(selected_contact, None)
                 default_style_index = style_list.index(auto_style) if auto_style and auto_style != "選擇" and auto_style in style_list else 0
                 
-                # 第一行：風格、圖片
-                row1_col1, row1_col2 = st.columns([1, 2.5])
+                # 風格、圖片、尺寸三個水平排列
+                row1_col1, row1_col2, row1_col3 = st.columns([1, 2.2, 1.3])
                 
                 with row1_col1:
                     selected_style = st.selectbox("風格", style_list, index=default_style_index, key="embed_style_h")
@@ -1789,8 +1789,8 @@ elif st.session_state.current_mode == 'embed':
                     
                     size_options = [f"{s}×{s} ⭐" if s == recommended_size else f"{s}×{s}" for s in available_sizes]
                     
-                    # 第二行：尺寸
-                    size_idx = st.selectbox("尺寸", range(len(available_sizes)), format_func=lambda i: size_options[i], key="embed_size_h")
+                    with row1_col3:
+                        size_idx = st.selectbox("尺寸", range(len(available_sizes)), format_func=lambda i: size_options[i], key="embed_size_h")
                     selected_size = available_sizes[size_idx]
                     
                     selected_image = images[img_idx]
