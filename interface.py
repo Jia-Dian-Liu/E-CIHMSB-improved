@@ -596,44 +596,27 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     font-size: clamp(16px, 1.8vw, 22px) !important;
 }
 
-/* 固定按鈕 */
-#next-step-fixed {
+/* 固定按鈕容器 */
+.fixed-btn-next {
     position: fixed !important;
     bottom: 30px !important;
     right: 30px !important;
     z-index: 1000 !important;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
-    font-size: 18px !important;
-    padding: 12px 36px !important;
-    min-width: 120px !important;
 }
 
-#back-step-fixed {
+.fixed-btn-back {
     position: fixed !important;
     bottom: 30px !important;
     left: 30px !important;
     z-index: 1000 !important;
-    background: white !important;
-    color: #333 !important;
-    border: 2px solid #ccc !important;
-    border-radius: 8px !important;
+}
+
+.fixed-btn-next button,
+.fixed-btn-back button {
     font-size: 18px !important;
     padding: 12px 36px !important;
     min-width: 120px !important;
-}
-
-/* 大螢幕按鈕位置調整 */
-@media (min-width: 1600px) {
-    #next-step-fixed {
-        right: calc(50% - 700px) !important;
-    }
-    #back-step-fixed {
-        left: calc(50% - 700px) !important;
-    }
+    border-radius: 8px !important;
 }
 
 /* 間距調整 */
@@ -1376,8 +1359,20 @@ elif st.session_state.current_mode == 'embed':
                     
                     components.html("""
                     <script>
-                    const buttons = window.parent.document.querySelectorAll('button');
-                    for (let btn of buttons) { if (btn.innerText === '開始嵌入') btn.id = 'next-step-fixed'; }
+                    function fixButtons() {
+                        const buttons = window.parent.document.querySelectorAll('button');
+                        for (let btn of buttons) { 
+                            if (btn.innerText === '開始嵌入') {
+                                let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                                if (container) {
+                                    container.style.cssText = 'position:fixed!important;bottom:30px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
+                                }
+                            }
+                        }
+                    }
+                    fixButtons();
+                    setTimeout(fixButtons, 100);
+                    setTimeout(fixButtons, 300);
                     </script>
                     """, height=0)
                     
@@ -1448,11 +1443,27 @@ elif st.session_state.current_mode == 'embed':
         
         components.html("""
         <script>
-        const buttons = window.parent.document.querySelectorAll('button');
-        for (let btn of buttons) { 
-            if (btn.innerText.includes('下一步')) btn.id = 'next-step-fixed';
-            if (btn.innerText.includes('返回')) btn.id = 'back-step-fixed';
+        function fixButtons() {
+            const buttons = window.parent.document.querySelectorAll('button');
+            for (let btn of buttons) { 
+                if (btn.innerText.includes('下一步')) {
+                    // 找到 .stButton 容器
+                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    if (container) {
+                        container.style.cssText = 'position:fixed!important;bottom:30px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
+                    }
+                }
+                if (btn.innerText.includes('返回') && !btn.innerText.includes('首頁')) {
+                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    if (container) {
+                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:30px!important;right:auto!important;width:auto!important;z-index:1000!important;';
+                    }
+                }
+            }
         }
+        fixButtons();
+        setTimeout(fixButtons, 100);
+        setTimeout(fixButtons, 300);
         </script>
         """, height=0)
 
@@ -1724,10 +1735,25 @@ else:
         
         components.html("""
         <script>
-        const buttons = window.parent.document.querySelectorAll('button');
-        for (let btn of buttons) { 
-            if (btn.innerText.includes('下一步') || btn.innerText.includes('開始提取')) btn.id = 'next-step-fixed';
-            if (btn.innerText.includes('返回')) btn.id = 'back-step-fixed';
+        function fixButtons() {
+            const buttons = window.parent.document.querySelectorAll('button');
+            for (let btn of buttons) { 
+                if (btn.innerText.includes('下一步') || btn.innerText.includes('開始提取')) {
+                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    if (container) {
+                        container.style.cssText = 'position:fixed!important;bottom:30px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
+                    }
+                }
+                if (btn.innerText.includes('返回') && !btn.innerText.includes('首頁')) {
+                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    if (container) {
+                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:30px!important;right:auto!important;width:auto!important;z-index:1000!important;';
+                    }
+                }
+            }
         }
+        fixButtons();
+        setTimeout(fixButtons, 100);
+        setTimeout(fixButtons, 300);
         </script>
         """, height=0)
