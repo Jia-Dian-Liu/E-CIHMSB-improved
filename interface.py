@@ -375,7 +375,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 自訂標籤：可點擊 */
 #sidebar-toggle-label {
     position: fixed;
-    top: 148px;
+    top: 50px;
     left: 0;
     color: white;
     writing-mode: vertical-rl;
@@ -2330,7 +2330,7 @@ else:
 </script>
 """, height=0)
         
-        st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 20px; margin-top: -1rem;">提取機密</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 20px; margin-top: -0.8rem;">提取機密</div>', unsafe_allow_html=True)
         
         extract_z_text, extract_style_num, extract_img_num, extract_img_size = None, None, None, None
         
