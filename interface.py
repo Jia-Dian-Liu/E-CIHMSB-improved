@@ -506,6 +506,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    margin-bottom: 20px;
 }
 
 .cards-container {
@@ -513,6 +514,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     align-items: center;
     gap: 40px;
+    margin-bottom: 30px;
 }
 
 .footer-credits {
@@ -520,7 +522,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #5D5D5D;
     font-size: 28px;
     font-weight: 500;
-    margin-top: auto;
+    margin-top: 20px;
 }
 
 /* 動畫卡片 */
@@ -1332,10 +1334,9 @@ if st.session_state.current_mode is None:
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         padding: 5vh 2vw 3vh 2vw;
-        gap: 0;
     }}
     
     .welcome-container {{
@@ -1343,7 +1344,6 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-bottom: 60px;
     }}
     
     .welcome-title {{
@@ -1365,7 +1365,6 @@ if st.session_state.current_mode is None:
         flex-wrap: nowrap;
         padding: 0 2vw;
         max-width: 1600px;
-        margin-bottom: 60px;
     }}
     
     .anim-card {{
