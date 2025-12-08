@@ -2137,6 +2137,12 @@ else:
                         container.style.cssText = 'position:fixed!important;bottom:25px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                     }
                 }
+                if (btn.innerText === '驗證') {
+                    // 驗證按鈕顏色和下載Z碼圖一樣
+                    btn.style.setProperty('background-color', '#c9b89a', 'important');
+                    btn.style.setProperty('border-color', '#c9b89a', 'important');
+                    btn.style.setProperty('color', '#443C3C', 'important');
+                }
             }
         }
         fixExtractBackButton();
