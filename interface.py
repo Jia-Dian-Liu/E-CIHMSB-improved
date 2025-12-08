@@ -2083,13 +2083,17 @@ else:
         with col_right:
             st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">驗證結果</p>', unsafe_allow_html=True)
             if r['type'] == 'text':
-                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=180, placeholder="貼上嵌入時的原始機密內容...")
+                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=200, placeholder="貼上嵌入時的原始機密內容...")
                 if st.button("驗證", key="verify_btn"):
                     if verify_input:
                         if verify_input == r['content']:
-                            st.markdown('<p style="font-size: 22px; font-weight: bold; color: #2E7D32;">✅ 完全一致！</p>', unsafe_allow_html=True)
+                            st.markdown('<p style="font-size: 22px; font-weight: bold; color: #2E7D32;">完全一致！</p>', unsafe_allow_html=True)
                         else:
-                            st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828;">❌ 不一致！</p>', unsafe_allow_html=True)
+                            st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828;">不一致！</p>', unsafe_allow_html=True)
+                            st.markdown('<p style="font-size: 18px; color: #443C3C; margin-top: 10px;"><b>原始輸入：</b></p>', unsafe_allow_html=True)
+                            st.markdown(f'<p style="font-size: 16px; color: #666; white-space: pre-wrap; background: #f5f5f5; padding: 10px; border-radius: 5px;">{verify_input}</p>', unsafe_allow_html=True)
+                            st.markdown('<p style="font-size: 18px; color: #443C3C; margin-top: 10px;"><b>提取結果：</b></p>', unsafe_allow_html=True)
+                            st.markdown(f'<p style="font-size: 16px; color: #666; white-space: pre-wrap; background: #f5f5f5; padding: 10px; border-radius: 5px;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
                 verify_img = st.file_uploader("上傳原始機密圖片", type=["png", "jpg", "jpeg"], key="verify_img_upload")
                 if verify_img:
@@ -2110,7 +2114,7 @@ else:
                     if orig_arr.shape == ext_arr.shape:
                         mse = np.mean((orig_arr.astype(int) - ext_arr.astype(int)) ** 2)
                         if mse == 0:
-                            st.markdown(f'<p style="color: #2E7D32;">MSE: {mse:.4f} - ✅ 完全一致！</p>', unsafe_allow_html=True)
+                            st.markdown(f'<p style="color: #2E7D32;">MSE: {mse:.4f} - 完全一致！</p>', unsafe_allow_html=True)
                         else:
                             st.markdown(f'<p style="color: #F57C00;">MSE: {mse:.4f}</p>', unsafe_allow_html=True)
         
