@@ -1969,18 +1969,25 @@ elif st.session_state.current_mode == 'embed':
                     selected_size = available_sizes[size_idx]
                     
                     selected_image = images[img_idx]
-                    preview_size = 150
-                    img_display, _ = download_image_by_id(selected_image["id"], preview_size)
                     
-                    # 載體圖和容量信息並排
-                    img_col, info_col = st.columns([1, 1.5])
-                    with img_col:
-                        st.image(img_display, width=150)
-                    with info_col:
-                        capacity = calculate_image_capacity(selected_size)
-                        usage = secret_bits_needed / capacity * 100
-                        color = "#ffa726" if usage > 90 else "#28a745"
-                        st.markdown(f'<div class="bits-info" style="color: {color}; font-size: 22px; margin-top: 20px;">機密大小：{secret_bits_needed:,} bits<br>圖像容量：{capacity:,} bits<br>使用率：{usage:.1f}%</div>', unsafe_allow_html=True)
+                    # 載體圖和容量信息並排（水平對齊）
+                    capacity = calculate_image_capacity(selected_size)
+                    usage = secret_bits_needed / capacity * 100
+                    color = "#ffa726" if usage > 90 else "#28a745"
+
+                    st.markdown(f'''
+                    <div style="display: flex; align-items: center; gap: 25px; margin-top: 10px;">
+                        <div style="flex-shrink: 0;">
+                            <img src="https://images.pexels.com/photos/{selected_image["id"]}/pexels-photo-{selected_image["id"]}.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
+                                 style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
+                        </div>
+                        <div style="color: {color}; font-size: 24px; font-weight: bold; line-height: 1.8; white-space: nowrap;">
+                            機密大小：{secret_bits_needed:,} bits<br>
+                            圖像容量：{capacity:,} bits<br>
+                            使用率：{usage:.1f}%
+                        </div>
+                    </div>
+                    ''', unsafe_allow_html=True)
                     
                     st.session_state.embed_image_id = selected_image["id"]
                     st.session_state.embed_image_size = selected_size
