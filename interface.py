@@ -1342,7 +1342,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding-bottom: 60px;
+        padding-bottom: 100px;
     }}
     
     .cards-container {{
@@ -1353,7 +1353,7 @@ if st.session_state.current_mode is None:
         flex-wrap: nowrap;
         padding: 0 2vw;
         max-width: 1600px;
-        padding-bottom: 60px;
+        padding-bottom: 100px;
     }}
     
     .welcome-title {{
