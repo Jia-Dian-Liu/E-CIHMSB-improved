@@ -1658,7 +1658,7 @@ elif st.session_state.current_mode == 'embed':
                     qr_bytes = buf.getvalue()
                     
                     st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
-                    st.image(qr_bytes, width=250)
+                    st.image(qr_bytes, width=120)
                     st.download_button("下載 Z碼圖", qr_bytes, "z_code.png", "image/png", key="dl_z_qr")
                     st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
                 except:
@@ -1667,7 +1667,7 @@ elif st.session_state.current_mode == 'embed':
                     z_img, _ = encode_z_as_image_with_header(r['z_bits'], img_num_int, img_size_int)
                     
                     st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
-                    st.image(z_img, width=250)
+                    st.image(z_img, width=120)
                     buf = BytesIO()
                     z_img.save(buf, format='PNG')
                     st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
@@ -1678,7 +1678,7 @@ elif st.session_state.current_mode == 'embed':
                 z_img, _ = encode_z_as_image_with_header(r['z_bits'], img_num, img_size)
                 
                 st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
-                st.image(z_img, width=250)
+                st.image(z_img, width=120)
                 buf = BytesIO()
                 z_img.save(buf, format='PNG')
                 st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
