@@ -2320,15 +2320,19 @@ else:
                 const buttons = window.parent.document.querySelectorAll('button');
                 for (let btn of buttons) { 
                     if (btn.innerText === '開始提取') {
+                        // 按鈕樣式
+                        btn.style.cssText = 'background-color:#b28084!important;border-color:#b28084!important;color:white!important;';
+                        // 容器置中
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                         if (container) {
-                            container.style.cssText = 'position:fixed!important;bottom:25px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                            container.style.cssText = 'display:flex!important;justify-content:center!important;margin-top:20px!important;';
                         }
                     }
                 }
             }
             fixExtractButtons();
             setTimeout(fixExtractButtons, 100);
+            setTimeout(fixExtractButtons, 300);
             </script>
             """, height=0)
             
