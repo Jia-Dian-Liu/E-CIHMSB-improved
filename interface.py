@@ -321,7 +321,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 自訂標籤：可點擊 */
 #sidebar-toggle-label {
     position: fixed;
-    top: 148px;
+    top: 130px;
     left: 0;
     background: #4A6B8A;
     color: white;
@@ -643,18 +643,10 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 }
 
 [data-testid="stMain"] .stButton button[kind="primary"] {
-    background: #4A6B8A !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     color: white !important;
     border: none !important;
     border-radius: 8px !important;
-    font-size: 22px !important;
-    padding: 10px 30px !important;
-    min-width: 80px !important;
-}
-
-[data-testid="stMain"] .stButton button[kind="primary"] span,
-[data-testid="stMain"] .stButton button[kind="primary"] p {
-    font-size: 22px !important;
 }
 
 [data-testid="stSidebar"] .stButton button[kind="primary"] {
@@ -700,6 +692,30 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     caret-color: #333 !important;
 }
 
+/* textarea 滾動條 - 米色風格 */
+.stTextArea textarea::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+.stTextArea textarea::-webkit-scrollbar-track {
+    background: #f5f0e6 !important;
+    border-radius: 4px !important;
+}
+
+.stTextArea textarea::-webkit-scrollbar-thumb {
+    background: #b8a88a !important;
+    border-radius: 4px !important;
+}
+
+.stTextArea textarea::-webkit-scrollbar-thumb:hover {
+    background: #9a8b6e !important;
+}
+
+.stTextArea textarea {
+    scrollbar-width: thin !important;
+    scrollbar-color: #b8a88a #f5f0e6 !important;
+}
+
 .stTextArea textarea:focus {
     outline: none !important;
     border-color: #ccc !important;
@@ -741,63 +757,6 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 .stTextArea [data-testid="stTextAreaRootContainer"] > div:last-child,
 .stTextArea .st-emotion-cache-1gulkj5 {
     display: none !important;
-}
-
-/* ===== 強制隱藏 textarea 所有滾動條 ===== */
-.stTextArea,
-.stTextArea > div,
-.stTextArea > div > div,
-.stTextArea > div > div > div,
-.stTextArea [data-baseweb="textarea"],
-.stTextArea [data-baseweb="textarea"] > div,
-.stTextArea [data-baseweb="base-input"],
-.stTextArea [data-testid="stTextAreaRootContainer"],
-.stTextArea [data-testid="stTextAreaRootContainer"] > div,
-.stTextArea [data-testid="stTextAreaRootContainer"] > div > div {
-    overflow: hidden !important;
-    overflow-y: hidden !important;
-    overflow-x: hidden !important;
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
-}
-
-/* 隱藏外層所有滾動條軌道 */
-.stTextArea *:not(textarea)::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
-}
-
-/* textarea 本身也隱藏滾動條但可滾動 */
-.stTextArea textarea {
-    overflow: auto !important;
-    overflow-y: auto !important;
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
-}
-
-/* 隱藏 textarea 本身的滾動條 */
-.stTextArea textarea::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-}
-
-/* 額外強制：所有 stTextArea 相關元素的滾動條 */
-[data-testid="stTextAreaRootContainer"],
-[data-testid="stTextAreaRootContainer"] *,
-.stTextArea [class*="TextArea"],
-.stTextArea [class*="textarea"] {
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
-}
-
-[data-testid="stTextAreaRootContainer"]::-webkit-scrollbar,
-[data-testid="stTextAreaRootContainer"] *::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
 }
 
 .stCaption, [data-testid="stCaptionContainer"] {
@@ -1092,118 +1051,53 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
 </style>
 """, unsafe_allow_html=True)
 
-# JavaScript 強制修改下拉選單滾動條顏色 + 隱藏 textarea 滾動條
+# JavaScript 強制修改下拉選單滾動條顏色
 components.html("""
 <script>
 function injectScrollbarStyle() {
     const css = `
-        /* 只針對下拉選單滾動條 - 米色風格 */
-        [data-baseweb="popover"]::-webkit-scrollbar,
-        [data-baseweb="popover"] > div::-webkit-scrollbar,
-        [data-baseweb="popover"] ul::-webkit-scrollbar,
-        [data-baseweb="menu"]::-webkit-scrollbar,
-        ul[role="listbox"]::-webkit-scrollbar,
-        div[data-baseweb="popover"] *::-webkit-scrollbar {
-            width: 8px !important;
-        }
-        [data-baseweb="popover"]::-webkit-scrollbar-track,
-        [data-baseweb="popover"] > div::-webkit-scrollbar-track,
-        [data-baseweb="popover"] ul::-webkit-scrollbar-track,
-        [data-baseweb="menu"]::-webkit-scrollbar-track,
-        ul[role="listbox"]::-webkit-scrollbar-track,
-        div[data-baseweb="popover"] *::-webkit-scrollbar-track {
-            background: #f5f0e6 !important;
-            border-radius: 4px !important;
-        }
-        [data-baseweb="popover"]::-webkit-scrollbar-thumb,
-        [data-baseweb="popover"] > div::-webkit-scrollbar-thumb,
-        [data-baseweb="popover"] ul::-webkit-scrollbar-thumb,
-        [data-baseweb="menu"]::-webkit-scrollbar-thumb,
-        ul[role="listbox"]::-webkit-scrollbar-thumb,
-        div[data-baseweb="popover"] *::-webkit-scrollbar-thumb {
-            background: #b8a88a !important;
-            border-radius: 4px !important;
-        }
-        [data-baseweb="popover"]::-webkit-scrollbar-thumb:hover,
-        [data-baseweb="popover"] > div::-webkit-scrollbar-thumb:hover,
-        [data-baseweb="menu"]::-webkit-scrollbar-thumb:hover,
-        ul[role="listbox"]::-webkit-scrollbar-thumb:hover {
-            background: #9a8b6e !important;
-        }
-        [data-baseweb="popover"],
-        [data-baseweb="popover"] > div,
-        [data-baseweb="popover"] ul,
-        [data-baseweb="menu"],
-        ul[role="listbox"] {
-            scrollbar-width: thin !important;
-            scrollbar-color: #b8a88a #f5f0e6 !important;
-        }
+        *::-webkit-scrollbar { width: 8px !important; }
+        *::-webkit-scrollbar-track { background: #f5f0e6 !important; border-radius: 4px !important; }
+        *::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
+        *::-webkit-scrollbar-thumb:hover { background: #9a8b6e !important; }
+        * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
         
-        /* textarea 完全隱藏滾動條 */
-        .stTextArea::-webkit-scrollbar,
-        .stTextArea *::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
-        }
-        .stTextArea,
-        .stTextArea * {
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
-        }
+        /* textarea 滾動條 - 米色風格 */
+        .stTextArea textarea::-webkit-scrollbar { width: 8px !important; }
+        .stTextArea textarea::-webkit-scrollbar-track { background: #f5f0e6 !important; border-radius: 4px !important; }
+        .stTextArea textarea::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
+        textarea::-webkit-scrollbar { width: 8px !important; }
+        textarea::-webkit-scrollbar-track { background: #f5f0e6 !important; border-radius: 4px !important; }
+        textarea::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
+        .stTextArea textarea, textarea { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
     `;
+    
+    // 注入到當前 document
+    const style1 = document.createElement('style');
+    style1.textContent = css;
+    document.head.appendChild(style1);
     
     // 注入到 parent document (Streamlit 主頁面)
     if (window.parent && window.parent.document && window.parent.document.head) {
-        const style = document.createElement('style');
-        style.textContent = css;
-        style.id = 'custom-scrollbar-style';
-        const oldStyle = window.parent.document.getElementById('custom-scrollbar-style');
-        if (oldStyle) oldStyle.remove();
-        window.parent.document.head.appendChild(style);
-    }
-}
-
-// 強制隱藏 textarea 所有滾動條
-function fixTextareaScrollbar() {
-    if (window.parent && window.parent.document) {
-        // 直接操作 DOM 元素設定 inline style（最高優先級）
-        const textareas = window.parent.document.querySelectorAll('.stTextArea');
-        textareas.forEach(ta => {
-            // 設定容器本身
-            ta.style.cssText += 'overflow:hidden!important;scrollbar-width:none!important;';
-            
-            // 設定所有子元素（排除 textarea）
-            const allElements = ta.querySelectorAll('*');
-            allElements.forEach(el => {
-                if (el.tagName !== 'TEXTAREA') {
-                    el.style.cssText += 'overflow:hidden!important;scrollbar-width:none!important;-ms-overflow-style:none!important;';
-                }
-            });
-            
-            // textarea 本身可以滾動但隱藏滾動條
-            const textarea = ta.querySelector('textarea');
-            if (textarea) {
-                textarea.style.cssText += 'overflow-y:auto!important;scrollbar-width:none!important;-ms-overflow-style:none!important;';
-            }
-        });
+        const style2 = document.createElement('style');
+        style2.textContent = css;
+        style2.id = 'custom-scrollbar-style';
+        if (!window.parent.document.getElementById('custom-scrollbar-style')) {
+            window.parent.document.head.appendChild(style2);
+        }
+        
+        // textarea 滾動條已改為米色風格
     }
 }
 
 injectScrollbarStyle();
-fixTextareaScrollbar();
 setTimeout(injectScrollbarStyle, 300);
-setTimeout(fixTextareaScrollbar, 300);
 setTimeout(injectScrollbarStyle, 1000);
-setTimeout(fixTextareaScrollbar, 1000);
-setTimeout(fixTextareaScrollbar, 2000);
+setTimeout(injectScrollbarStyle, 2000);
 
-// 監聽 DOM 變化，新元素出現時也套用樣式
+// 監聽 DOM 變化，新元素出現時也隱藏滾動條
 if (window.parent && window.parent.document) {
-    const observer = new MutationObserver(() => {
-        injectScrollbarStyle();
-        fixTextareaScrollbar();
-    });
+    const observer = new MutationObserver(injectScrollbarStyle);
     observer.observe(window.parent.document.body, { childList: true, subtree: true });
 }
 </script>
@@ -1343,7 +1237,7 @@ if st.session_state.current_mode is None:
     }}
     
     .welcome-title {{
-        font-size: clamp(35px, 5.5vw, 100px);
+        font-size: clamp(37px, 6.3vw, 115px);
         font-weight: bold;
         letter-spacing: 0.1em;
         white-space: nowrap;
@@ -1430,7 +1324,7 @@ if st.session_state.current_mode is None:
     .footer-credits {{
         text-align: center;
         color: #5D5D5D;
-        font-size: clamp(24px, 3.5vw, 60px);
+        font-size: clamp(20px, 3vw, 50px);
         font-weight: 500;
         padding-bottom: 2vh;
     }}
@@ -1583,30 +1477,10 @@ elif st.session_state.current_mode == 'embed':
         
         st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 30px;">嵌入結果</div>', unsafe_allow_html=True)
         
-        # 下載按鈕樣式
-        st.markdown("""
-        <style>
-        /* 下載 Z碼圖 按鈕樣式 */
-        [data-testid="stDownloadButton"] button {
-            background-color: #e9ded0 !important;
-            color: #443C3C !important;
-            border: none !important;
-        }
-        [data-testid="stDownloadButton"] button:hover {
-            background-color: #d9cec0 !important;
-        }
-        [data-testid="stDownloadButton"] button:active,
-        [data-testid="stDownloadButton"] button:focus {
-            background-color: #f7f3ec !important;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-        
-        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.5, 3, 0.8, 2, 0.5])
+        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([1.2, 2, 0.5, 2, 0.3])
         
         with col_left:
-            # 嵌入成功 - 無框版
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<div class="success-box">嵌入成功! ({r["elapsed_time"]:.2f} 秒)</div>', unsafe_allow_html=True)
             
             img_num = r["embed_image_choice"].split("-")[1]
             img_name = r.get("image_name", "")
@@ -1617,28 +1491,12 @@ elif st.session_state.current_mode == 'embed':
             usage_percent = r.get("usage_percent", 0)
             
             if r['embed_secret_type'] == "文字":
-                # 截斷顯示：超過30字顯示省略號
-                original_text = r["secret_desc"].replace('文字: "', '').rstrip('"')
-                if len(original_text) > 30:
-                    truncated_text = original_text[:30] + "..."
-                    secret_display = f'文字："{truncated_text}"'
-                else:
-                    secret_display = f'文字："{original_text}"'
+                secret_display = r["secret_desc"]
             else:
                 size_info = r["secret_desc"].replace("圖片: ", "")
-                secret_display = f'圖片：{secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
+                secret_display = f'圖片: {secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
             
-            # 嵌入資訊 - 無框版
-            st.markdown(f'''
-            <div style="font-size: 28px; color: #443C3C; line-height: 2;">
-                <p style="font-weight: bold; font-size: 32px; margin-bottom: 15px;">嵌入資訊</p>
-                載體圖像編號：<strong>{img_num}</strong>（{img_name}）<br>
-                載體圖像尺寸：{img_size}×{img_size}<br>
-                機密內容：<br>
-                {secret_display}<br>
-                機密 / 容量：{secret_bits:,} / {capacity:,} bits ({usage_percent:.1f}%)
-            </div>
-            ''', unsafe_allow_html=True)
+            st.markdown(f'<div class="info-box"><strong>嵌入資訊</strong><br><br>載體圖像編號：<strong>{img_num}</strong>（{img_name}）<br>載體圖像尺寸：{img_size}×{img_size}<br>機密內容：<br>{secret_display}<br>容量：{secret_bits:,} / {capacity:,} bits ({usage_percent:.1f}%)</div>', unsafe_allow_html=True)
         
         with col_right:
             if r['embed_secret_type'] == "文字":
@@ -1657,7 +1515,7 @@ elif st.session_state.current_mode == 'embed':
                     qr_pil.save(buf, format='PNG')
                     qr_bytes = buf.getvalue()
                     
-                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 34px; font-weight: bold;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(qr_bytes, width=250)
                     st.download_button("下載 Z碼圖", qr_bytes, "z_code.png", "image/png", key="dl_z_qr")
                     st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
@@ -1666,69 +1524,43 @@ elif st.session_state.current_mode == 'embed':
                     img_size_int = int(img_size)
                     z_img, _ = encode_z_as_image_with_header(r['z_bits'], img_num_int, img_size_int)
                     
-                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 34px; font-weight: bold;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(z_img, width=250)
                     buf = BytesIO()
                     z_img.save(buf, format='PNG')
-                    st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
+                    st.download_button("下載圖片", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
                     st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
             else:
                 img_num = int(r["embed_image_choice"].split("-")[1])
                 img_size = int(r["embed_image_choice"].split("-")[2])
                 z_img, _ = encode_z_as_image_with_header(r['z_bits'], img_num, img_size)
                 
-                st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 34px; font-weight: bold;">Z碼圖</p>', unsafe_allow_html=True)
                 st.image(z_img, width=250)
                 buf = BytesIO()
                 z_img.save(buf, format='PNG')
-                st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
+                st.download_button("下載圖片", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
                 st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
         
-        # 返回首頁按鈕 - 與標題垂直對齊
-        st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
-        
-        # 使用全寬容器讓按鈕置中
         st.markdown("""
         <style>
-        .center-btn-container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
+        #btn-back-home { position: fixed !important; bottom: 5px !important; right: 30px !important; z-index: 1000 !important; background: white !important; color: #333 !important; border: 2px solid #ccc !important; border-radius: 8px !important; }
         </style>
         """, unsafe_allow_html=True)
         
-        _, btn_col, _ = st.columns([2, 1, 2])
-        with btn_col:
-            if st.button("返回首頁", key="back_to_home_from_embed", type="primary", use_container_width=True):
+        col_left, col_right = st.columns([1, 1])
+        with col_right:
+            if st.button("返回首頁", key="back_to_home_from_embed"):
                 st.session_state.embed_page = 'input'
                 st.session_state.embed_result = None
                 st.session_state.embed_step = 1
                 st.session_state.current_mode = None
                 st.rerun()
         
-        # 強制置中對齊標題
         components.html("""
         <script>
-        function centerBackButton() {
-            const buttons = window.parent.document.querySelectorAll('button');
-            for (let btn of buttons) { 
-                if (btn.innerText === '返回首頁') {
-                    // 找到按鈕的最外層容器
-                    let stButton = btn.closest('.stButton');
-                    if (stButton) {
-                        stButton.style.cssText = 'display:flex!important;justify-content:center!important;';
-                    }
-                    let column = btn.closest('[data-testid="column"]');
-                    if (column) {
-                        column.style.cssText = 'display:flex!important;justify-content:center!important;align-items:center!important;';
-                    }
-                }
-            }
-        }
-        centerBackButton();
-        setTimeout(centerBackButton, 100);
-        setTimeout(centerBackButton, 300);
+        const buttons = window.parent.document.querySelectorAll('button');
+        for (let btn of buttons) { if (btn.innerText === '返回首頁') btn.id = 'btn-back-home'; }
         </script>
         """, height=0)
     
@@ -1817,7 +1649,7 @@ elif st.session_state.current_mode == 'embed':
         </style>
         """, unsafe_allow_html=True)
         
-        col1, col2, col3 = st.columns([1, 1.4, 1.4], gap="large")
+        col1, col2, col3 = st.columns([1.2, 1.4, 1.4], gap="large")
         
         # ===== 第一步：選擇對象 =====
         with col1:
@@ -1877,7 +1709,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
-                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=150, key="embed_text_h", label_visibility="collapsed")
+                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=100, key="embed_text_h", label_visibility="collapsed")
                     if embed_text_raw and embed_text_raw.strip():
                         embed_text = embed_text_raw.strip()
                         secret_bits_needed = len(text_to_binary(embed_text))
@@ -1888,7 +1720,7 @@ elif st.session_state.current_mode == 'embed':
                         # 計算中文和英文/符號數量
                         chinese_count = sum(1 for c in embed_text if ord(c) > 127)
                         other_count = len(embed_text) - chinese_count
-                        st.markdown(f'<div class="bits-info">機密文字：<br>{chinese_count} 中文 + {other_count} 英文/符號<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密文字:<br>{chinese_count} 中文 + {other_count} 英文/符號<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
@@ -1905,13 +1737,13 @@ elif st.session_state.current_mode == 'embed':
                         st.session_state.embed_secret_image_data = embed_img_file.read()
                         st.session_state.embed_secret_image_name = embed_img_file.name
                         st.image(secret_img, width=180)
-                        st.markdown(f'<div class="bits-info">機密圖片：{st.session_state.embed_secret_image_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密圖片: {st.session_state.embed_secret_image_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     elif st.session_state.get('embed_secret_image_data'):
                         secret_img = Image.open(BytesIO(st.session_state.embed_secret_image_data))
                         st.image(secret_img, width=180)
                         secret_img_name = st.session_state.get('embed_secret_image_name', 'image.png')
-                        st.markdown(f'<div class="bits-info">機密圖片：{secret_img_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密圖片: {secret_img_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
@@ -1936,7 +1768,7 @@ elif st.session_state.current_mode == 'embed':
                 default_style_index = style_list.index(auto_style) if auto_style and auto_style != "選擇" and auto_style in style_list else 0
                 
                 # 第一行：風格、圖片
-                row1_col1, row1_col2 = st.columns([1.5, 2.5])
+                row1_col1, row1_col2 = st.columns([1, 2.5])
                 
                 with row1_col1:
                     selected_style = st.selectbox("風格", style_list, index=default_style_index, key="embed_style_h")
@@ -1955,7 +1787,7 @@ elif st.session_state.current_mode == 'embed':
                         available_sizes = [AVAILABLE_SIZES[-1]]
                     recommended_size = available_sizes[0]
                     
-                    size_options = [f"{s}×{s} ⭐ 推薦" if s == recommended_size else f"{s}×{s}" for s in available_sizes]
+                    size_options = [f"{s}×{s} ⭐" if s == recommended_size else f"{s}×{s}" for s in available_sizes]
                     
                     # 第二行：尺寸
                     size_idx = st.selectbox("尺寸", range(len(available_sizes)), format_func=lambda i: size_options[i], key="embed_size_h")
@@ -2069,11 +1901,7 @@ else:
     
     # 結果頁
     if st.session_state.extract_page == 'result' and st.session_state.extract_result and st.session_state.extract_result.get('success'):
-        st.markdown("""
-        <style>
-        .main { overflow: auto !important; }
-        </style>
-        """, unsafe_allow_html=True)
+        st.markdown('<style>.main { overflow: auto !important; }</style>', unsafe_allow_html=True)
         
         r = st.session_state.extract_result
         
@@ -2125,31 +1953,11 @@ else:
                         else:
                             st.markdown(f'<p style="color: #F57C00;">MSE: {mse:.4f}</p>', unsafe_allow_html=True)
         
-        if st.button("返回首頁", key="back_to_home_from_extract", type="primary"):
+        if st.button("返回首頁", key="back_to_home_from_extract"):
             st.session_state.extract_page = 'input'
             st.session_state.extract_result = None
             st.session_state.current_mode = None
             st.rerun()
-        
-        components.html("""
-        <script>
-        function fixExtractBackButton() {
-            const buttons = window.parent.document.querySelectorAll('button');
-            for (let btn of buttons) { 
-                if (btn.innerText === '返回首頁') {
-                    btn.style.cssText = 'writing-mode:horizontal-tb!important;white-space:nowrap!important;text-align:center!important;';
-                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
-                    if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
-                    }
-                }
-            }
-        }
-        fixExtractBackButton();
-        setTimeout(fixExtractBackButton, 100);
-        setTimeout(fixExtractBackButton, 300);
-        </script>
-        """, height=0)
     
     # 輸入頁
     else:
