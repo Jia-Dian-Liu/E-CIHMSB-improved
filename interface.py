@@ -1036,7 +1036,7 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
 /* 固定按鈕容器 */
 .fixed-btn-next {
     position: fixed !important;
-    bottom: 60px !important;
+    bottom: 80px !important;
     right: 30px !important;
     z-index: 1000 !important;
 }
