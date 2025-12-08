@@ -491,8 +491,8 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: flex-start;
     align-items: center;
     padding: 35px 0;
-    padding-top: 20px;
-    gap: 30px;
+    padding-top: 5px;
+    gap: 25px;
     box-sizing: border-box;
 }
 
@@ -506,6 +506,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    margin-bottom: 20px;
 }
 
 .cards-container {
@@ -513,6 +514,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     align-items: center;
     gap: 40px;
+    margin-bottom: 30px;
 }
 
 .footer-credits {
@@ -520,7 +522,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #5D5D5D;
     font-size: 28px;
     font-weight: 500;
-    margin-top: auto;
+    margin-top: 20px;
 }
 
 /* 動畫卡片 */
@@ -1332,9 +1334,10 @@ if st.session_state.current_mode is None:
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        padding: 5vh 2vw 3vh 2vw;
+        padding: 3vh 2vw;
+        gap: 5vh;
     }}
     
     .welcome-container {{
@@ -1434,7 +1437,6 @@ if st.session_state.current_mode is None:
         color: #5D5D5D;
         font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
-        padding-bottom: 2vh;
     }}
     
     /* 統一脈動動畫 - 排除載體圖（第2張） */
@@ -1451,11 +1453,11 @@ if st.session_state.current_mode is None:
     </head>
     <body>
     <div class="home-fullscreen">
-        <div class="welcome-container" style="margin-bottom: 30px;">
+        <div class="welcome-container">
             <div class="welcome-title">高效能無載體之機密編碼技術</div>
         </div>
         
-        <div class="cards-container" style="margin-bottom: 30px;">
+        <div class="cards-container">
             <div class="anim-card anim-card-embed" onclick="clickEmbed()">
                 <div class="anim-flow">
                     <img src="{icon_secret}" alt="secret">
