@@ -1335,6 +1335,7 @@ if st.session_state.current_mode is None:
         justify-content: flex-start;
         align-items: center;
         padding: 5vh 2vw 3vh 2vw;
+        gap: 80px;
     }}
     
     .welcome-container {{
@@ -1451,11 +1452,11 @@ if st.session_state.current_mode is None:
     </head>
     <body>
     <div class="home-fullscreen">
-        <div class="welcome-container" style="margin-bottom: 50px;">
+        <div class="welcome-container">
             <div class="welcome-title">高效能無載體之機密編碼技術</div>
         </div>
         
-        <div class="cards-container" style="margin-bottom: 50px;">
+        <div class="cards-container">
             <div class="anim-card anim-card-embed" onclick="clickEmbed()">
                 <div class="anim-flow">
                     <img src="{icon_secret}" alt="secret">
