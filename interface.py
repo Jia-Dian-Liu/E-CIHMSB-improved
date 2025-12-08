@@ -488,9 +488,10 @@ section[data-testid="stSidebar"] button[kind="header"],
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 20px 0;
+    padding-top: 50px;
+    padding-bottom: 20px;
     gap: 25px;
     box-sizing: border-box;
 }
