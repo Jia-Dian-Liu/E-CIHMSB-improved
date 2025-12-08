@@ -1290,8 +1290,8 @@ if st.session_state.current_mode is not None:
     with st.sidebar:
         st.markdown(f"""
         <style>
-        section[data-testid="stSidebar"] details summary span p {{ font-size: 22px !important; }}
-        #built-contacts-title {{ font-size: 20px !important; font-weight: bold !important; margin-bottom: 10px !important; text-align: center !important; }}
+        section[data-testid="stSidebar"] details summary span p {{ font-size: 20px !important; }}
+        #built-contacts-title {{ font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; text-align: center !important; }}
         [data-testid="stSidebar"] .sidebar-title {{ font-size: 36px !important; margin-bottom: 15px !important; color: {sidebar_title_color} !important; font-weight: bold !important; text-align: center !important; }}
         [data-testid="stSidebar"] .stTextInput label p,
         [data-testid="stSidebar"] .stSelectbox label p,
