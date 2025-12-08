@@ -1840,7 +1840,7 @@ elif st.session_state.current_mode == 'embed':
         with col2:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step1_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步: 機密內容</span>
+                <span style="font-size: 32px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步: 機密內容</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1913,7 +1913,7 @@ elif st.session_state.current_mode == 'embed':
         with col3:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step2_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步: 載體圖像</span>
+                <span style="font-size: 32px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步: 載體圖像</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -2247,7 +2247,7 @@ else:
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: 4px solid #7D5A6B; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
+                <span style="font-size: 32px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -2280,7 +2280,7 @@ else:
         with col2:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #D8C0C8' if not step1_done else '4px solid #7D5A6B'}; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步: 上傳 Z碼圖</span>
+                <span style="font-size: 32px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步: 上傳 Z碼圖</span>
             </div>
             """, unsafe_allow_html=True)
             
