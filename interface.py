@@ -676,17 +676,17 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     border-radius: 8px !important;
 }
 
-/* 表單元素 */
+/* 表單元素標題 - 放大字體 */
 .stSelectbox label, .stRadio label, .stTextArea label, .stFileUploader label,
 [data-testid="stWidgetLabel"] p {
-    font-size: 26px !important;
+    font-size: 30px !important;
     font-weight: bold !important;
     color: #443C3C !important;
 }
 
 .stRadio [role="radiogroup"] label,
 .stRadio [role="radiogroup"] label p {
-    font-size: 26px !important;
+    font-size: 30px !important;
     color: #443C3C !important;
     font-weight: bold !important;
 }
@@ -702,41 +702,21 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     align-items: center !important;
 }
 
-/* Radio 按鈕樣式 - 改成勾選方形 */
+/* Radio 按鈕樣式 - 圓形 */
 .stRadio [data-baseweb="radio"] > div:first-child {
-    width: 24px !important;
-    height: 24px !important;
-    min-width: 24px !important;
-    min-height: 24px !important;
-    border-radius: 4px !important;
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    min-height: 22px !important;
+    border-radius: 50% !important;
     border: 2px solid #443C3C !important;
     background-color: #ecefef !important;
 }
 
-/* 選中時顯示勾選 */
+/* 選中時內部圓點填滿 */
 .stRadio [data-baseweb="radio"] > div:first-child > div {
-    background-color: transparent !important;
-    border-radius: 2px !important;
-    width: 100% !important;
-    height: 100% !important;
-    position: relative !important;
-}
-
-/* 勾選符號 */
-.stRadio [data-baseweb="radio"][data-checked="true"] > div:first-child {
-    background-color: #4A6B8A !important;
-    position: relative !important;
-}
-
-.stRadio [data-baseweb="radio"][data-checked="true"] > div:first-child::after {
-    content: '✓' !important;
-    position: absolute !important;
-    color: white !important;
-    font-size: 16px !important;
-    font-weight: bold !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    background-color: #443C3C !important;
+    border-radius: 50% !important;
 }
 
 .stTextArea textarea {
@@ -1200,11 +1180,6 @@ function injectScrollbarStyle() {
             scrollbar-width: none !important;
             -ms-overflow-style: none !important;
         }
-        
-        /* Radio 勾選樣式 */
-        .stRadio [data-baseweb="radio"] > div:first-child {
-            border-radius: 4px !important;
-        }
     `;
     
     // 注入到 parent document (Streamlit 主頁面)
@@ -1244,57 +1219,19 @@ function fixTextareaScrollbar() {
     }
 }
 
-// 修改 Radio 為勾選樣式
-function fixRadioCheckbox() {
-    if (window.parent && window.parent.document) {
-        const radios = window.parent.document.querySelectorAll('.stRadio [data-baseweb="radio"]');
-        radios.forEach(radio => {
-            const innerDiv = radio.querySelector('div:first-child');
-            if (innerDiv) {
-                innerDiv.style.borderRadius = '4px';
-                
-                // 檢查是否選中
-                const isChecked = radio.getAttribute('data-checked') === 'true' || 
-                                  radio.querySelector('input:checked') !== null ||
-                                  innerDiv.querySelector('div')?.style.backgroundColor;
-                
-                if (isChecked || innerDiv.innerHTML.includes('div')) {
-                    // 選中狀態
-                    innerDiv.style.backgroundColor = '#4A6B8A';
-                    innerDiv.style.position = 'relative';
-                    
-                    // 添加勾選符號
-                    if (!innerDiv.querySelector('.checkmark')) {
-                        const checkmark = document.createElement('span');
-                        checkmark.className = 'checkmark';
-                        checkmark.innerHTML = '✓';
-                        checkmark.style.cssText = 'position:absolute;color:white;font-size:14px;font-weight:bold;top:50%;left:50%;transform:translate(-50%,-50%);';
-                        innerDiv.appendChild(checkmark);
-                    }
-                }
-            }
-        });
-    }
-}
-
 injectScrollbarStyle();
 fixTextareaScrollbar();
-fixRadioCheckbox();
 setTimeout(injectScrollbarStyle, 300);
 setTimeout(fixTextareaScrollbar, 300);
-setTimeout(fixRadioCheckbox, 300);
 setTimeout(injectScrollbarStyle, 1000);
 setTimeout(fixTextareaScrollbar, 1000);
-setTimeout(fixRadioCheckbox, 1000);
 setTimeout(fixTextareaScrollbar, 2000);
-setTimeout(fixRadioCheckbox, 2000);
 
 // 監聽 DOM 變化，新元素出現時也套用樣式
 if (window.parent && window.parent.document) {
     const observer = new MutationObserver(() => {
         injectScrollbarStyle();
         fixTextareaScrollbar();
-        fixRadioCheckbox();
     });
     observer.observe(window.parent.document.body, { childList: true, subtree: true });
 }
@@ -2065,15 +2002,14 @@ elif st.session_state.current_mode == 'embed':
                     # 載體圖和容量信息並排（水平對齊）
                     capacity = calculate_image_capacity(selected_size)
                     usage = secret_bits_needed / capacity * 100
-                    color = "#ffa726" if usage > 90 else "#28a745"
-
+                    
                     st.markdown(f'''
                     <div style="display: flex; align-items: center; gap: 25px; margin-top: 10px;">
                         <div style="flex-shrink: 0;">
                             <img src="https://images.pexels.com/photos/{selected_image["id"]}/pexels-photo-{selected_image["id"]}.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
                                  style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
                         </div>
-                        <div style="color: {color}; font-size: 24px; font-weight: bold; line-height: 1.8; white-space: nowrap;">
+                        <div style="color: #b28084; font-size: 28px; font-weight: bold; line-height: 1.8; white-space: nowrap;">
                             機密大小：{secret_bits_needed:,} bits<br>
                             圖像容量：{capacity:,} bits<br>
                             使用率：{usage:.1f}%
