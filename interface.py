@@ -716,10 +716,22 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     border-radius: 8px !important;
 }
 
-/* 表單元素標題 - 放大字體 */
-.stSelectbox label, .stRadio label, .stTextArea label, .stFileUploader label,
-[data-testid="stWidgetLabel"] p {
+/* 表單元素標題 - 放大字體（只限主內容區）*/
+[data-testid="stMain"] .stSelectbox label, 
+[data-testid="stMain"] .stRadio label, 
+[data-testid="stMain"] .stTextArea label, 
+[data-testid="stMain"] .stFileUploader label,
+[data-testid="stMain"] [data-testid="stWidgetLabel"] p {
     font-size: 30px !important;
+    font-weight: bold !important;
+    color: #443C3C !important;
+}
+
+/* 側邊欄表單標籤 - 較小字體 */
+[data-testid="stSidebar"] .stSelectbox label,
+[data-testid="stSidebar"] .stTextInput label,
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
+    font-size: 22px !important;
     font-weight: bold !important;
     color: #443C3C !important;
 }
@@ -1290,12 +1302,9 @@ if st.session_state.current_mode is not None:
     with st.sidebar:
         st.markdown(f"""
         <style>
-        section[data-testid="stSidebar"] details summary span p {{ font-size: 20px !important; }}
+        section[data-testid="stSidebar"] details summary span p {{ font-size: 22px !important; }}
         #built-contacts-title {{ font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; text-align: center !important; }}
         [data-testid="stSidebar"] .sidebar-title {{ font-size: 36px !important; margin-bottom: 15px !important; color: {sidebar_title_color} !important; font-weight: bold !important; text-align: center !important; }}
-        [data-testid="stSidebar"] .stTextInput label p,
-        [data-testid="stSidebar"] .stSelectbox label p,
-        [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {{ font-size: 28px !important; font-weight: bold !important; }}
         </style>
         <div id="sidebar-close-btn" style="position: absolute; top: -15px; right: 0px; 
             width: 30px; height: 30px; background: #e0e0e0; border-radius: 50%; 
