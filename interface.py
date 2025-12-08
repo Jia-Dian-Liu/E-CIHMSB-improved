@@ -485,10 +485,12 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 首頁樣式 */
 .home-fullscreen {
     width: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 35px 0;
     box-sizing: border-box;
 }
 
@@ -502,7 +504,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 50px;  /* 標題 ↔ 卡片 間距 */
 }
 
 .cards-container {
@@ -510,7 +511,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     align-items: center;
     gap: 40px;
-    margin-bottom: 50px;  /* 卡片 ↔ 組員 間距 */
 }
 
 .footer-credits {
@@ -1310,50 +1310,53 @@ if st.session_state.current_mode is None:
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
     html, body {{ 
         height: 100%;
+        min-height: 100vh;
     }}
     body {{ 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: transparent;
         overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }}
     
     .home-fullscreen {{
         width: 100%;
+        max-width: 1920px;
+        margin: 0 auto;
         height: 100%;
-        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5vh 2vw 3vh 2vw;
     }}
     
-    /* 區塊1: 標題 - 用 top 控制位置 */
     .welcome-container {{
-        position: absolute;
-        top: 3%;
-        left: 50%;
-        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
     }}
     
-    /* 區塊2: 卡片 - 用 top 控制位置 */
     .cards-container {{
-        position: absolute;
-        top: 18%;
-        left: 50%;
-        transform: translateX(-50%);
         display: flex;
         justify-content: center;
         align-items: center;
         gap: clamp(40px, 6vw, 100px);
+        flex-wrap: nowrap;
+        padding: 0 2vw;
+        max-width: 1600px;
     }}
     
-    /* 區塊3: 組員 - 用 bottom 控制位置 */
     .footer-credits {{
-        position: absolute;
-        bottom: 2%;
-        left: 50%;
-        transform: translateX(-50%);
         text-align: center;
         color: #5D5D5D;
         font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
+        padding-bottom: 2vh;
     }}
     
     .welcome-title {{
@@ -1610,7 +1613,7 @@ elif st.session_state.current_mode == 'embed':
         
         with col_left:
             # 嵌入成功 - 無框版
-            st.markdown(f'<p style="font-size: 30px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             img_num = r["embed_image_choice"].split("-")[1]
             img_name = r.get("image_name", "")
@@ -1809,7 +1812,7 @@ elif st.session_state.current_mode == 'embed':
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: 4px solid #4A6B8A; margin-bottom: 15px;">
-                <span style="font-size: 40px; font-weight: bold; color: #4A6B8A;">第一步: 選擇對象</span>
+                <span style="font-size: 28px; font-weight: bold; color: #4A6B8A;">第一步: 選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1836,7 +1839,7 @@ elif st.session_state.current_mode == 'embed':
         with col2:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step1_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
-                <span style="font-size: 30px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步: 機密內容</span>
+                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步: 機密內容</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1909,7 +1912,7 @@ elif st.session_state.current_mode == 'embed':
         with col3:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step2_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
-                <span style="font-size: 30px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步: 載體圖像</span>
+                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步: 載體圖像</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -2067,13 +2070,13 @@ else:
         
         spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.4, 2.5, 0.1, 2.2, 0.1])
         with col_left:
-            st.markdown(f'<p style="font-size: 30px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">提取成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">提取成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             if r['type'] == 'text':
-                st.markdown('<p style="font-size: 30px; font-weight: bold; color: #443C3C;">機密文字:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 28px; font-weight: bold; color: #443C3C;">機密文字:</p>', unsafe_allow_html=True)
                 st.markdown(f'<p style="font-size: 24px; color: #443C3C; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
-                st.markdown('<p style="font-size: 30px; font-weight: bold; color: #443C3C;">機密圖片:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 28px; font-weight: bold; color: #443C3C;">機密圖片:</p>', unsafe_allow_html=True)
                 st.image(Image.open(BytesIO(r['image_data'])), width=200)
                 st.download_button("下載圖片", r['image_data'], "recovered.png", "image/png", key="dl_rec")
         
@@ -2243,7 +2246,7 @@ else:
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: 4px solid #7D5A6B; margin-bottom: 15px;">
-                <span style="font-size: 50px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
+                <span style="font-size: 28px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -2276,7 +2279,7 @@ else:
         with col2:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #D8C0C8' if not step1_done else '4px solid #7D5A6B'}; margin-bottom: 15px;">
-                <span style="font-size: 30px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步: 上傳 Z碼圖</span>
+                <span style="font-size: 28px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步: 上傳 Z碼圖</span>
             </div>
             """, unsafe_allow_html=True)
             
