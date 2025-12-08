@@ -1342,7 +1342,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding-bottom: 100px;
+        padding-bottom: 60px;
     }}
     
     .cards-container {{
@@ -1353,7 +1353,7 @@ if st.session_state.current_mode is None:
         flex-wrap: nowrap;
         padding: 0 2vw;
         max-width: 1600px;
-        padding-bottom: 100px;
+        padding-bottom: 60px;
     }}
     
     .welcome-title {{
@@ -1453,11 +1453,11 @@ if st.session_state.current_mode is None:
     </head>
     <body>
     <div class="home-fullscreen">
-        <div class="welcome-container">
+        <div class="welcome-container" style="padding-bottom: 80px;">
             <div class="welcome-title">高效能無載體之機密編碼技術</div>
         </div>
         
-        <div class="cards-container">
+        <div class="cards-container" style="padding-bottom: 80px;">
             <div class="anim-card anim-card-embed" onclick="clickEmbed()">
                 <div class="anim-flow">
                     <img src="{icon_secret}" alt="secret">
