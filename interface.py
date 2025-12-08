@@ -672,7 +672,10 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 /* 小提示文字樣式 */
-.hint-text {
+[data-testid="stMain"] .stMarkdown p.hint-text,
+[data-testid="stMain"] .stMarkdown div.hint-text,
+p.hint-text,
+div.hint-text {
     font-size: 20px !important;
     font-weight: normal !important;
     color: #888 !important;
@@ -969,7 +972,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 [data-testid="stMain"] .stSelectbox > div > div {
     background-color: #ecefef !important;
     border-radius: 8px !important;
-    min-height: 50px !important;
+    min-height: 60px !important;
     border: 1px solid #ccc !important;
 }
 
@@ -1963,7 +1966,7 @@ elif st.session_state.current_mode == 'embed':
                     st.session_state.selected_contact_saved = None
                     step1_done = False
                 # 有對象時顯示提示
-                st.markdown('<p class="hint-text" style="margin-top: 10px;">💡 點擊「對象管理」可修改</p>', unsafe_allow_html=True)
+                st.markdown('<div class="hint-text" style="margin-top: 10px;">💡 點擊「對象管理」可修改</div>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
@@ -2426,7 +2429,7 @@ else:
                     st.markdown(f'<div class="selected-info">已選擇：{selected_contact}</div>', unsafe_allow_html=True)
                     step1_done = True
                 # 有對象時顯示提示
-                st.markdown('<p class="hint-text" style="margin-top: 10px;">💡 點擊「對象管理」可修改</p>', unsafe_allow_html=True)
+                st.markdown('<div class="hint-text" style="margin-top: 10px;">💡 點擊「對象管理」可修改</div>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
