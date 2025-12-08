@@ -506,7 +506,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .cards-container {
@@ -514,7 +514,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     align-items: center;
     gap: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .footer-credits {
@@ -1344,7 +1344,6 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-bottom: 6vh;
     }}
     
     .welcome-title {{
