@@ -1539,7 +1539,7 @@ if st.session_state.current_mode is None:
     </script>
     </body>
     </html>
-    """, height=900, scrolling=False)
+    """, height=1000, scrolling=False)
     
     # 動態調整 iframe 高度
     components.html("""
