@@ -502,13 +502,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 60px;
-}
-
-.bottom-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-bottom: 50px;  /* 標題 ↔ 卡片 間距 */
 }
 
 .cards-container {
@@ -516,7 +510,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     align-items: center;
     gap: 40px;
-    margin-bottom: 50px;
+    margin-bottom: 50px;  /* 卡片 ↔ 組員 間距 */
 }
 
 .footer-credits {
@@ -1339,6 +1333,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
+        margin-bottom: 5vh;  /* 標題 ↔ 卡片 間距 */
     }}
     
     .cards-container {{
@@ -1352,7 +1347,7 @@ if st.session_state.current_mode is None:
     }}
     
     .footer-credits {{
-        margin-top: auto;
+        margin-top: 5vh;  /* 卡片 ↔ 組員 間距 */
         padding-bottom: 2vh;
     }}
     
@@ -1436,7 +1431,7 @@ if st.session_state.current_mode is None:
         color: #5D5D5D;
         font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
-        margin-top: auto;
+        margin-top: 5vh;  /* 卡片 ↔ 組員 間距 */
         padding-bottom: 2vh;
     }}
     
