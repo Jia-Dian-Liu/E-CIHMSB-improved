@@ -94,9 +94,10 @@ def save_contacts(contacts):
     try:
         with open(CONTACTS_FILE, 'w', encoding='utf-8') as f:
             json.dump(contacts, f, ensure_ascii=False, indent=2)
-        print(f"[DEBUG] contacts.json 已儲存，內容：{contacts}")
-    except Exception as e:
-        print(f"[ERROR] 儲存 contacts.json 失敗：{e}")
+    except:
+        # Streamlit Cloud 是唯讀的，忽略寫入錯誤
+        # 資料會保存在 session_state 中
+        pass
 
 def get_contact_style(contacts, name):
     """取得對象的風格"""
@@ -1309,18 +1310,18 @@ if st.session_state.current_mode is not None:
             
             can_add = new_name and new_name.strip() and new_style != "選擇"
             if st.button("新增", key="sidebar_add_btn", use_container_width=True, disabled=not can_add, type="primary" if can_add else "secondary"):
-                print(f"[DEBUG] 新增對象：{new_name.strip()}, 風格：{new_style}")
-                new_key = generate_contact_key()
-                print(f"[DEBUG] 生成密鑰：{new_key}")
-                st.session_state.contacts[new_name.strip()] = {
-                    "style": new_style,
-                    "key": new_key
-                }
-                print(f"[DEBUG] 當前 contacts：{st.session_state.contacts}")
-                save_contacts(st.session_state.contacts)
-                st.toast(f"✅ 已新增「{new_name.strip()}」")
-                st.session_state.add_contact_counter = add_counter + 1
-                st.rerun()
+                try:
+                    new_key = generate_contact_key()
+                    st.session_state.contacts[new_name.strip()] = {
+                        "style": new_style,
+                        "key": new_key
+                    }
+                    save_contacts(st.session_state.contacts)
+                    st.toast(f"✅ 已新增「{new_name.strip()}」")
+                    st.session_state.add_contact_counter = add_counter + 1
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"❌ 新增失敗：{e}")
         
         st.markdown("---")
         st.markdown('<div id="built-contacts-title">對象列表</div>', unsafe_allow_html=True)
