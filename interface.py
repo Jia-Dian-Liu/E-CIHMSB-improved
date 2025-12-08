@@ -688,36 +688,21 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     align-items: center !important;
 }
 
-/* Radio 改成勾選框樣式 - 外框方形 */
+/* Radio 按鈕樣式 - 圓形 */
 .stRadio [data-baseweb="radio"] > div:first-child {
     width: 22px !important;
     height: 22px !important;
     min-width: 22px !important;
     min-height: 22px !important;
-    border-radius: 4px !important;
+    border-radius: 50% !important;
     border: 2px solid #443C3C !important;
     background-color: #ecefef !important;
-    position: relative !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
 }
 
-/* 內部圓點改成勾勾 - 利用 scale 動畫 */
+/* 選中時內部圓點填滿 */
 .stRadio [data-baseweb="radio"] > div:first-child > div {
-    width: auto !important;
-    height: auto !important;
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-}
-
-/* 用 ::after 顯示勾勾 */
-.stRadio [data-baseweb="radio"] > div:first-child > div::after {
-    content: "✓" !important;
-    font-size: 16px !important;
-    font-weight: bold !important;
-    color: #443C3C !important;
+    background-color: #443C3C !important;
+    border-radius: 50% !important;
 }
 
 .stTextArea textarea {
@@ -1986,12 +1971,16 @@ elif st.session_state.current_mode == 'embed':
                     selected_image = images[img_idx]
                     preview_size = 150
                     img_display, _ = download_image_by_id(selected_image["id"], preview_size)
-                    st.image(img_display, width=120)
                     
-                    capacity = calculate_image_capacity(selected_size)
-                    usage = secret_bits_needed / capacity * 100
-                    color = "#ffa726" if usage > 90 else "#28a745"
-                    st.markdown(f'<div class="bits-info" style="color: {color}; font-size: 22px;">機密容量：{secret_bits_needed:,} bits<br>圖像容量：{capacity:,} bits<br>使用率：{usage:.1f}%</div>', unsafe_allow_html=True)
+                    # 載體圖和容量信息並排
+                    img_col, info_col = st.columns([1, 1.5])
+                    with img_col:
+                        st.image(img_display, width=150)
+                    with info_col:
+                        capacity = calculate_image_capacity(selected_size)
+                        usage = secret_bits_needed / capacity * 100
+                        color = "#ffa726" if usage > 90 else "#28a745"
+                        st.markdown(f'<div class="bits-info" style="color: {color}; font-size: 22px; margin-top: 20px;">機密大小：{secret_bits_needed:,} bits<br>圖像容量：{capacity:,} bits<br>使用率：{usage:.1f}%</div>', unsafe_allow_html=True)
                     
                     st.session_state.embed_image_id = selected_image["id"]
                     st.session_state.embed_image_size = selected_size
