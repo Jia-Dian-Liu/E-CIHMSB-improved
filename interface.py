@@ -1316,19 +1316,16 @@ if st.session_state.current_mode is None:
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
     html, body {{ 
         height: 100%;
-        min-height: 100vh;
     }}
     body {{ 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: transparent;
         overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }}
     
     .home-fullscreen {{
         width: 100%;
+        height: 100%;
         max-width: 1920px;
         margin: 0 auto;
         display: flex;
@@ -1359,7 +1356,7 @@ if st.session_state.current_mode is None:
         flex-wrap: nowrap;
         padding: 0 2vw;
         max-width: 1600px;
-        margin-bottom: 5vh;
+        margin-bottom: 8vh;
     }}
     
     .welcome-title {{
