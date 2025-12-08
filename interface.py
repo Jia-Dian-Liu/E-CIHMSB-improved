@@ -677,7 +677,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 p.hint-text,
 div.hint-text {
     font-size: 20px !important;
-    font-weight: normal !important;
+    font-weight: bold !important;
     color: #999 !important;
 }
 
@@ -1970,7 +1970,7 @@ elif st.session_state.current_mode == 'embed':
                     st.session_state.selected_contact_saved = None
                     step1_done = False
                 # 有對象時顯示提示
-                st.markdown('<div class="hint-text" style="margin-top: 10px;">💡 點擊「對象管理」可修改</div>', unsafe_allow_html=True)
+                st.markdown('<div class="hint-text" style="margin-top: 10px;">💡  點擊「對象管理」可修改</div>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
@@ -2433,7 +2433,7 @@ else:
                     st.markdown(f'<div class="selected-info">已選擇：{selected_contact}</div>', unsafe_allow_html=True)
                     step1_done = True
                 # 有對象時顯示提示
-                st.markdown('<div class="hint-text" style="margin-top: 10px;">💡 點擊「對象管理」可修改</div>', unsafe_allow_html=True)
+                st.markdown('<div class="hint-text" style="margin-top: 10px;">💡  點擊「對象管理」可修改</div>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
