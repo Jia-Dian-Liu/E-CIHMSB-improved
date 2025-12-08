@@ -1955,10 +1955,12 @@ elif st.session_state.current_mode == 'embed':
                 else:
                     st.session_state.selected_contact_saved = None
                     step1_done = False
+                # 有對象時顯示提示
+                st.markdown('<p style="font-size: 16px; color: #888; margin-top: 10px;">💡 點擊「對象管理」可修改</p>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 20px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
-                    <div style="font-size: 16px; color: #856404; margin-top: 8px;">請點擊左上角「對象管理」<br>新增對象後再進行嵌入</div>
+                    <div style="font-size: 16px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
                 </div>""", unsafe_allow_html=True)
         
         # ===== 第二步：機密內容 =====
@@ -2416,10 +2418,12 @@ else:
                     st.session_state.extract_contact_saved = selected_contact
                     st.markdown(f'<div class="selected-info">已選擇：{selected_contact}</div>', unsafe_allow_html=True)
                     step1_done = True
+                # 有對象時顯示提示
+                st.markdown('<p style="font-size: 16px; color: #888; margin-top: 10px;">💡 點擊「對象管理」可修改</p>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 20px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
-                    <div style="font-size: 16px; color: #856404; margin-top: 8px;">請點擊左上角「對象管理」<br>新增對象後再進行提取</div>
+                    <div style="font-size: 16px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
                 </div>""", unsafe_allow_html=True)
         
         # ===== 第二步：上傳 Z碼圖 =====
