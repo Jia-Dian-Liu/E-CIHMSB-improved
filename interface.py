@@ -1330,7 +1330,7 @@ if st.session_state.current_mode is None:
     /* 區塊1: 標題 - 用 top 控制位置 */
     .welcome-container {{
         position: absolute;
-        top: 1%;
+        top: 5%;
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
@@ -1339,7 +1339,7 @@ if st.session_state.current_mode is None:
     /* 區塊2: 卡片 - 用 top 控制位置 */
     .cards-container {{
         position: absolute;
-        top: 23%;
+        top: 28%;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -1351,7 +1351,7 @@ if st.session_state.current_mode is None:
     /* 區塊3: 組員 - 用 bottom 控制位置 */
     .footer-credits {{
         position: absolute;
-        bottom: 15%;
+        bottom: 2%;
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
@@ -1438,12 +1438,12 @@ if st.session_state.current_mode is None:
     /* 統一脈動動畫 - 排除載體圖（第2張） */
     .anim-card-embed img:not(:nth-of-type(2)),
     .anim-card-extract img:not(:nth-of-type(2)) {{
-        animation: pulse 2s ease-in-out infinite;
+        animation: pulse 1.5s ease-in-out infinite;
     }}
     
     @keyframes pulse {{
         0%, 100% {{ transform: scale(1); }}
-        50% {{ transform: scale(1.1); }}
+        50% {{ transform: scale(1.2); }}
     }}
     </style>
     </head>
