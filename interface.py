@@ -492,7 +492,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     align-items: center;
     padding-top: 5px;
     padding-bottom: 20px;
-    gap: 25px;
+    gap: 40px;
     box-sizing: border-box;
 }
 
@@ -520,7 +520,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #5D5D5D;
     font-size: 28px;
     font-weight: 500;
-    margin-top: auto;
+    margin-top: 40px;
 }
 
 /* 動畫卡片 */
