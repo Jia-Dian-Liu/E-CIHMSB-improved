@@ -1337,7 +1337,7 @@ if st.session_state.current_mode is None:
         justify-content: flex-start;
         align-items: center;
         padding: 1vh 2vw 3vh 2vw;
-        gap: 5vh;
+        gap: 7vh;
     }}
     
     .welcome-container {{
@@ -1437,7 +1437,7 @@ if st.session_state.current_mode is None:
         color: #5D5D5D;
         font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
-        margin-top: 3vh;
+        margin-top: 5vh;
     }}
     
     /* 統一脈動動畫 - 排除載體圖（第2張） */
