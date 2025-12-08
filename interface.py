@@ -1284,12 +1284,15 @@ if 'current_mode' not in st.session_state:
 
 # ==================== 側邊欄 - 對象管理 ====================
 if st.session_state.current_mode is not None:
+    # 根據當前模式設定顏色
+    sidebar_title_color = "#4A6B8A" if st.session_state.current_mode == 'embed' else "#7D5A6B"
+    
     with st.sidebar:
-        st.markdown("""
+        st.markdown(f"""
         <style>
-        section[data-testid="stSidebar"] details summary span p { font-size: 22px !important; }
-        #built-contacts-title { font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; text-align: center !important; }
-        .sidebar-title { font-size: 36px !important; margin-bottom: 15px !important; color: #b28084 !important; font-weight: bold !important; text-align: center !important; }
+        section[data-testid="stSidebar"] details summary span p {{ font-size: 22px !important; }}
+        #built-contacts-title {{ font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; text-align: center !important; }}
+        .sidebar-title {{ font-size: 36px !important; margin-bottom: 15px !important; color: {sidebar_title_color} !important; font-weight: bold !important; text-align: center !important; }}
         </style>
         <div id="sidebar-close-btn" style="position: absolute; top: -15px; right: 0px; 
             width: 30px; height: 30px; background: #e0e0e0; border-radius: 50%; 
