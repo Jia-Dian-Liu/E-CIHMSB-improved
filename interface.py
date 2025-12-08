@@ -563,7 +563,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-size: 56px;
     font-weight: bold;
     color: #FFFFFF;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
