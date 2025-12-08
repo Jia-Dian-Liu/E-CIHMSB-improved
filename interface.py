@@ -1319,9 +1319,6 @@ if st.session_state.current_mode is None:
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: transparent;
         overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }}
     
     .home-fullscreen {{
