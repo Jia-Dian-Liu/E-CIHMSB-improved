@@ -1592,7 +1592,7 @@ elif st.session_state.current_mode == 'embed':
             color: #443C3C !important;
             border: none !important;
             font-weight: 700 !important;
-            min-width: 200px !important;
+            min-width: 100px !important;
         }
         [data-testid="stDownloadButton"] button p,
         [data-testid="stDownloadButton"] button span {
