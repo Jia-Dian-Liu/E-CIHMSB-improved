@@ -1344,6 +1344,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
+        margin-bottom: 6vh;
     }}
     
     .welcome-title {{
