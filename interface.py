@@ -1334,7 +1334,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 5vh 2vw 3vh 2vw;
+        padding: 3vh 2vw 2vh 2vw;
     }}
     
     .welcome-container {{
