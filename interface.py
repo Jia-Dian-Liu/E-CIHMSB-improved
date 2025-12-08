@@ -323,7 +323,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     position: fixed;
     top: 148px;
     left: 0;
-    background: #b28084;
+    background: #4A6B8A;
     color: white;
     writing-mode: vertical-rl;
     padding: 15px 8px;
@@ -337,7 +337,6 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 #sidebar-toggle-label:hover {
     padding-left: 12px;
-    background: #9a6a6e;
 }
 
 /* 主內容區 */
@@ -1728,12 +1727,16 @@ elif st.session_state.current_mode == 'embed':
     # 輸入頁
     else:
         st.session_state.embed_page = 'input'
-        st.markdown('<div id="sidebar-toggle-label">對象管理</div>', unsafe_allow_html=True)
+        st.markdown('<div id="sidebar-toggle-label" style="background: #4A6B8A !important;">對象管理</div>', unsafe_allow_html=True)
         
         components.html("""
 <script>
 (function() {
     const doc = window.parent.document;
+    const label = doc.getElementById('sidebar-toggle-label');
+    if (label) {
+        label.style.setProperty('background', '#4A6B8A', 'important');
+    }
     
     function closeSidebar() {
         const sidebar = doc.querySelector('[data-testid="stSidebar"]');
@@ -2143,12 +2146,17 @@ else:
     # 輸入頁
     else:
         st.session_state.extract_page = 'input'
-        st.markdown('<div id="sidebar-toggle-label">對象管理</div>', unsafe_allow_html=True)
+        st.markdown('<div id="sidebar-toggle-label" style="background: #b28084 !important;">對象管理</div>', unsafe_allow_html=True)
         
         components.html("""
 <script>
 (function() {
     const doc = window.parent.document;
+    const label = doc.getElementById('sidebar-toggle-label');
+    if (label) {
+        label.style.setProperty('background', '#b28084', 'important');
+    }
+    
     function closeSidebar() {
         const sidebar = doc.querySelector('[data-testid="stSidebar"]');
         const label = doc.getElementById('sidebar-toggle-label');
