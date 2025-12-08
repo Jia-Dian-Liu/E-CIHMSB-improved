@@ -2275,7 +2275,7 @@ else:
                                     extract_z_text = z_text
                                     images = IMAGE_LIBRARY.get(style_name, [])
                                     img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                                    success_msg = f"QR Code：圖片 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
+                                    success_msg = f"Z碼圖內容：圖片 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
                                     detected = True
                     except Exception as e:
                         error_msg = f"QR: {str(e)}"
@@ -2289,7 +2289,7 @@ else:
                             extract_z_text = ''.join(str(b) for b in z_bits)
                             images = IMAGE_LIBRARY.get(style_name, [])
                             img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                            success_msg = f"Z碼圖：圖片 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
+                            success_msg = f"Z碼圖內容：圖片 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
                             detected = True
                         except Exception as e:
                             if error_msg:
@@ -2300,7 +2300,7 @@ else:
                     # 顯示上傳的圖片和識別結果
                     st.image(uploaded_img, width=120)
                     if detected:
-                        st.markdown(f'<p style="font-size: 22px; color: #443C3C; margin-top: 10px;">{success_msg}</p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 22px; color: #b28084; margin-top: 10px; font-weight: bold;">{success_msg}</p>', unsafe_allow_html=True)
                     else:
                         st.markdown(f'<p style="font-size: 22px; color: #C62828; margin-top: 10px;">❌ 無法識別</p>', unsafe_allow_html=True)
                         if error_msg:
