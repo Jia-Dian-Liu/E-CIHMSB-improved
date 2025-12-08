@@ -1746,10 +1746,10 @@ elif st.session_state.current_mode == 'embed':
                     qr_bytes = buf.getvalue()
                     
                     st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
-                    st.image(qr_bytes, width=200)
+                    st.image(qr_bytes, width=150)
                     st.download_button("下載 Z碼圖", qr_bytes, "z_code.png", "image/png", key="dl_z_qr")
                     st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
-                    st.markdown('<p style="font-size: 30px; color: #888; margin-top: 5px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 30px; color: #888; margin-top: 15px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
                 except:
                     style_num_int = int(style_num)
                     img_num_int = int(img_num)
@@ -1757,12 +1757,12 @@ elif st.session_state.current_mode == 'embed':
                     z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num_int, img_num_int, img_size_int)
                     
                     st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
-                    st.image(z_img, width=200)
+                    st.image(z_img, width=150)
                     buf = BytesIO()
                     z_img.save(buf, format='PNG')
                     st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
                     st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
-                    st.markdown('<p style="font-size: 30px; color: #888; margin-top: 5px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 30px; color: #888; margin-top: 15px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
             else:
                 style_num = r.get("style_num", 1)
                 img_num = int(r["embed_image_choice"].split("-")[1])
@@ -1770,12 +1770,12 @@ elif st.session_state.current_mode == 'embed':
                 z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num, img_num, img_size)
                 
                 st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
-                st.image(z_img, width=200)
+                st.image(z_img, width=150)
                 buf = BytesIO()
                 z_img.save(buf, format='PNG')
                 st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
                 st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
-                st.markdown('<p style="font-size: 30px; color: #888; margin-top: 5px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 30px; color: #888; margin-top: 15px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
         
         # 返回首頁按鈕 - 和開始嵌入按鈕一樣固定在底部
         _, btn_col, _ = st.columns([1, 1, 1])
@@ -2410,7 +2410,7 @@ else:
                                     style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
                                     images = IMAGE_LIBRARY.get(style_name, [])
                                     img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                                    success_msg = f"Z碼圖額外資訊：{extract_style_num}. {style_name}，圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
+                                    success_msg = f"風格：{extract_style_num}. {style_name}，圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
                                     detected = True
                                 elif len(parts) == 2:
                                     # 舊格式兼容: 圖像編號-尺寸
@@ -2421,7 +2421,7 @@ else:
                                     style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
                                     images = IMAGE_LIBRARY.get(style_name, [])
                                     img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                                    success_msg = f"Z碼圖額外資訊：{extract_style_num}. {style_name}，圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
+                                    success_msg = f"風格：{extract_style_num}. {style_name}，圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
                                     detected = True
                     except Exception as e:
                         error_msg = f"QR: {str(e)}"
@@ -2437,7 +2437,7 @@ else:
                             style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
                             images = IMAGE_LIBRARY.get(style_name, [])
                             img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                            success_msg = f"Z碼圖額外資訊：{extract_style_num}. {style_name}，圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
+                            success_msg = f"風格：{extract_style_num}. {style_name}，圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
                             detected = True
                         except Exception as e:
                             if error_msg:
