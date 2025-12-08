@@ -2197,6 +2197,12 @@ else:
         </style>
         """, unsafe_allow_html=True)
         
+        # 預先從 session_state 讀取狀態
+        saved_contact = st.session_state.get('extract_contact_saved', None)
+        saved_style = st.session_state.get('extract_style_saved', None)
+        step1_done = saved_contact is not None and saved_contact in contact_names
+        style_name = STYLE_CATEGORIES.get(saved_style, "建築") if saved_style else None
+        
         col1, col2 = st.columns([1, 1.4], gap="large")
         
         # ===== 第一步：選擇對象 =====
@@ -2207,12 +2213,8 @@ else:
             </div>
             """, unsafe_allow_html=True)
             
-            style_name = None
-            step1_done = False
-            
             if contact_names:
                 options = ["選擇"] + contact_names
-                saved_contact = st.session_state.get('extract_contact_saved', None)
                 default_idx = options.index(saved_contact) if saved_contact and saved_contact in options else 0
                 
                 selected_contact = st.selectbox("對象", options, index=default_idx, key="extract_contact_select", label_visibility="collapsed")
