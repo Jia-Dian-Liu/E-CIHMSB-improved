@@ -1339,7 +1339,7 @@ if st.session_state.current_mode is None:
     /* 區塊2: 卡片 - 用 top 控制位置 */
     .cards-container {{
         position: absolute;
-        top: 28%;
+        top: 15%;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
