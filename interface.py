@@ -1959,8 +1959,8 @@ elif st.session_state.current_mode == 'embed':
                 st.markdown('<p style="font-size: 16px; color: #888; margin-top: 10px;">💡 點擊「對象管理」可修改</p>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
-                    <div style="font-size: 20px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
-                    <div style="font-size: 16px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
+                    <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
+                    <div style="font-size: 20px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
                 </div>""", unsafe_allow_html=True)
         
         # ===== 第二步：機密內容 =====
@@ -2422,8 +2422,8 @@ else:
                 st.markdown('<p style="font-size: 16px; color: #888; margin-top: 10px;">💡 點擊「對象管理」可修改</p>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
-                    <div style="font-size: 20px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
-                    <div style="font-size: 16px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
+                    <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
+                    <div style="font-size: 20px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
                 </div>""", unsafe_allow_html=True)
         
         # ===== 第二步：上傳 Z碼圖 =====
