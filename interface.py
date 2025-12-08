@@ -2183,29 +2183,37 @@ else:
         contacts = st.session_state.contacts
         contact_names = list(contacts.keys())
         
-        if 'extract_step' not in st.session_state:
-            st.session_state.extract_step = 1
-        
-        current_step = st.session_state.extract_step
-        st.markdown(f"""
-        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 1 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 1 else '#A08090'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第一步: 選擇對象</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 2 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 2 else '#A08090'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第二步: 上傳 Z碼圖</div>
-        </div>
+        # 兩欄並排佈局 - 和嵌入機密一樣
+        st.markdown("""
+        <style>
+        [data-testid="stMain"] [data-testid="stHorizontalBlock"] {
+            max-width: 100% !important;
+            width: 100% !important;
+            gap: 2rem !important;
+        }
+        .block-container {
+            padding-bottom: 100px !important;
+        }
+        </style>
         """, unsafe_allow_html=True)
         
-        st.markdown("---")
+        col1, col2 = st.columns([1, 1.4], gap="large")
         
-        show_next_btn = False
-        next_step = 1
-        style_name = None
-        
-        if st.session_state.extract_step == 1:
-            st.markdown('<p style="font-size: 30px; font-weight: bold; margin-bottom: 10px; color: #443C3C;">選擇對象</p>', unsafe_allow_html=True)
+        # ===== 第一步：選擇對象 =====
+        with col1:
+            st.markdown(f"""
+            <div style="text-align: center; padding: 10px; border-bottom: 4px solid #7D5A6B; margin-bottom: 15px;">
+                <span style="font-size: 28px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            style_name = None
+            step1_done = False
+            
             if contact_names:
                 options = ["選擇"] + contact_names
                 saved_contact = st.session_state.get('extract_contact_saved', None)
-                default_idx = options.index(saved_contact) if saved_contact and saved_contact in contact_names else 0
+                default_idx = options.index(saved_contact) if saved_contact and saved_contact in options else 0
                 
                 selected_contact = st.selectbox("對象", options, index=default_idx, key="extract_contact_select", label_visibility="collapsed")
                 
@@ -2213,28 +2221,30 @@ else:
                     st.session_state.extract_contact_saved = selected_contact
                     auto_style = contacts[selected_contact]
                     
+                    st.markdown('<p style="font-size: 24px; font-weight: bold; margin-top: 15px; color: #443C3C;">風格</p>', unsafe_allow_html=True)
                     style_list = list(STYLE_CATEGORIES.keys())
                     default_style_index = style_list.index(auto_style) if auto_style and auto_style in style_list else 0
                     
-                    selected_style = st.selectbox("風格", style_list, index=default_style_index, key="extract_style_select")
+                    selected_style = st.selectbox("風格", style_list, index=default_style_index, key="extract_style_select", label_visibility="collapsed")
                     style_name = STYLE_CATEGORIES.get(selected_style, "建築")
                     st.session_state.extract_style_saved = selected_style
                     
-                    st.markdown(f'<p style="font-size: 26px; color: #31333F;">✅ 已選擇：{selected_contact}（{selected_style}）</p>', unsafe_allow_html=True)
-                    show_next_btn = True
-                    next_step = 2
+                    st.markdown(f'<div class="selected-info">已選擇：{selected_contact}（{selected_style}）</div>', unsafe_allow_html=True)
+                    step1_done = True
             else:
-                st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 12px; padding: 15px; text-align: center;"><div style="font-size: 16px; font-weight: bold; color: #856404;">⚠️ 請先新增對象</div></div>""", unsafe_allow_html=True)
+                st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 10px; text-align: center;">
+                    <div style="font-size: 20px; font-weight: bold; color: #856404;">⚠️ 請先新增對象</div>
+                </div>""", unsafe_allow_html=True)
         
-        elif st.session_state.extract_step == 2:
-            saved_contact = st.session_state.get('extract_contact_saved', None)
-            saved_style = st.session_state.get('extract_style_saved', None)
+        # ===== 第二步：上傳 Z碼圖 =====
+        with col2:
+            st.markdown(f"""
+            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #D8C0C8' if not step1_done else '4px solid #7D5A6B'}; margin-bottom: 15px;">
+                <span style="font-size: 28px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步: 上傳 Z碼圖</span>
+            </div>
+            """, unsafe_allow_html=True)
             
-            if saved_contact and saved_contact in contact_names:
-                style_name = STYLE_CATEGORIES.get(saved_style, "建築")
-                st.markdown(f'<p style="font-size: 24px; color: #31333F;">對象：{saved_contact}（{saved_style}）</p>', unsafe_allow_html=True)
-                
-                st.markdown('<p style="font-size: 26px; font-weight: bold; margin-bottom: 10px;">上傳 Z碼圖</p>', unsafe_allow_html=True)
+            if step1_done:
                 extract_file = st.file_uploader("上傳 QR Code 或 Z碼圖", type=["png", "jpg", "jpeg"], key="extract_z_upload", label_visibility="collapsed")
                 
                 if extract_file:
@@ -2274,27 +2284,38 @@ else:
                         except:
                             pass
                     
-                    col_left, col_img, col_info, col_right = st.columns([1.2, 0.6, 2, 0.5])
-                    with col_img:
-                        st.image(uploaded_img, width=200)
-                    with col_info:
-                        if detected:
-                            st.markdown(f'<div style="display: flex; align-items: center; min-height: 180px;"><div style="font-size: 22px; color: #443C3C; margin-left: 50px;">{success_msg}</div></div>', unsafe_allow_html=True)
-                        else:
-                            st.markdown('<div style="display: flex; align-items: center; min-height: 180px;"><div style="font-size: 22px; color: #C62828; margin-left: 50px;">無法識別</div></div>', unsafe_allow_html=True)
+                    # 顯示上傳的圖片和識別結果
+                    st.image(uploaded_img, width=120)
+                    if detected:
+                        st.markdown(f'<p style="font-size: 22px; color: #443C3C; margin-top: 10px;">{success_msg}</p>', unsafe_allow_html=True)
+                    else:
+                        st.markdown('<p style="font-size: 22px; color: #C62828; margin-top: 10px;">❌ 無法識別</p>', unsafe_allow_html=True)
+            else:
+                st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第一步</p>', unsafe_allow_html=True)
         
-        if st.session_state.extract_step >= 2:
-            if st.button("返回", key="extract_back_step_btn"):
-                st.session_state.extract_step -= 1
-                st.rerun()
-        
-        if show_next_btn and st.session_state.extract_step < 2:
-            if st.button("下一步", type="primary", key="extract_next_btn"):
-                st.session_state.extract_step = next_step
-                st.rerun()
-        
-        if st.session_state.extract_step == 2 and extract_z_text and extract_img_num and extract_img_size:
-            extract_btn = st.button("開始提取", type="primary", key="extract_start_btn")
+        # ===== 開始提取按鈕 =====
+        if step1_done and extract_z_text and extract_img_num and extract_img_size:
+            _, btn_col, _ = st.columns([1, 1, 1])
+            with btn_col:
+                extract_btn = st.button("開始提取", type="primary", key="extract_start_btn")
+            
+            components.html("""
+            <script>
+            function fixExtractButtons() {
+                const buttons = window.parent.document.querySelectorAll('button');
+                for (let btn of buttons) { 
+                    if (btn.innerText === '開始提取') {
+                        let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                        if (container) {
+                            container.style.cssText = 'position:fixed!important;bottom:25px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                        }
+                    }
+                }
+            }
+            fixExtractButtons();
+            setTimeout(fixExtractButtons, 100);
+            </script>
+            """, height=0)
             
             if extract_btn:
                 processing_placeholder = st.empty()
@@ -2332,7 +2353,6 @@ else:
                             for key in ['extract_contact_saved', 'extract_style_saved']:
                                 if key in st.session_state:
                                     del st.session_state[key]
-                            st.session_state.extract_step = 1
                             st.session_state.extract_page = 'result'
                             st.rerun()
                 except Exception as e:
