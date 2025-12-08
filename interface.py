@@ -490,7 +490,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-top: -10px;
+    padding-top: 25px;
     padding-bottom: 20px;
     gap: 25px;
     box-sizing: border-box;
