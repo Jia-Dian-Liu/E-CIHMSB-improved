@@ -1650,8 +1650,8 @@ elif st.session_state.current_mode == 'embed':
                 else:
                     secret_display = f'文字："{original_text}"'
             else:
-                size_info = r["secret_desc"].replace("圖片: ", "")
-                secret_display = f'圖片：{secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
+                size_info = r["secret_desc"].replace("圖像: ", "")
+                secret_display = f'圖像：{secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
             
             # 嵌入資訊 - 無框版
             st.markdown(f'''
@@ -1864,17 +1864,17 @@ elif st.session_state.current_mode == 'embed':
             if step1_done:
                 saved_type = st.session_state.get('embed_secret_type_saved', '文字')
                 type_idx = 0 if saved_type == "文字" else 1
-                embed_secret_type = st.radio("類型", ["文字", "圖片"], index=type_idx, key="embed_type_h", horizontal=True, label_visibility="collapsed")
+                embed_secret_type = st.radio("類型", ["文字", "圖像"], index=type_idx, key="embed_type_h", horizontal=True, label_visibility="collapsed")
                 
                 # 切換類型時清除另一種類型的資料
-                if embed_secret_type == "文字" and st.session_state.get('embed_secret_type_saved') == "圖片":
-                    # 從圖片切換到文字，清除圖片資料
+                if embed_secret_type == "文字" and st.session_state.get('embed_secret_type_saved') == "圖像":
+                    # 從圖像切換到文字，清除圖像資料
                     for key in ['embed_secret_image_data', 'embed_secret_image_name']:
                         if key in st.session_state:
                             del st.session_state[key]
                     st.session_state.secret_bits_saved = 0
-                elif embed_secret_type == "圖片" and st.session_state.get('embed_secret_type_saved') == "文字":
-                    # 從文字切換到圖片，清除文字資料
+                elif embed_secret_type == "圖像" and st.session_state.get('embed_secret_type_saved') == "文字":
+                    # 從文字切換到圖像，清除文字資料
                     if 'embed_text_saved' in st.session_state:
                         del st.session_state['embed_text_saved']
                     st.session_state.secret_bits_saved = 0
@@ -1901,24 +1901,24 @@ elif st.session_state.current_mode == 'embed':
                         st.session_state.secret_bits_saved = 0
                         step2_done = False
                 else:
-                    embed_img_file = st.file_uploader("上傳圖片", type=["jpg", "jpeg", "png"], key="embed_img_h", label_visibility="collapsed")
+                    embed_img_file = st.file_uploader("上傳圖像", type=["jpg", "jpeg", "png"], key="embed_img_h", label_visibility="collapsed")
                     if embed_img_file:
                         embed_img_file.seek(0)
                         secret_img = Image.open(embed_img_file)
                         secret_bits_needed, _ = calculate_required_bits_for_image(secret_img)
                         st.session_state.secret_bits_saved = secret_bits_needed
-                        st.session_state.embed_secret_type_saved = "圖片"
+                        st.session_state.embed_secret_type_saved = "圖像"
                         embed_img_file.seek(0)
                         st.session_state.embed_secret_image_data = embed_img_file.read()
                         st.session_state.embed_secret_image_name = embed_img_file.name
                         st.image(secret_img, width=180)
-                        st.markdown(f'<div class="bits-info">機密圖片：{st.session_state.embed_secret_image_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密圖像：{st.session_state.embed_secret_image_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     elif st.session_state.get('embed_secret_image_data'):
                         secret_img = Image.open(BytesIO(st.session_state.embed_secret_image_data))
                         st.image(secret_img, width=180)
                         secret_img_name = st.session_state.get('embed_secret_image_name', 'image.png')
-                        st.markdown(f'<div class="bits-info">機密圖片：{secret_img_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密圖像：{secret_img_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
@@ -1942,7 +1942,7 @@ elif st.session_state.current_mode == 'embed':
                 auto_style = contacts.get(selected_contact, None)
                 default_style_index = style_list.index(auto_style) if auto_style and auto_style != "選擇" and auto_style in style_list else 0
                 
-                # 第一行：風格、圖片
+                # 第一行：風格、圖像
                 row1_col1, row1_col2 = st.columns([1.5, 2.5])
                 
                 with row1_col1:
@@ -1955,7 +1955,7 @@ elif st.session_state.current_mode == 'embed':
                     image_options = [f"{i+1}. {images[i]['name']}" for i in range(len(images))]
                     
                     with row1_col2:
-                        img_idx = st.selectbox("圖片", range(len(images)), format_func=lambda i: image_options[i], key="embed_img_select_h")
+                        img_idx = st.selectbox("圖像", range(len(images)), format_func=lambda i: image_options[i], key="embed_img_select_h")
                     
                     available_sizes = [s for s in AVAILABLE_SIZES if calculate_image_capacity(s) >= secret_bits_needed]
                     if not available_sizes:
@@ -2043,12 +2043,12 @@ elif st.session_state.current_mode == 'embed':
                         secret_type_flag = 'text'
                         secret_desc = f'文字: "{embed_text}"'
                         secret_filename = None
-                    elif embed_secret_type == "圖片":
+                    elif embed_secret_type == "圖像":
                         secret_img_data = st.session_state.get('embed_secret_image_data')
                         if secret_img_data:
                             secret_content = Image.open(BytesIO(secret_img_data))
                             secret_type_flag = 'image'
-                            secret_desc = f"圖片: {secret_content.size[0]}×{secret_content.size[1]} px"
+                            secret_desc = f"圖像: {secret_content.size[0]}×{secret_content.size[1]} px"
                             secret_filename = st.session_state.get('embed_secret_image_name', 'image.png')
                     
                     z_bits, used_capacity, info = embed_secret(img_process, secret_content, secret_type=secret_type_flag)
@@ -2098,9 +2098,9 @@ else:
                 st.markdown('<p style="font-size: 32px; font-weight: bold; color: #443C3C;">機密文字:</p>', unsafe_allow_html=True)
                 st.markdown(f'<p style="font-size: 24px; color: #443C3C; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
-                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #443C3C;">機密圖片:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #443C3C;">機密圖像:</p>', unsafe_allow_html=True)
                 st.image(Image.open(BytesIO(r['image_data'])), width=200)
-                st.download_button("下載圖片", r['image_data'], "recovered.png", "image/png", key="dl_rec")
+                st.download_button("下載圖像", r['image_data'], "recovered.png", "image/png", key="dl_rec")
         
         with col_right:
             st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">驗證結果</p>', unsafe_allow_html=True)
@@ -2127,14 +2127,14 @@ else:
                         st.markdown('<p style="font-size: 16px; color: #443C3C;"><b>提取結果：</b></p>', unsafe_allow_html=True)
                         st.markdown(f'<p style="font-size: 12px; color: #666; white-space: pre-wrap; line-height: 2;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
-                verify_img = st.file_uploader("上傳原始機密圖片", type=["png", "jpg", "jpeg"], key="verify_img_upload")
+                verify_img = st.file_uploader("上傳原始機密圖像", type=["png", "jpg", "jpeg"], key="verify_img_upload")
                 if verify_img:
                     orig_img = Image.open(verify_img)
                     extracted_img = Image.open(BytesIO(r['image_data']))
                     
                     col_orig, col_ext = st.columns(2)
                     with col_orig:
-                        st.markdown('<p style="font-size: 20px; font-weight: bold;">原始圖片</p>', unsafe_allow_html=True)
+                        st.markdown('<p style="font-size: 20px; font-weight: bold;">原始圖像</p>', unsafe_allow_html=True)
                         st.image(orig_img, width=150)
                     with col_ext:
                         st.markdown('<p style="font-size: 20px; font-weight: bold;">提取結果</p>', unsafe_allow_html=True)
@@ -2329,7 +2329,7 @@ else:
                                     extract_z_text = z_text
                                     images = IMAGE_LIBRARY.get(style_name, [])
                                     img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                                    success_msg = f"Z碼圖內容：圖片 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
+                                    success_msg = f"Z碼圖內容：圖像 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
                                     detected = True
                     except Exception as e:
                         error_msg = f"QR: {str(e)}"
@@ -2343,7 +2343,7 @@ else:
                             extract_z_text = ''.join(str(b) for b in z_bits)
                             images = IMAGE_LIBRARY.get(style_name, [])
                             img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                            success_msg = f"Z碼圖內容：圖片 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
+                            success_msg = f"Z碼圖內容：圖像 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
                             detected = True
                         except Exception as e:
                             if error_msg:
@@ -2351,7 +2351,7 @@ else:
                             else:
                                 error_msg = f"Z碼: {str(e)}"
                     
-                    # 顯示上傳的圖片和識別結果
+                    # 顯示上傳的圖像和識別結果
                     st.image(uploaded_img, width=120)
                     if detected:
                         st.markdown(f'<p style="font-size: 22px; color: #b28084; margin-top: 10px; font-weight: bold;">{success_msg}</p>', unsafe_allow_html=True)
