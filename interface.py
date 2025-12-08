@@ -1332,9 +1332,10 @@ if st.session_state.current_mode is None:
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         padding: 5vh 2vw 3vh 2vw;
+        gap: 0;
     }}
     
     .welcome-container {{
@@ -1342,6 +1343,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
+        margin-bottom: 60px;
     }}
     
     .welcome-title {{
@@ -1363,6 +1365,7 @@ if st.session_state.current_mode is None:
         flex-wrap: nowrap;
         padding: 0 2vw;
         max-width: 1600px;
+        margin-bottom: 60px;
     }}
     
     .anim-card {{
