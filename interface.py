@@ -490,9 +490,9 @@ section[data-testid="stSidebar"] button[kind="header"],
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 5px;
-    padding-bottom: 20px;
-    gap: 40px;
+    padding: 35px 0;
+    padding-top: 20px;
+    gap: 30px;
     box-sizing: border-box;
 }
 
@@ -520,7 +520,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #5D5D5D;
     font-size: 28px;
     font-weight: 500;
-    margin-top: 40px;
+    margin-top: auto;
 }
 
 /* 動畫卡片 */
@@ -1314,8 +1314,6 @@ if st.session_state.current_mode is None:
     html, body {{ 
         height: 100%;
         min-height: 100vh;
-        margin: 0;
-        padding: 0;
     }}
     body {{ 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -1323,7 +1321,7 @@ if st.session_state.current_mode is None:
         overflow: hidden;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
     }}
     
     .home-fullscreen {{
@@ -1334,10 +1332,9 @@ if st.session_state.current_mode is None:
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
-        padding: 1vh 2vw 3vh 2vw;
-        gap: 7vh;
+        padding: 5vh 2vw 3vh 2vw;
     }}
     
     .welcome-container {{
@@ -1345,7 +1342,6 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-bottom: 3vh;
     }}
     
     .welcome-title {{
@@ -1438,7 +1434,7 @@ if st.session_state.current_mode is None:
         color: #5D5D5D;
         font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
-        margin-top: 5vh;
+        padding-bottom: 2vh;
     }}
     
     /* 統一脈動動畫 - 排除載體圖（第2張） */
@@ -1455,7 +1451,7 @@ if st.session_state.current_mode is None:
     </head>
     <body>
     <div class="home-fullscreen">
-        <div class="welcome-container" style="margin-bottom: 50px;">
+        <div class="welcome-container">
             <div class="welcome-title">高效能無載體之機密編碼技術</div>
         </div>
         
