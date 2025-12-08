@@ -2320,20 +2320,17 @@ else:
                 const buttons = window.parent.document.querySelectorAll('button');
                 for (let btn of buttons) { 
                     if (btn.innerText === '開始提取') {
-                        // 按鈕顏色
+                        // 按鈕顏色和寬度
                         btn.style.setProperty('background-color', '#b28084', 'important');
                         btn.style.setProperty('border-color', '#b28084', 'important');
                         btn.style.setProperty('color', 'white', 'important');
+                        btn.style.setProperty('width', 'auto', 'important');
+                        btn.style.setProperty('min-width', '120px', 'important');
+                        btn.style.setProperty('padding', '0.5rem 1rem', 'important');
                         // 固定定位到底部中央
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                         if (container) {
-                            container.style.setProperty('position', 'fixed', 'important');
-                            container.style.setProperty('bottom', '25px', 'important');
-                            container.style.setProperty('left', '50%', 'important');
-                            container.style.setProperty('transform', 'translateX(-50%)', 'important');
-                            container.style.setProperty('width', 'auto', 'important');
-                            container.style.setProperty('z-index', '1000', 'important');
-                            container.style.setProperty('margin-left', '0', 'important');
+                            container.style.cssText = 'position:fixed!important;bottom:25px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                         }
                     }
                 }
