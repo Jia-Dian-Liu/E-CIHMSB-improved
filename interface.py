@@ -702,21 +702,21 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     align-items: center !important;
 }
 
-/* Radio 按鈕樣式 - 圓形 */
+/* Radio 按鈕樣式 - 方形勾選框 */
 .stRadio [data-baseweb="radio"] > div:first-child {
-    width: 22px !important;
-    height: 22px !important;
-    min-width: 22px !important;
-    min-height: 22px !important;
-    border-radius: 50% !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    border-radius: 4px !important;
     border: 2px solid #443C3C !important;
     background-color: #ecefef !important;
+    position: relative !important;
 }
 
-/* 選中時內部圓點填滿 */
+/* 隱藏內部小圓點 */
 .stRadio [data-baseweb="radio"] > div:first-child > div {
-    background-color: #443C3C !important;
-    border-radius: 50% !important;
+    display: none !important;
 }
 
 .stTextArea textarea {
@@ -1036,7 +1036,7 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
 /* 固定按鈕容器 */
 .fixed-btn-next {
     position: fixed !important;
-    bottom: 80px !important;
+    bottom: 50px !important;
     right: 30px !important;
     z-index: 1000 !important;
 }
@@ -1221,17 +1221,53 @@ function fixTextareaScrollbar() {
 
 injectScrollbarStyle();
 fixTextareaScrollbar();
+fixRadioCheckmarks();
 setTimeout(injectScrollbarStyle, 300);
 setTimeout(fixTextareaScrollbar, 300);
+setTimeout(fixRadioCheckmarks, 300);
 setTimeout(injectScrollbarStyle, 1000);
 setTimeout(fixTextareaScrollbar, 1000);
+setTimeout(fixRadioCheckmarks, 1000);
 setTimeout(fixTextareaScrollbar, 2000);
+setTimeout(fixRadioCheckmarks, 2000);
+
+// 修復 Radio 勾選顯示
+function fixRadioCheckmarks() {
+    if (window.parent && window.parent.document) {
+        const radios = window.parent.document.querySelectorAll('.stRadio [data-baseweb="radio"]');
+        radios.forEach(radio => {
+            const outerDiv = radio.querySelector('div:first-child');
+            if (!outerDiv) return;
+            
+            // 移除舊的勾選標記
+            const oldCheck = outerDiv.querySelector('.custom-checkmark');
+            if (oldCheck) oldCheck.remove();
+            
+            // 檢查是否選中（內部有 div 且有背景色）
+            const innerDiv = outerDiv.querySelector('div');
+            const isChecked = innerDiv && (
+                innerDiv.style.backgroundColor || 
+                window.getComputedStyle(innerDiv).backgroundColor !== 'rgba(0, 0, 0, 0)'
+            );
+            
+            if (isChecked) {
+                // 添加勾選標記
+                const checkmark = document.createElement('span');
+                checkmark.className = 'custom-checkmark';
+                checkmark.innerHTML = '✓';
+                checkmark.style.cssText = 'position:absolute;color:#443C3C;font-size:18px;font-weight:bold;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;';
+                outerDiv.appendChild(checkmark);
+            }
+        });
+    }
+}
 
 // 監聽 DOM 變化，新元素出現時也套用樣式
 if (window.parent && window.parent.document) {
     const observer = new MutationObserver(() => {
         injectScrollbarStyle();
         fixTextareaScrollbar();
+        fixRadioCheckmarks();
     });
     observer.observe(window.parent.document.body, { childList: true, subtree: true });
 }
