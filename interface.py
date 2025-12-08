@@ -1639,10 +1639,10 @@ elif st.session_state.current_mode == 'embed':
             st.markdown(f'''
             <div style="font-size: 28px; color: #443C3C; line-height: 2;">
                 <p style="font-weight: bold; font-size: 32px; margin-bottom: 15px;">嵌入資訊</p>
-                載體圖像編號：<strong>{img_num}</strong>（{img_name}）<br>
-                載體圖像尺寸：{img_size}×{img_size}<br>
-                機密內容：<br>
-                {secret_display}
+                <b>載體圖像編號：{img_num}（{img_name}）</b><br>
+                <b>載體圖像尺寸：{img_size}×{img_size}</b><br>
+                <b>機密內容：</b><br>
+                <b>{secret_display}</b>
             </div>
             ''', unsafe_allow_html=True)
         
