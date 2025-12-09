@@ -2380,43 +2380,26 @@ else:
         
         st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 30px;">提取結果</div>', unsafe_allow_html=True)
         
-        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.4, 2.5, 0.1, 2.2, 0.1])
-        with col_left:
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #4f7343; margin-bottom: 25px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+        if r['type'] == 'text':
+            # 文字驗證 - 三個水平區塊
+            col1, col2, col3 = st.columns([1.2, 1.2, 1.4])
             
-            if r['type'] == 'text':
-                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #4f7343;">機密文字:</p>', unsafe_allow_html=True)
-                st.markdown(f'<p style="font-size: 24px; color: #4f7343; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
-            else:
-                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #4f7343;">機密圖像:</p>', unsafe_allow_html=True)
-                st.image(Image.open(BytesIO(r['image_data'])), width=200)
-                st.download_button("下載圖像", r['image_data'], "recovered.png", "image/png", key="dl_rec")
-        
-        with col_right:
-            if r['type'] == 'text':
-                # 文字驗證 - 使用 HTML flexbox 實現左右並排
-                st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">驗證結果</p>', unsafe_allow_html=True)
-                
-                # 左側：輸入區
-                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=120, placeholder="貼上嵌入時的原始機密內容...")
-                
-                # 驗證按鈕和結果在同一行
-                btn_col, result_col = st.columns([0.3, 1])
-                with btn_col:
-                    verify_clicked = st.button("驗證", key="verify_btn")
-                    if verify_clicked and verify_input:
-                        st.session_state.verify_result = {
-                            'input': verify_input,
-                            'match': verify_input == r['content']
-                        }
-                
-                with result_col:
-                    if 'verify_result' in st.session_state and st.session_state.verify_result:
-                        vr = st.session_state.verify_result
-                        if vr['match']:
-                            st.markdown('<span style="font-size: 20px; font-weight: bold; color: #4f7343;">✓ 完全一致！</span>', unsafe_allow_html=True)
-                        else:
-                            st.markdown('<span style="font-size: 20px; font-weight: bold; color: #C62828;">✗ 不一致！</span>', unsafe_allow_html=True)
+            # 區塊1：提取完成
+            with col1:
+                st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #4f7343; margin-bottom: 15px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 26px; font-weight: bold; color: #4f7343;">機密文字:</p>', unsafe_allow_html=True)
+                st.markdown(f'<p style="font-size: 18px; color: #4f7343; white-space: pre-wrap; line-height: 1.6;">{r["content"]}</p>', unsafe_allow_html=True)
+            
+            # 區塊2：輸入區
+            with col2:
+                st.markdown('<p style="font-size: 28px; font-weight: bold; color: #443C3C;">驗證</p>', unsafe_allow_html=True)
+                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=150, placeholder="貼上嵌入時的原始機密內容...", label_visibility="collapsed")
+                verify_clicked = st.button("驗證", key="verify_btn")
+                if verify_clicked and verify_input:
+                    st.session_state.verify_result = {
+                        'input': verify_input,
+                        'match': verify_input == r['content']
+                    }
                 
                 # 驗證按鈕樣式
                 components.html("""
@@ -2432,11 +2415,6 @@ else:
                             btn.style.setProperty('font-weight', '700', 'important');
                             btn.style.setProperty('padding', '4px 12px', 'important');
                             btn.style.setProperty('min-width', '60px', 'important');
-                            const span = btn.querySelector('span') || btn.querySelector('p');
-                            if (span) {
-                                span.style.setProperty('font-size', '16px', 'important');
-                                span.style.setProperty('font-weight', '700', 'important');
-                            }
                         }
                     }
                 }
@@ -2445,23 +2423,43 @@ else:
                 setTimeout(fixVerifyTextBtn, 300);
                 </script>
                 """, height=0)
-                
-                # 對比結果（水平並排）
+            
+            # 區塊3：結果區
+            with col3:
+                st.markdown('<p style="font-size: 28px; font-weight: bold; color: #443C3C;">結果</p>', unsafe_allow_html=True)
                 if 'verify_result' in st.session_state and st.session_state.verify_result:
                     vr = st.session_state.verify_result
+                    if vr['match']:
+                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #4f7343; margin-bottom: 10px;">✓ 完全一致！</p>', unsafe_allow_html=True)
+                    else:
+                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828; margin-bottom: 10px;">✗ 不一致！</p>', unsafe_allow_html=True)
+                    
+                    # 對比結果
                     st.markdown(f'''
-                    <div style="display: flex; gap: 15px; margin-top: 10px;">
-                        <div style="flex: 1; background: #f5f5f5; padding: 10px; border-radius: 8px;">
-                            <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">原始輸入：</p>
-                            <p style="font-size: 11px; color: #666; white-space: pre-wrap; line-height: 1.4; max-height: 100px; overflow-y: auto;">{vr["input"]}</p>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex: 1; background: #f5f5f5; padding: 8px; border-radius: 6px;">
+                            <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">原始輸入：</p>
+                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4; max-height: 120px; overflow-y: auto;">{vr["input"]}</p>
                         </div>
-                        <div style="flex: 1; background: #f5f5f5; padding: 10px; border-radius: 8px;">
-                            <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">提取結果：</p>
-                            <p style="font-size: 11px; color: #666; white-space: pre-wrap; line-height: 1.4; max-height: 100px; overflow-y: auto;">{r["content"]}</p>
+                        <div style="flex: 1; background: #f5f5f5; padding: 8px; border-radius: 6px;">
+                            <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">提取結果：</p>
+                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4; max-height: 120px; overflow-y: auto;">{r["content"]}</p>
                         </div>
                     </div>
                     ''', unsafe_allow_html=True)
-            else:
+                else:
+                    st.markdown('<p style="font-size: 16px; color: #999; margin-top: 30px;">← 輸入原始機密後<br>按「驗證」查看結果</p>', unsafe_allow_html=True)
+        
+        else:
+            # 圖像驗證 - 保持原來的兩欄佈局
+            spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.4, 2.5, 0.1, 2.2, 0.1])
+            with col_left:
+                st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #4f7343; margin-bottom: 25px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #4f7343;">機密圖像:</p>', unsafe_allow_html=True)
+                st.image(Image.open(BytesIO(r['image_data'])), width=200)
+                st.download_button("下載圖像", r['image_data'], "recovered.png", "image/png", key="dl_rec")
+            
+            with col_right:
                 st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">驗證結果</p>', unsafe_allow_html=True)
                 verify_img = st.file_uploader("上傳原始機密圖像", type=["png", "jpg", "jpeg"], key="verify_img_upload")
                 if verify_img:
