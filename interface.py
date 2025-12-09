@@ -2042,7 +2042,7 @@ elif st.session_state.current_mode == 'embed':
                 saved_type = st.session_state.get('embed_secret_type_saved', '文字')
                 
                 # Tab 按鈕切換
-                tab_col1, tab_col2 = st.columns(2)
+                tab_col1, tab_col2 = st.columns(2, gap="small")
                 with tab_col1:
                     if st.button("文字", key="tab_text_btn", use_container_width=True, type="primary" if saved_type == "文字" else "secondary"):
                         if saved_type != "文字":
