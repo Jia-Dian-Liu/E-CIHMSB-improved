@@ -2417,17 +2417,33 @@ else:
                         st.markdown('<p style="font-size: 20px; font-weight: bold; color: #443C3C;">提取結果</p>', unsafe_allow_html=True)
                         st.image(extracted_img, width=150)
                     
-                    orig_arr = np.array(orig_img.convert('RGB'))
-                    ext_arr = np.array(extracted_img.convert('RGB'))
-                    
-                    if orig_arr.shape == ext_arr.shape:
-                        mse = np.mean((orig_arr.astype(int) - ext_arr.astype(int)) ** 2)
-                        if mse == 0:
-                            st.markdown(f'<p style="font-size: 16px; color: #4f7343;">MSE：{mse:.4f} - 完全一致！</p>', unsafe_allow_html=True)
+                    if st.button("驗證", key="verify_img_btn"):
+                        orig_arr = np.array(orig_img.convert('RGB'))
+                        ext_arr = np.array(extracted_img.convert('RGB'))
+                        
+                        if orig_arr.shape == ext_arr.shape:
+                            mse = np.mean((orig_arr.astype(int) - ext_arr.astype(int)) ** 2)
+                            st.session_state.verify_img_result = {
+                                'mse': mse,
+                                'same_size': True
+                            }
                         else:
-                            st.markdown(f'<p style="font-size: 16px; color: #F57C00;">MSE：{mse:.4f} - 圖像有差異</p>', unsafe_allow_html=True)
-                    else:
-                        st.markdown(f'<p style="font-size: 16px; color: #C62828;">尺寸不同，無法比較<br>原始：{orig_img.size[0]}×{orig_img.size[1]} vs 提取：{extracted_img.size[0]}×{extracted_img.size[1]}</p>', unsafe_allow_html=True)
+                            st.session_state.verify_img_result = {
+                                'same_size': False,
+                                'orig_size': orig_img.size,
+                                'ext_size': extracted_img.size
+                            }
+                    
+                    if 'verify_img_result' in st.session_state and st.session_state.verify_img_result:
+                        vr = st.session_state.verify_img_result
+                        if vr.get('same_size'):
+                            mse = vr['mse']
+                            if mse == 0:
+                                st.markdown(f'<p style="font-size: 16px; color: #4f7343;">MSE：{mse:.4f} - 完全一致！</p>', unsafe_allow_html=True)
+                            else:
+                                st.markdown(f'<p style="font-size: 16px; color: #F57C00;">MSE：{mse:.4f} - 圖像有差異</p>', unsafe_allow_html=True)
+                        else:
+                            st.markdown(f'<p style="font-size: 16px; color: #C62828;">尺寸不同，無法比較<br>原始：{vr["orig_size"][0]}×{vr["orig_size"][1]} vs 提取：{vr["ext_size"][0]}×{vr["ext_size"][1]}</p>', unsafe_allow_html=True)
         
         # 返回首頁按鈕 - 固定在底部中央
         _, btn_col, _ = st.columns([1, 1, 1])
@@ -2437,6 +2453,7 @@ else:
                 st.session_state.extract_result = None
                 st.session_state.current_mode = None
                 st.session_state.verify_result = None
+                st.session_state.verify_img_result = None
                 st.rerun()
         
         components.html("""
