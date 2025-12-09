@@ -2273,7 +2273,8 @@ elif st.session_state.current_mode == 'embed':
             processing_placeholder.markdown("""
             <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; justify-content: center; align-items: center;">
                 <div style="background: white; padding: 40px 60px; border-radius: 16px; text-align: center;">
-                    <div style="font-size: 32px; font-weight: bold; color: #5D6D7E; margin-bottom: 20px;">🔄 嵌入中...</div>
+                    <div style="font-size: 32px; font-weight: bold; color: #5D6D7E; margin-bottom: 10px;">🔄 嵌入中...</div>
+                    <div style="font-size: 20px; color: #888;">請稍候，正在處理您的機密資料</div>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -2715,7 +2716,8 @@ else:
                 processing_placeholder.markdown("""
                 <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; justify-content: center; align-items: center;">
                     <div style="background: white; padding: 40px 60px; border-radius: 16px; text-align: center;">
-                        <div style="font-size: 32px; font-weight: bold; color: #5D6D7E;">🔄 提取中...</div>
+                        <div style="font-size: 32px; font-weight: bold; color: #5D6D7E; margin-bottom: 10px;">🔄 提取中...</div>
+                        <div style="font-size: 20px; color: #888;">請稍候，正在解析您的機密資料</div>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
