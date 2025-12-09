@@ -2390,6 +2390,36 @@ else:
                             'match': verify_input == r['content']
                         }
                 
+                # 驗證按鈕樣式
+                components.html("""
+                <script>
+                function fixVerifyTextBtn() {
+                    const buttons = window.parent.document.querySelectorAll('button');
+                    for (let btn of buttons) { 
+                        if (btn.innerText === '驗證') {
+                            btn.style.setProperty('background-color', '#c9b89a', 'important');
+                            btn.style.setProperty('border-color', '#c9b89a', 'important');
+                            btn.style.setProperty('color', '#443C3C', 'important');
+                            btn.style.setProperty('font-size', '24px', 'important');
+                            btn.style.setProperty('font-weight', '700', 'important');
+                            btn.style.setProperty('padding', '8px 18px', 'important');
+                            btn.style.setProperty('min-width', '120px', 'important');
+                            // 內部文字也設定
+                            const span = btn.querySelector('span') || btn.querySelector('p');
+                            if (span) {
+                                span.style.setProperty('font-size', '24px', 'important');
+                                span.style.setProperty('font-weight', '700', 'important');
+                            }
+                        }
+                    }
+                }
+                fixVerifyTextBtn();
+                setTimeout(fixVerifyTextBtn, 100);
+                setTimeout(fixVerifyTextBtn, 300);
+                setTimeout(fixVerifyTextBtn, 500);
+                </script>
+                """, height=0)
+                
                 if 'verify_result' in st.session_state and st.session_state.verify_result:
                     vr = st.session_state.verify_result
                     if vr['match']:
@@ -2433,6 +2463,36 @@ else:
                                 'orig_size': orig_img.size,
                                 'ext_size': extracted_img.size
                             }
+                    
+                    # 驗證按鈕樣式
+                    components.html("""
+                    <script>
+                    function fixVerifyImgBtn() {
+                        const buttons = window.parent.document.querySelectorAll('button');
+                        for (let btn of buttons) { 
+                            if (btn.innerText === '驗證') {
+                                btn.style.setProperty('background-color', '#c9b89a', 'important');
+                                btn.style.setProperty('border-color', '#c9b89a', 'important');
+                                btn.style.setProperty('color', '#443C3C', 'important');
+                                btn.style.setProperty('font-size', '24px', 'important');
+                                btn.style.setProperty('font-weight', '700', 'important');
+                                btn.style.setProperty('padding', '8px 18px', 'important');
+                                btn.style.setProperty('min-width', '120px', 'important');
+                                // 內部文字也設定
+                                const span = btn.querySelector('span') || btn.querySelector('p');
+                                if (span) {
+                                    span.style.setProperty('font-size', '24px', 'important');
+                                    span.style.setProperty('font-weight', '700', 'important');
+                                }
+                            }
+                        }
+                    }
+                    fixVerifyImgBtn();
+                    setTimeout(fixVerifyImgBtn, 100);
+                    setTimeout(fixVerifyImgBtn, 300);
+                    setTimeout(fixVerifyImgBtn, 500);
+                    </script>
+                    """, height=0)
                     
                     if 'verify_img_result' in st.session_state and st.session_state.verify_img_result:
                         vr = st.session_state.verify_img_result
