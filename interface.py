@@ -704,9 +704,9 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-weight: bold !important;
 }
 
-/* 機密文字顯示 - 中等字體 */
+/* 機密文字顯示 - 和結果區一樣大 */
 [data-testid="stMain"] .stMarkdown div.secret-content {
-    font-size: 22px !important;
+    font-size: clamp(22px, 2.5vw, 30px) !important;
     font-weight: normal !important;
     color: #4f7343 !important;
     line-height: 1.4 !important;
