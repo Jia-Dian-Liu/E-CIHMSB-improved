@@ -2107,13 +2107,6 @@ elif st.session_state.current_mode == 'embed':
                     else:
                         st.session_state.secret_bits_saved = 0
                         step2_done = False
-                
-                # 開始嵌入按鈕放在col2
-                all_done = step1_done and step2_done and st.session_state.get('embed_image_id')
-                if all_done:
-                    st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
-                    if st.button("開始嵌入", type="primary", key="embed_btn_col2", use_container_width=True):
-                        st.session_state.trigger_embed = True
             else:
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第一步</p>', unsafe_allow_html=True)
         
@@ -2194,11 +2187,18 @@ elif st.session_state.current_mode == 'embed':
             else:
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第二步</p>', unsafe_allow_html=True)
         
-        # ===== 開始嵌入處理 =====
+        # ===== 開始嵌入按鈕 =====
         all_done = step1_done and step2_done and st.session_state.get('embed_image_id')
         
+        if all_done:
+            st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+            btn_col1, btn_col2, btn_col3 = st.columns([1, 0.5, 1])
+            with btn_col2:
+                if st.button("開始嵌入", type="primary", key="embed_btn_horizontal", use_container_width=True):
+                    st.session_state.trigger_embed = True
+        
         if all_done and st.session_state.get('trigger_embed'):
-            st.session_state.trigger_embed = False  # 重置
+            st.session_state.trigger_embed = False
             processing_placeholder = st.empty()
             processing_placeholder.markdown("""
             <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; justify-content: center; align-items: center;">
