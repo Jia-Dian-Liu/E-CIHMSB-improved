@@ -2417,10 +2417,14 @@ else:
             # 文字驗證 - 三個水平區塊
             col1, col2, col3 = st.columns([1.4, 1.2, 1.4])
             
-            # 格式化函數：逗號、句號後換行
+            # 格式化函數：逗號、句號後換行（先移除原始換行避免重複）
             def format_text_lines(text):
                 result = html.escape(text)
-                result = result.replace('\n', '<br>')
+                # 先移除所有換行符
+                result = result.replace('\r\n', '')
+                result = result.replace('\n', '')
+                result = result.replace('\r', '')
+                # 再在逗號、句號後加換行
                 result = result.replace('，', '，<br>')
                 result = result.replace('。', '。<br>')
                 return result
