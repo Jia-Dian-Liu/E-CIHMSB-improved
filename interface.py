@@ -58,46 +58,79 @@ if 'embed_result' not in st.session_state:
 if 'extract_result' not in st.session_state:
     st.session_state.extract_result = None
 
-# ==================== 對象管理 ====================
-CONTACTS_FILE = "contacts.json"
-
+# ==================== 對象管理（Supabase 雲端儲存）====================
 def generate_contact_key():
     """生成對象專屬密鑰（32 字元隨機字串）"""
     import secrets
     return secrets.token_hex(16)  # 32 字元的十六進位字串
 
-def load_contacts():
-    """讀取對象資料（支援新舊格式）"""
+def get_supabase_client():
+    """取得 Supabase 客戶端"""
     try:
-        if os.path.exists(CONTACTS_FILE):
-            with open(CONTACTS_FILE, 'r', encoding='utf-8') as f:
+        from supabase import create_client
+        url = st.secrets["SUPABASE_URL"]
+        key = st.secrets["SUPABASE_KEY"]
+        return create_client(url, key)
+    except Exception as e:
+        return None
+
+def load_contacts():
+    """從 Supabase 讀取對象資料"""
+    try:
+        supabase = get_supabase_client()
+        if supabase:
+            response = supabase.table("contacts").select("*").execute()
+            contacts = {}
+            for row in response.data:
+                contacts[row["name"]] = {
+                    "style": row["style"],
+                    "key": row["key"]
+                }
+            return contacts
+    except Exception as e:
+        pass
+    
+    # 如果 Supabase 不可用，嘗試讀取本地 JSON（本地測試用）
+    try:
+        if os.path.exists("contacts.json"):
+            with open("contacts.json", 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                # 檢查是否為舊格式並轉換
                 converted = {}
                 for name, value in data.items():
                     if isinstance(value, dict):
-                        # 新格式: {"style": "...", "key": "..."}
                         converted[name] = value
                     else:
-                        # 舊格式: "style" → 轉換為新格式
-                        converted[name] = {
-                            "style": value,
-                            "key": generate_contact_key()
-                        }
+                        converted[name] = {"style": value, "key": generate_contact_key()}
                 return converted
     except:
         pass
     return {}
 
 def save_contacts(contacts):
-    """儲存對象資料"""
+    """儲存對象資料到 Supabase"""
     try:
-        with open(CONTACTS_FILE, 'w', encoding='utf-8') as f:
+        supabase = get_supabase_client()
+        if supabase:
+            # 先刪除所有現有資料
+            supabase.table("contacts").delete().neq("name", "").execute()
+            # 插入新資料
+            for name, data in contacts.items():
+                supabase.table("contacts").insert({
+                    "name": name,
+                    "style": data.get("style"),
+                    "key": data.get("key")
+                }).execute()
+            return True
+    except Exception as e:
+        pass
+    
+    # 如果 Supabase 不可用，嘗試寫入本地 JSON
+    try:
+        with open("contacts.json", 'w', encoding='utf-8') as f:
             json.dump(contacts, f, ensure_ascii=False, indent=2)
     except:
-        # Streamlit Cloud 是唯讀的，忽略寫入錯誤
-        # 資料會保存在 session_state 中
         pass
+    return False
 
 def get_contact_style(contacts, name):
     """取得對象的風格"""
@@ -105,7 +138,7 @@ def get_contact_style(contacts, name):
         data = contacts[name]
         if isinstance(data, dict):
             return data.get("style")
-        return data  # 舊格式兼容
+        return data
     return None
 
 def get_contact_key(contacts, name):
@@ -2236,10 +2269,6 @@ elif st.session_state.current_mode == 'embed':
                 selected_contact = st.session_state.get('selected_contact_saved', None)
                 contact_key = get_contact_key(st.session_state.contacts, selected_contact) if selected_contact else None
                 
-                # DEBUG: 顯示使用的密鑰
-                if contact_key:
-                else:
-                
                 embed_secret_type = st.session_state.get('embed_secret_type_saved', '文字')
                 embed_text = st.session_state.get('embed_text_saved', None)
                 
@@ -2678,10 +2707,6 @@ else:
                     # 取得對象密鑰
                     selected_contact = st.session_state.get('extract_contact_saved', None)
                     contact_key = get_contact_key(st.session_state.contacts, selected_contact) if selected_contact else None
-                    
-                    # DEBUG: 顯示使用的密鑰
-                    if contact_key:
-                    else:
                     
                     if Z:
                         style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
