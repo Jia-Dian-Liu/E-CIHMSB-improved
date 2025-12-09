@@ -2188,7 +2188,7 @@ elif st.session_state.current_mode == 'embed':
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第二步</p>', unsafe_allow_html=True)
         
         # ===== 開始嵌入按鈕 =====
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
         
         all_done = step1_done and step2_done and st.session_state.get('embed_image_id')
         
@@ -2197,24 +2197,6 @@ elif st.session_state.current_mode == 'embed':
             btn_col1, btn_col2, btn_col3 = st.columns([1, 0.5, 1])
             with btn_col2:
                 embed_btn = st.button("開始嵌入", type="primary", key="embed_btn_horizontal")
-            
-            components.html("""
-            <script>
-            function fixButtons() {
-                const buttons = window.parent.document.querySelectorAll('button');
-                for (let btn of buttons) { 
-                    if (btn.innerText === '開始嵌入') {
-                        let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
-                        if (container) {
-                            container.style.cssText = 'position:fixed!important;bottom:80px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
-                        }
-                    }
-                }
-            }
-            fixButtons();
-            setTimeout(fixButtons, 100);
-            </script>
-            """, height=0)
             
             if embed_btn:
                 processing_placeholder = st.empty()
