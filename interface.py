@@ -2430,20 +2430,20 @@ else:
                 if 'verify_result' in st.session_state and st.session_state.verify_result:
                     vr = st.session_state.verify_result
                     if vr['match']:
-                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #4f7343; margin-bottom: 10px;">✓ 完全一致！</p>', unsafe_allow_html=True)
+                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #4f7343; margin-bottom: 10px;">完全一致！</p>', unsafe_allow_html=True)
                     else:
-                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828; margin-bottom: 10px;">✗ 不一致！</p>', unsafe_allow_html=True)
+                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828; margin-bottom: 10px;">不一致！</p>', unsafe_allow_html=True)
                     
-                    # 對比結果
+                    # 對比結果 - 無白框
                     st.markdown(f'''
                     <div style="display: flex; gap: 10px;">
-                        <div style="flex: 1; background: #f5f5f5; padding: 8px; border-radius: 6px;">
+                        <div style="flex: 1;">
                             <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">原始輸入：</p>
-                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4; max-height: 120px; overflow-y: auto;">{vr["input"]}</p>
+                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4;">{vr["input"]}</p>
                         </div>
-                        <div style="flex: 1; background: #f5f5f5; padding: 8px; border-radius: 6px;">
+                        <div style="flex: 1;">
                             <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">提取結果：</p>
-                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4; max-height: 120px; overflow-y: auto;">{r["content"]}</p>
+                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4;">{r["content"]}</p>
                         </div>
                     </div>
                     ''', unsafe_allow_html=True)
