@@ -2393,15 +2393,30 @@ else:
                 st.download_button("下載圖像", r['image_data'], "recovered.png", "image/png", key="dl_rec")
         
         with col_right:
-            st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">驗證結果</p>', unsafe_allow_html=True)
             if r['type'] == 'text':
-                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=200, placeholder="貼上嵌入時的原始機密內容...")
-                if st.button("驗證", key="verify_btn"):
-                    if verify_input:
+                # 文字驗證 - 使用 HTML flexbox 實現左右並排
+                st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">驗證結果</p>', unsafe_allow_html=True)
+                
+                # 左側：輸入區
+                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=120, placeholder="貼上嵌入時的原始機密內容...")
+                
+                # 驗證按鈕和結果在同一行
+                btn_col, result_col = st.columns([0.3, 1])
+                with btn_col:
+                    verify_clicked = st.button("驗證", key="verify_btn")
+                    if verify_clicked and verify_input:
                         st.session_state.verify_result = {
                             'input': verify_input,
                             'match': verify_input == r['content']
                         }
+                
+                with result_col:
+                    if 'verify_result' in st.session_state and st.session_state.verify_result:
+                        vr = st.session_state.verify_result
+                        if vr['match']:
+                            st.markdown('<span style="font-size: 20px; font-weight: bold; color: #4f7343;">✓ 完全一致！</span>', unsafe_allow_html=True)
+                        else:
+                            st.markdown('<span style="font-size: 20px; font-weight: bold; color: #C62828;">✗ 不一致！</span>', unsafe_allow_html=True)
                 
                 # 驗證按鈕樣式
                 components.html("""
@@ -2417,7 +2432,6 @@ else:
                             btn.style.setProperty('font-weight', '700', 'important');
                             btn.style.setProperty('padding', '4px 12px', 'important');
                             btn.style.setProperty('min-width', '60px', 'important');
-                            // 內部文字也設定
                             const span = btn.querySelector('span') || btn.querySelector('p');
                             if (span) {
                                 span.style.setProperty('font-size', '16px', 'important');
@@ -2429,30 +2443,26 @@ else:
                 fixVerifyTextBtn();
                 setTimeout(fixVerifyTextBtn, 100);
                 setTimeout(fixVerifyTextBtn, 300);
-                setTimeout(fixVerifyTextBtn, 500);
                 </script>
                 """, height=0)
                 
+                # 對比結果（水平並排）
                 if 'verify_result' in st.session_state and st.session_state.verify_result:
                     vr = st.session_state.verify_result
-                    if vr['match']:
-                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #4f7343;">完全一致！</p>', unsafe_allow_html=True)
-                    else:
-                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828;">不一致！</p>', unsafe_allow_html=True)
-                    # 水平並排顯示對比結果
                     st.markdown(f'''
-                    <div style="display: flex; gap: 20px; margin-top: 10px;">
-                        <div style="flex: 1;">
-                            <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">原始輸入：</p>
-                            <p style="font-size: 12px; color: #666; white-space: pre-wrap; line-height: 1.6;">{vr["input"]}</p>
+                    <div style="display: flex; gap: 15px; margin-top: 10px;">
+                        <div style="flex: 1; background: #f5f5f5; padding: 10px; border-radius: 8px;">
+                            <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">原始輸入：</p>
+                            <p style="font-size: 11px; color: #666; white-space: pre-wrap; line-height: 1.4; max-height: 100px; overflow-y: auto;">{vr["input"]}</p>
                         </div>
-                        <div style="flex: 1;">
-                            <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">提取結果：</p>
-                            <p style="font-size: 12px; color: #666; white-space: pre-wrap; line-height: 1.6;">{r["content"]}</p>
+                        <div style="flex: 1; background: #f5f5f5; padding: 10px; border-radius: 8px;">
+                            <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">提取結果：</p>
+                            <p style="font-size: 11px; color: #666; white-space: pre-wrap; line-height: 1.4; max-height: 100px; overflow-y: auto;">{r["content"]}</p>
                         </div>
                     </div>
                     ''', unsafe_allow_html=True)
             else:
+                st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">驗證結果</p>', unsafe_allow_html=True)
                 verify_img = st.file_uploader("上傳原始機密圖像", type=["png", "jpg", "jpeg"], key="verify_img_upload")
                 if verify_img:
                     orig_img = Image.open(verify_img)
