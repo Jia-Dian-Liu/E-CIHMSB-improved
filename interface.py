@@ -2415,15 +2415,22 @@ else:
         
         if r['type'] == 'text':
             # 文字驗證 - 三個水平區塊
-            col1, col2, col3 = st.columns([1.6, 1.2, 1.2])
+            col1, col2, col3 = st.columns([1.4, 1.2, 1.4])
+            
+            # 格式化函數：逗號、句號後換行
+            def format_text_lines(text):
+                result = html.escape(text)
+                result = result.replace('\n', '<br>')
+                result = result.replace('，', '，<br>')
+                result = result.replace('。', '。<br>')
+                return result
             
             # 區塊1：提取完成
             with col1:
                 st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #4f7343; margin-bottom: 15px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
                 st.markdown('<p style="font-size: 24px; font-weight: bold; color: #4f7343;">機密文字:</p>', unsafe_allow_html=True)
-                # 將換行符轉成 <br>，並 escape 特殊字符
-                content_html = html.escape(r["content"]).replace('\n', '<br>')
-                st.markdown(f'<p style="font-size: 20px; color: #4f7343; line-height: 2.0; white-space: nowrap;">{content_html}</p>', unsafe_allow_html=True)
+                content_html = format_text_lines(r["content"])
+                st.markdown(f'<p style="font-size: 20px; color: #4f7343; line-height: 1.8;">{content_html}</p>', unsafe_allow_html=True)
             
             # 區塊2：輸入區
             with col2:
@@ -2469,15 +2476,19 @@ else:
                     else:
                         st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828; margin-bottom: 10px;">不一致！</p>', unsafe_allow_html=True)
                     
-                    # 對比結果 - 上下排列，escape 特殊字符並轉換換行
-                    input_html = html.escape(vr["input"]).replace('\n', '<br>')
-                    result_html = html.escape(r["content"]).replace('\n', '<br>')
+                    # 對比結果 - 左右並排，逗號句號後換行
+                    input_html = format_text_lines(vr["input"])
+                    result_html = format_text_lines(r["content"])
                     st.markdown(f'''
-                    <div>
-                        <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">原始輸入：</p>
-                        <p style="font-size: 12px; color: #666; line-height: 1.8; margin-bottom: 12px;">{input_html}</p>
-                        <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">提取結果：</p>
-                        <p style="font-size: 12px; color: #666; line-height: 1.8;">{result_html}</p>
+                    <div style="display: flex; gap: 15px;">
+                        <div style="flex: 1;">
+                            <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">原始輸入：</p>
+                            <p style="font-size: 12px; color: #666; line-height: 1.6;">{input_html}</p>
+                        </div>
+                        <div style="flex: 1;">
+                            <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">提取結果：</p>
+                            <p style="font-size: 12px; color: #666; line-height: 1.6;">{result_html}</p>
+                        </div>
                     </div>
                     ''', unsafe_allow_html=True)
                 else:
