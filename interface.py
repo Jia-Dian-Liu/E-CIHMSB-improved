@@ -2107,6 +2107,13 @@ elif st.session_state.current_mode == 'embed':
                     else:
                         st.session_state.secret_bits_saved = 0
                         step2_done = False
+                
+                # 開始嵌入按鈕放在col2
+                all_done = step1_done and step2_done and st.session_state.get('embed_image_id')
+                if all_done:
+                    st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+                    if st.button("開始嵌入", type="primary", key="embed_btn_col2", use_container_width=True):
+                        st.session_state.trigger_embed = True
             else:
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第一步</p>', unsafe_allow_html=True)
         
@@ -2187,29 +2194,22 @@ elif st.session_state.current_mode == 'embed':
             else:
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第二步</p>', unsafe_allow_html=True)
         
-        # ===== 開始嵌入按鈕 =====
-        st.markdown("<div style='margin-top: -15px;'></div>", unsafe_allow_html=True)
-        
+        # ===== 開始嵌入處理 =====
         all_done = step1_done and step2_done and st.session_state.get('embed_image_id')
         
-        if all_done:
-            # 置中顯示按鈕
-            btn_col1, btn_col2, btn_col3 = st.columns([1, 0.5, 1])
-            with btn_col2:
-                embed_btn = st.button("開始嵌入", type="primary", key="embed_btn_horizontal")
-            
-            if embed_btn:
-                processing_placeholder = st.empty()
-                processing_placeholder.markdown("""
-                <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; justify-content: center; align-items: center;">
-                    <div style="background: white; padding: 40px 60px; border-radius: 16px; text-align: center;">
-                        <div style="font-size: 32px; font-weight: bold; color: #5D6D7E; margin-bottom: 20px;">🔄 嵌入中...</div>
-                    </div>
+        if all_done and st.session_state.get('trigger_embed'):
+            st.session_state.trigger_embed = False  # 重置
+            processing_placeholder = st.empty()
+            processing_placeholder.markdown("""
+            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; justify-content: center; align-items: center;">
+                <div style="background: white; padding: 40px 60px; border-radius: 16px; text-align: center;">
+                    <div style="font-size: 32px; font-weight: bold; color: #5D6D7E; margin-bottom: 20px;">🔄 嵌入中...</div>
                 </div>
-                """, unsafe_allow_html=True)
-                
-                try:
-                    start = time.time()
+            </div>
+            """, unsafe_allow_html=True)
+            
+            try:
+                start = time.time()
                     image_id = st.session_state.get('embed_image_id')
                     image_size = st.session_state.get('embed_image_size')
                     style_num = st.session_state.get('embed_style_num', 1)
