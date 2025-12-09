@@ -2251,7 +2251,7 @@ elif st.session_state.current_mode == 'embed':
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第二步</p>', unsafe_allow_html=True)
         
         # ===== 返回按鈕（左下角）=====
-        if st.button("返回上一頁", key="embed_back_btn", type="secondary"):
+        if st.button("返回", key="embed_back_btn", type="secondary"):
             # 清除嵌入相關狀態
             for key in ['selected_contact_saved', 'secret_bits_saved', 'embed_text_saved', 
                         'embed_secret_type_saved', 'embed_secret_image_data', 'embed_secret_image_name',
