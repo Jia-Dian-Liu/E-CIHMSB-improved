@@ -681,6 +681,39 @@ div.hint-text {
     color: #999 !important;
 }
 
+/* Tab 切換按鈕樣式 */
+.tab-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.tab-btn {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 22px;
+    font-weight: bold;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background: #ecefef;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+.tab-btn:hover {
+    border-color: #999;
+    background: #e0e0e0;
+}
+.tab-btn.active {
+    background: #4A6B8A;
+    color: white;
+    border-color: #4A6B8A;
+}
+.tab-btn-extract.active {
+    background: #7D5A6B;
+    border-color: #7D5A6B;
+}
+
 /* bits 資訊專用樣式 */
 .bits-info {
     font-size: 28px !important;
@@ -714,8 +747,28 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     min-width: 80px !important;
 }
 
+[data-testid="stMain"] .stButton button[kind="secondary"] {
+    background: #ecefef !important;
+    color: #666 !important;
+    border: 2px solid #ccc !important;
+    border-radius: 8px !important;
+    font-size: 22px !important;
+    padding: 10px 30px !important;
+    min-width: 80px !important;
+}
+
+[data-testid="stMain"] .stButton button[kind="secondary"]:hover {
+    background: #e0e0e0 !important;
+    border-color: #999 !important;
+}
+
 [data-testid="stMain"] .stButton button[kind="primary"] span,
 [data-testid="stMain"] .stButton button[kind="primary"] p {
+    font-size: 22px !important;
+}
+
+[data-testid="stMain"] .stButton button[kind="secondary"] span,
+[data-testid="stMain"] .stButton button[kind="secondary"] p {
     font-size: 22px !important;
 }
 
@@ -1951,7 +2004,7 @@ elif st.session_state.current_mode == 'embed':
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: 4px solid #4A6B8A; margin-bottom: 15px;">
-                <span style="font-size: 32px; font-weight: bold; color: #4A6B8A;">第一步: 選擇對象</span>
+                <span style="font-size: 32px; font-weight: bold; color: #4A6B8A;">第一步：選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1981,30 +2034,36 @@ elif st.session_state.current_mode == 'embed':
         with col2:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step1_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
-                <span style="font-size: 32px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步: 機密內容</span>
+                <span style="font-size: 32px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步：機密內容</span>
             </div>
             """, unsafe_allow_html=True)
             
             if step1_done:
                 saved_type = st.session_state.get('embed_secret_type_saved', '文字')
-                type_idx = 0 if saved_type == "文字" else 1
-                embed_secret_type = st.radio("類型", ["文字", "圖像"], index=type_idx, key="embed_type_h", horizontal=True, label_visibility="collapsed")
                 
-                # 切換類型時清除另一種類型的資料
-                if embed_secret_type == "文字" and st.session_state.get('embed_secret_type_saved') == "圖像":
-                    # 從圖像切換到文字，清除圖像資料
-                    for key in ['embed_secret_image_data', 'embed_secret_image_name']:
-                        if key in st.session_state:
-                            del st.session_state[key]
-                    st.session_state.secret_bits_saved = 0
-                elif embed_secret_type == "圖像" and st.session_state.get('embed_secret_type_saved') == "文字":
-                    # 從文字切換到圖像，清除文字資料
-                    if 'embed_text_saved' in st.session_state:
-                        del st.session_state['embed_text_saved']
-                    st.session_state.secret_bits_saved = 0
+                # Tab 按鈕切換
+                tab_col1, tab_col2 = st.columns(2)
+                with tab_col1:
+                    if st.button("📝 文字", key="tab_text_btn", use_container_width=True, type="primary" if saved_type == "文字" else "secondary"):
+                        if saved_type != "文字":
+                            # 從圖像切換到文字，清除圖像資料
+                            for key in ['embed_secret_image_data', 'embed_secret_image_name']:
+                                if key in st.session_state:
+                                    del st.session_state[key]
+                            st.session_state.secret_bits_saved = 0
+                            st.session_state.embed_secret_type_saved = "文字"
+                            st.rerun()
+                with tab_col2:
+                    if st.button("🖼️ 圖像", key="tab_image_btn", use_container_width=True, type="primary" if saved_type == "圖像" else "secondary"):
+                        if saved_type != "圖像":
+                            # 從文字切換到圖像，清除文字資料
+                            if 'embed_text_saved' in st.session_state:
+                                del st.session_state['embed_text_saved']
+                            st.session_state.secret_bits_saved = 0
+                            st.session_state.embed_secret_type_saved = "圖像"
+                            st.rerun()
                 
-                # 更新當前類型
-                st.session_state.embed_secret_type_saved = embed_secret_type
+                embed_secret_type = saved_type
                 
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
@@ -2054,7 +2113,7 @@ elif st.session_state.current_mode == 'embed':
         with col3:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step2_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
-                <span style="font-size: 32px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步: 載體圖像</span>
+                <span style="font-size: 32px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步：載體圖像</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -2418,7 +2477,7 @@ else:
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: 4px solid #7D5A6B; margin-bottom: 15px;">
-                <span style="font-size: 32px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
+                <span style="font-size: 32px; font-weight: bold; color: #7D5A6B;">第一步：選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -2445,7 +2504,7 @@ else:
         with col2:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #D8C0C8' if not step1_done else '4px solid #7D5A6B'}; margin-bottom: 15px;">
-                <span style="font-size: 32px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步: 上傳 Z碼圖</span>
+                <span style="font-size: 32px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步：上傳 Z碼圖</span>
             </div>
             """, unsafe_allow_html=True)
             
