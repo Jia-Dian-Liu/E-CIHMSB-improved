@@ -706,7 +706,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 機密文字顯示 - 中等字體 */
 [data-testid="stMain"] .stMarkdown div.secret-content {
-    font-size: 10px !important;
+    font-size: 14px !important;
     font-weight: normal !important;
     color: #4f7343 !important;
     line-height: 1.4 !important;
@@ -2448,11 +2448,11 @@ else:
                     <div style="display: flex; gap: 10px;">
                         <div style="flex: 1;">
                             <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">原始輸入：</p>
-                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4;">{vr["input"]}</p>
+                            <p style="font-size: 14px; color: #666; white-space: pre-wrap; line-height: 1.4;">{vr["input"]}</p>
                         </div>
                         <div style="flex: 1;">
                             <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">提取結果：</p>
-                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4;">{r["content"]}</p>
+                            <p style="font-size: 14px; color: #666; white-space: pre-wrap; line-height: 1.4;">{r["content"]}</p>
                         </div>
                     </div>
                     ''', unsafe_allow_html=True)
