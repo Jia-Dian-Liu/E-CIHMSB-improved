@@ -2292,6 +2292,25 @@ else:
         st.markdown("""
         <style>
         .main { overflow: auto !important; }
+        
+        /* 下載圖像按鈕樣式 */
+        [data-testid="stDownloadButton"] button {
+            background-color: #c9b89a !important;
+            color: #443C3C !important;
+            border: none !important;
+            font-weight: 700 !important;
+            font-size: 24px !important;
+            min-width: 120px !important;
+            padding: 8px 18px !important;
+        }
+        [data-testid="stDownloadButton"] button p,
+        [data-testid="stDownloadButton"] button span {
+            font-weight: 700 !important;
+            font-size: 24px !important;
+        }
+        [data-testid="stDownloadButton"] button:hover {
+            background-color: #b8a788 !important;
+        }
         </style>
         """, unsafe_allow_html=True)
         
