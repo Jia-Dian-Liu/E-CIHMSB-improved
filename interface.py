@@ -2166,12 +2166,12 @@ elif st.session_state.current_mode == 'embed':
                     usage = secret_bits_needed / capacity * 100
                     
                     st.markdown(f'''
-                    <div style="display: flex; align-items: center; gap: 25px; margin-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
                         <div style="flex-shrink: 0;">
-                            <img src="https://images.pexels.com/photos/{selected_image["id"]}/pexels-photo-{selected_image["id"]}.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
-                                 style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
+                            <img src="https://images.pexels.com/photos/{selected_image["id"]}/pexels-photo-{selected_image["id"]}.jpeg?auto=compress&cs=tinysrgb&w=120&h=120&fit=crop" 
+                                 style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">
                         </div>
-                        <div style="color: #b28084; font-size: 28px; font-weight: bold; line-height: 1.8; white-space: nowrap;">
+                        <div style="color: #b28084; font-size: 24px; font-weight: bold; line-height: 1.5; white-space: nowrap;">
                             機密大小：{secret_bits_needed:,} bits<br>
                             圖像容量：{capacity:,} bits<br>
                             使用率：{usage:.1f}%
@@ -2191,6 +2191,7 @@ elif st.session_state.current_mode == 'embed':
         all_done = step1_done and step2_done and st.session_state.get('embed_image_id')
         
         if all_done:
+            st.markdown("<div style='margin-top: -30px;'></div>", unsafe_allow_html=True)
             btn_col1, btn_col2, btn_col3 = st.columns([1, 0.5, 1])
             with btn_col2:
                 if st.button("開始嵌入", type="primary", key="embed_btn_horizontal", use_container_width=True):
