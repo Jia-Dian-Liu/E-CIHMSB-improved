@@ -2434,7 +2434,7 @@ else:
                     else:
                         st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828; margin-bottom: 10px;">不一致！</p>', unsafe_allow_html=True)
                     
-                    # 對比結果 - 無白框
+                    # 對比結果
                     st.markdown(f'''
                     <div style="display: flex; gap: 10px;">
                         <div style="flex: 1;">
