@@ -2251,7 +2251,7 @@ elif st.session_state.current_mode == 'embed':
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第二步</p>', unsafe_allow_html=True)
         
         # ===== 返回按鈕（左下角）=====
-        if st.button("返回上一頁", key="embed_back_btn", type="secondary"):
+        if st.button("返回", key="embed_back_btn", type="secondary"):
             # 清除嵌入相關狀態
             for key in ['selected_contact_saved', 'secret_bits_saved', 'embed_text_saved', 
                         'embed_secret_type_saved', 'embed_secret_image_data', 'embed_secret_image_name',
@@ -2297,11 +2297,11 @@ elif st.session_state.current_mode == 'embed':
         function fixEmbedBackButton() {
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
-                if (btn.innerText === '返回上一頁') {
-                    btn.style.cssText += 'min-width:100px!important;padding:0.5rem 1.5rem!important;';
+                if (btn.innerText === '返回') {
+                    btn.style.cssText += 'min-width:60px!important;padding:0.3rem 0.8rem!important;font-size:16px!important;';
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:85px!important;left:30px!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'position:fixed!important;bottom:85px!important;left:80px!important;width:auto!important;z-index:1000!important;';
                     }
                 }
             }
@@ -2819,7 +2819,7 @@ else:
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第一步</p>', unsafe_allow_html=True)
         
         # ===== 返回按鈕（左下角）=====
-        if st.button("返回上一頁", key="extract_back_btn", type="secondary"):
+        if st.button("返回", key="extract_back_btn", type="secondary"):
             # 清除提取相關狀態
             for key in ['extract_contact_saved']:
                 if key in st.session_state:
@@ -2916,11 +2916,11 @@ else:
         function fixExtractBackButton() {
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
-                if (btn.innerText === '返回上一頁') {
-                    btn.style.cssText += 'min-width:100px!important;padding:0.5rem 1.5rem!important;';
+                if (btn.innerText === '返回') {
+                    btn.style.cssText += 'min-width:60px!important;padding:0.3rem 0.8rem!important;font-size:16px!important;';
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:85px!important;left:30px!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'position:fixed!important;bottom:85px!important;left:80px!important;width:auto!important;z-index:1000!important;';
                     }
                 }
             }
