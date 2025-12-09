@@ -2297,7 +2297,7 @@ elif st.session_state.current_mode == 'embed':
         function fixEmbedBackButton() {
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
-                if (btn.innerText === '返回上一頁') {
+                if (btn.innerText === '返回') {
                     btn.style.cssText += 'min-width:100px!important;padding:0.5rem 1.5rem!important;';
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
