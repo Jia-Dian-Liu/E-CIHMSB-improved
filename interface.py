@@ -864,12 +864,6 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     caret-color: #333 !important;
 }
 
-/* 讓TextArea和FileUploader對齊Tab按鈕 */
-[data-testid="stMain"] .stTextArea,
-[data-testid="stMain"] .stFileUploader > div {
-    width: calc(100% + 0.5rem) !important;
-}
-
 .stTextArea textarea:focus {
     outline: none !important;
     border-color: #ccc !important;
@@ -1262,6 +1256,14 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
     max-width: 1200px !important;
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+/* 讓第二步的輸入框對齊Tab按鈕（補償0.3rem的gap）*/
+[data-testid="column"]:nth-child(2) .stTextArea {
+    width: calc(100% + 0.3rem) !important;
+}
+[data-testid="column"]:nth-child(2) .stFileUploader > section {
+    width: calc(100% + 0.3rem) !important;
 }
 </style>
 """, unsafe_allow_html=True)
