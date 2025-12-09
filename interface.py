@@ -2250,6 +2250,17 @@ elif st.session_state.current_mode == 'embed':
             else:
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第二步</p>', unsafe_allow_html=True)
         
+        # ===== 返回按鈕（左下角）=====
+        if st.button("返回上一頁", key="embed_back_btn", type="secondary"):
+            # 清除嵌入相關狀態
+            for key in ['selected_contact_saved', 'secret_bits_saved', 'embed_text_saved', 
+                        'embed_secret_type_saved', 'embed_secret_image_data', 'embed_secret_image_name',
+                        'embed_image_id', 'embed_image_size', 'embed_image_name', 'embed_style_num']:
+                if key in st.session_state:
+                    del st.session_state[key]
+            st.session_state.current_mode = None
+            st.rerun()
+        
         # ===== 開始嵌入按鈕 =====
         all_done = step1_done and step2_done and st.session_state.get('embed_image_id')
         
@@ -2279,6 +2290,27 @@ elif st.session_state.current_mode == 'embed':
             setTimeout(fixEmbedButton, 300);
             </script>
             """, height=0)
+        
+        # 固定返回按鈕到左下角
+        components.html("""
+        <script>
+        function fixEmbedBackButton() {
+            const buttons = window.parent.document.querySelectorAll('button');
+            for (let btn of buttons) { 
+                if (btn.innerText === '返回上一頁') {
+                    btn.style.cssText += 'min-width:100px!important;padding:0.5rem 1.5rem!important;';
+                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    if (container) {
+                        container.style.cssText = 'position:fixed!important;bottom:85px!important;left:30px!important;width:auto!important;z-index:1000!important;';
+                    }
+                }
+            }
+        }
+        fixEmbedBackButton();
+        setTimeout(fixEmbedBackButton, 100);
+        setTimeout(fixEmbedBackButton, 300);
+        </script>
+        """, height=0)
         
         if all_done and st.session_state.get('trigger_embed'):
             st.session_state.trigger_embed = False
@@ -2786,6 +2818,15 @@ else:
             else:
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第一步</p>', unsafe_allow_html=True)
         
+        # ===== 返回按鈕（左下角）=====
+        if st.button("返回上一頁", key="extract_back_btn", type="secondary"):
+            # 清除提取相關狀態
+            for key in ['extract_contact_saved']:
+                if key in st.session_state:
+                    del st.session_state[key]
+            st.session_state.current_mode = None
+            st.rerun()
+        
         # ===== 開始提取按鈕 =====
         if step1_done and extract_z_text and extract_style_num and extract_img_num and extract_img_size:
             btn_col1, btn_col2, btn_col3 = st.columns([1, 0.5, 1])
@@ -2869,27 +2910,23 @@ else:
                     processing_placeholder.empty()
                     st.markdown(f'<div class="error-box">❌ 提取失敗! {e}</div>', unsafe_allow_html=True)
         
+        # 固定返回按鈕到左下角
         components.html("""
         <script>
-        function fixButtons() {
+        function fixExtractBackButton() {
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
-                if (btn.innerText.includes('下一步') || btn.innerText.includes('開始提取')) {
+                if (btn.innerText === '返回上一頁') {
+                    btn.style.cssText += 'min-width:100px!important;padding:0.5rem 1.5rem!important;';
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:85px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
-                    }
-                }
-                if (btn.innerText.includes('返回') && !btn.innerText.includes('首頁')) {
-                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
-                    if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:85px!important;left:30px!important;right:auto!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'position:fixed!important;bottom:85px!important;left:30px!important;width:auto!important;z-index:1000!important;';
                     }
                 }
             }
         }
-        fixButtons();
-        setTimeout(fixButtons, 100);
-        setTimeout(fixButtons, 300);
+        fixExtractBackButton();
+        setTimeout(fixExtractBackButton, 100);
+        setTimeout(fixExtractBackButton, 300);
         </script>
         """, height=0)
