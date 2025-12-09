@@ -2417,14 +2417,25 @@ else:
             # 文字驗證 - 三個水平區塊
             col1, col2, col3 = st.columns([1.4, 1.2, 1.4])
             
-            # 格式化函數：逗號、句號後換行（先移除原始換行避免重複）
+            # 格式化函數（左邊區塊）：只在句號後換行
+            def format_text_by_sentence(text):
+                result = html.escape(text)
+                # 先移除所有換行符
+                result = result.replace('\r\n', '')
+                result = result.replace('\n', '')
+                result = result.replace('\r', '')
+                # 只在句號後加換行
+                result = result.replace('。', '。<br>')
+                return result
+            
+            # 格式化函數（結果區）：逗號、句號後都換行
             def format_text_lines(text):
                 result = html.escape(text)
                 # 先移除所有換行符
                 result = result.replace('\r\n', '')
                 result = result.replace('\n', '')
                 result = result.replace('\r', '')
-                # 再在逗號、句號後加換行
+                # 在逗號、句號後加換行
                 result = result.replace('，', '，<br>')
                 result = result.replace('。', '。<br>')
                 return result
@@ -2433,7 +2444,7 @@ else:
             with col1:
                 st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #4f7343; margin-bottom: 15px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
                 st.markdown('<p style="font-size: 24px; font-weight: bold; color: #4f7343;">機密文字:</p>', unsafe_allow_html=True)
-                content_html = format_text_lines(r["content"])
+                content_html = format_text_by_sentence(r["content"])
                 st.markdown(f'<p style="font-size: 20px; color: #4f7343; line-height: 1.8;">{content_html}</p>', unsafe_allow_html=True)
             
             # 區塊2：輸入區
