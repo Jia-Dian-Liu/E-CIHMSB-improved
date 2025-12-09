@@ -296,13 +296,14 @@ def calculate_required_bits_for_image(image, target_capacity=None):
     return header_bits + scaled[0] * scaled[1] * bits_per_pixel, scaled
 
 # ==================== Z碼圖編碼/解碼 ====================
-def encode_z_as_image_with_header(z_bits, style_num, img_num, img_size):
-    """Z碼圖編碼（含風格編號、圖像編號和尺寸）"""
+def encode_z_as_image_with_header(z_bits, style_num, img_num, img_size, secret_type=0):
+    """Z碼圖編碼（含風格編號、圖像編號、尺寸和機密類型）"""
     length = len(z_bits)
     header_bits = [int(b) for b in format(length, '032b')]
     header_bits += [int(b) for b in format(style_num, '08b')]  # 風格編號 8 bits
     header_bits += [int(b) for b in format(img_num, '016b')]
     header_bits += [int(b) for b in format(img_size, '016b')]
+    header_bits += [int(b) for b in format(secret_type, '08b')]  # 機密類型 8 bits (0=文字, 1=圖像)
     full_bits = header_bits + z_bits
     
     if len(full_bits) % 8 != 0:
@@ -328,7 +329,7 @@ def encode_z_as_image_with_header(z_bits, style_num, img_num, img_size):
     return image, length
 
 def decode_image_to_z_with_header(image):
-    """Z碼圖解碼（含風格編號、圖像編號和尺寸）"""
+    """Z碼圖解碼（含風格編號、圖像編號、尺寸和機密類型）"""
     if image.mode != 'L':
         image = image.convert('L')
     
@@ -339,20 +340,21 @@ def decode_image_to_z_with_header(image):
         bits = [int(b) for b in format(pixel, '08b')]
         all_bits.extend(bits)
     
-    if len(all_bits) < 72:  # 32 + 8 + 16 + 16 = 72
+    if len(all_bits) < 80:  # 32 + 8 + 16 + 16 + 8 = 80
         raise ValueError("Z碼圖格式錯誤：太小")
     
     z_length = int(''.join(map(str, all_bits[:32])), 2)
     style_num = int(''.join(map(str, all_bits[32:40])), 2)
     img_num = int(''.join(map(str, all_bits[40:56])), 2)
     img_size = int(''.join(map(str, all_bits[56:72])), 2)
+    secret_type = int(''.join(map(str, all_bits[72:80])), 2)  # 機密類型
     
-    if z_length <= 0 or z_length > len(all_bits) - 72:
+    if z_length <= 0 or z_length > len(all_bits) - 80:
         raise ValueError(f"無效的 Z碼（長度：{z_length}）")
     
-    z_bits = all_bits[72:72 + z_length]
+    z_bits = all_bits[80:80 + z_length]
     
-    return z_bits, style_num, img_num, img_size
+    return z_bits, style_num, img_num, img_size, secret_type
 
 # ==================== Streamlit 頁面配置 ====================
 st.set_page_config(page_title="🔐 高效能無載體之機密編碼技術", page_icon="🔐", layout="wide", initial_sidebar_state="collapsed")
@@ -1884,13 +1886,16 @@ elif st.session_state.current_mode == 'embed':
             ''', unsafe_allow_html=True)
         
         with col_right:
+            # 計算機密類型代碼
+            secret_type_code = 0 if r['embed_secret_type'] == "文字" else 1
+            
             if r['embed_secret_type'] == "文字":
                 z_text = ''.join(str(b) for b in r['z_bits'])
                 style_num = r.get("style_num", 1)
                 img_num = r["embed_image_choice"].split("-")[1]
                 img_size = r["embed_image_choice"].split("-")[2]
-                # 格式: 風格編號-圖像編號-尺寸|Z碼
-                qr_content = f"{style_num}-{img_num}-{img_size}|{z_text}"
+                # 格式: 風格編號-圖像編號-尺寸-機密類型|Z碼
+                qr_content = f"{style_num}-{img_num}-{img_size}-{secret_type_code}|{z_text}"
                 
                 try:
                     qr = qrcode.QRCode(version=None, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=2)
@@ -1911,7 +1916,7 @@ elif st.session_state.current_mode == 'embed':
                     style_num_int = int(style_num)
                     img_num_int = int(img_num)
                     img_size_int = int(img_size)
-                    z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num_int, img_num_int, img_size_int)
+                    z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num_int, img_num_int, img_size_int, secret_type_code)
                     
                     st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(z_img, width=200)
@@ -1924,7 +1929,7 @@ elif st.session_state.current_mode == 'embed':
                 style_num = r.get("style_num", 1)
                 img_num = int(r["embed_image_choice"].split("-")[1])
                 img_size = int(r["embed_image_choice"].split("-")[2])
-                z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num, img_num, img_size)
+                z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num, img_num, img_size, secret_type_code)
                 
                 st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
                 st.image(z_img, width=200)
@@ -2742,6 +2747,7 @@ else:
                     detected = False
                     success_msg = ""
                     error_msg = ""
+                    extract_secret_type_code = None  # 新增：機密類型
                     
                     # 先嘗試 QR Code
                     try:
@@ -2752,6 +2758,19 @@ else:
                             if '|' in qr_content:
                                 header, z_text = qr_content.split('|', 1)
                                 parts = header.split('-')
+                                if len(parts) == 4:
+                                    # 新格式: 風格編號-圖像編號-尺寸-機密類型
+                                    extract_style_num = int(parts[0])
+                                    extract_img_num = int(parts[1])
+                                    extract_img_size = int(parts[2])
+                                    extract_secret_type_code = int(parts[3])
+                                    extract_z_text = z_text
+                                    style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
+                                    images = IMAGE_LIBRARY.get(style_name, [])
+                                    img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
+                                    type_name = "文字" if extract_secret_type_code == 0 else "圖像"
+                                    success_msg = f"Z碼圖額外資訊：<br>風格：{extract_style_num}. {style_name}，載體圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}<br>機密類型：{type_name}"
+                                    detected = True
                                 if len(parts) == 3:
                                     # 新格式: 風格編號-圖像編號-尺寸
                                     extract_style_num = int(parts[0])
@@ -2780,15 +2799,17 @@ else:
                     # 如果 QR 失敗，嘗試 Z碼圖
                     if not detected:
                         try:
-                            z_bits, style_num, img_num, img_size = decode_image_to_z_with_header(uploaded_img)
+                            z_bits, style_num, img_num, img_size, secret_type = decode_image_to_z_with_header(uploaded_img)
                             extract_style_num = style_num
                             extract_img_num = img_num
                             extract_img_size = img_size
+                            extract_secret_type_code = secret_type
                             extract_z_text = ''.join(str(b) for b in z_bits)
                             style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
                             images = IMAGE_LIBRARY.get(style_name, [])
                             img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                            success_msg = f"Z碼圖額外資訊：<br>風格：{extract_style_num}. {style_name}，載體圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
+                            type_name = "文字" if extract_secret_type_code == 0 else "圖像"
+                            success_msg = f"Z碼圖額外資訊：<br>風格：{extract_style_num}. {style_name}，載體圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}<br>機密類型：{type_name}"
                             detected = True
                         except Exception as e:
                             if error_msg:
@@ -2796,6 +2817,10 @@ else:
                             else:
                                 error_msg = str(e)
                     
+                    # 儲存機密類型到 session_state
+                    if detected:
+                        st.session_state.extract_secret_type_code = extract_secret_type_code
+                        
                     # 顯示上傳的圖像和識別結果（並排）
                     if detected:
                         img_bytes = extract_file.getvalue()
@@ -2881,6 +2906,9 @@ else:
                     selected_contact = st.session_state.get('extract_contact_saved', None)
                     contact_key = get_contact_key(st.session_state.contacts, selected_contact) if selected_contact else None
                     
+                    # 取得機密類型（從 Z碼圖 header）
+                    extract_secret_type_code = st.session_state.get('extract_secret_type_code', None)
+                    
                     if Z:
                         style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
                         images = IMAGE_LIBRARY.get(style_name, [])
@@ -2891,7 +2919,19 @@ else:
                             _, img_process = download_image_by_id(selected_image["id"], extract_img_size)
                             
                             # 傳入 contact_key 進行提取
-                            secret, secret_type, info = detect_and_extract(img_process, Z, contact_key=contact_key)
+                            secret, detected_type, info = detect_and_extract(img_process, Z, contact_key=contact_key)
+                            
+                            # 根據 Z碼圖 header 記錄的類型來決定（優先使用 header 的類型）
+                            if extract_secret_type_code is not None:
+                                # 新格式：有明確的機密類型
+                                if extract_secret_type_code == 1:
+                                    secret_type = 'image'
+                                else:
+                                    secret_type = 'text'
+                            else:
+                                # 舊格式：使用自動偵測的類型
+                                secret_type = detected_type
+                                
                             processing_placeholder.empty()
                             
                             if secret_type == 'text':
@@ -2901,7 +2941,7 @@ else:
                                 secret.save(buf, format='PNG')
                                 st.session_state.extract_result = {'success': True, 'type': 'image', 'elapsed_time': time.time()-start, 'image_data': buf.getvalue()}
                             
-                            for key in ['extract_contact_saved']:
+                            for key in ['extract_contact_saved', 'extract_secret_type_code']:
                                 if key in st.session_state:
                                     del st.session_state[key]
                             st.session_state.extract_page = 'result'
