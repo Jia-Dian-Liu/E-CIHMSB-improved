@@ -9,6 +9,36 @@ from binary_operations import get_msbs
 from mapping import map_from_z
 from secret_encoding import binary_to_text, binary_to_image
 
+
+def unshuffle_bits(bits, key):
+    """
+    功能:
+        用密鑰還原位元順序（shuffle_bits 的逆操作）
+    
+    參數:
+        bits: 打亂後的位元列表
+        key: 密鑰字串（必須和嵌入時用的相同）
+    
+    返回:
+        還原順序後的位元列表
+    
+    原理:
+        用相同的 key 生成相同的打亂順序
+        然後用 argsort 找到還原順序
+    """
+    if not key or len(bits) == 0:
+        return bits
+    
+    seed = hash(key) % 2147483647
+    np.random.seed(seed)
+    order = np.random.permutation(len(bits))
+    
+    # 找到還原順序：argsort 會告訴我們每個位置應該放哪個元素
+    restore_order = np.argsort(order)
+    
+    return [bits[i] for i in restore_order]
+
+
 def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
     """
     功能:
@@ -27,8 +57,14 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
     流程:
         1. 圖片預處理（彩色轉灰階、檢查尺寸）
         2. 計算 8×8 區塊數量
-        3. 對每個 8×8 區塊進行提取（使用 contact_key 生成 Q）
-        4. 跳過類型標記，將機密位元轉回原始內容
+        3. 對每個 8×8 區塊進行提取
+        4. 用 contact_key 還原位元順序（新增！）
+        5. 跳過類型標記，將機密位元轉回原始內容
+    
+    安全機制:
+        - Q 密鑰：保護每個區塊的「值」
+        - Seed 還原：還原機密的「位置」
+        - 雙重保護：載體或對象錯誤都會變成完全馬賽克
     """
     cover_image = np.array(cover_image)
     
@@ -52,7 +88,7 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
     num_cols = width // BLOCK_SIZE
     
     # ========== 步驟 3：對每個 8×8 區塊進行提取 ==========
-    secret_bits = []
+    secret_bits_shuffled = []  # 這是打亂順序的位元
     z_bit_index = 0
     finished = False
     
@@ -94,11 +130,14 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
                 z_bit = z_bits[z_bit_index]
                 msb = msbs[k]
                 secret_bit = map_from_z(z_bit, msb)
-                secret_bits.append(secret_bit)
+                secret_bits_shuffled.append(secret_bit)
                 
                 z_bit_index += 1
     
-    # ========== 步驟 4：將機密位元轉回原始內容 ==========
+    # ========== 步驟 4：用 contact_key 還原位元順序（新增！）==========
+    secret_bits = unshuffle_bits(secret_bits_shuffled, contact_key)
+    
+    # ========== 步驟 5：將機密位元轉回原始內容 ==========
     # 修正：跳過類型標記（第 1 bit）
     if len(secret_bits) < 1:
         raise ValueError("提取的位元數不足，無法讀取類型標記")
@@ -145,7 +184,9 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
         info: 額外資訊
     
     原理:
-        讀取第 1 bit 類型標記來決定解碼方式
+        1. 先提取所有打亂的 bits
+        2. 用 contact_key 還原順序
+        3. 讀取第 1 bit 類型標記來決定解碼方式
         類型標記: 0 = 文字, 1 = 圖片
     """
     # 先提取所有 bits
@@ -162,7 +203,7 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
     num_rows = height // BLOCK_SIZE
     num_cols = width // BLOCK_SIZE
     
-    secret_bits = []
+    secret_bits_shuffled = []  # 這是打亂順序的位元
     z_bit_index = 0
     finished = False
     
@@ -185,8 +226,11 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
                 if z_bit_index >= len(z_bits):
                     finished = True
                     break
-                secret_bits.append(map_from_z(z_bits[z_bit_index], msbs[k]))
+                secret_bits_shuffled.append(map_from_z(z_bits[z_bit_index], msbs[k]))
                 z_bit_index += 1
+    
+    # ========== 用 contact_key 還原位元順序（新增！）==========
+    secret_bits = unshuffle_bits(secret_bits_shuffled, contact_key)
     
     # 檢查是否有足夠的 bits
     if len(secret_bits) < 1:
