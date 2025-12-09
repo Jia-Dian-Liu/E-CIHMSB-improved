@@ -781,11 +781,12 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 /* 表單元素標題 - 放大字體（只限主內容區）*/
 [data-testid="stMain"] .stSelectbox label, 
+[data-testid="stMain"] .stSelectbox label p,
 [data-testid="stMain"] .stRadio label, 
 [data-testid="stMain"] .stTextArea label, 
 [data-testid="stMain"] .stFileUploader label,
 [data-testid="stMain"] [data-testid="stWidgetLabel"] p {
-    font-size: 30px !important;
+    font-size: 24px !important;
     font-weight: bold !important;
     color: #443C3C !important;
 }
