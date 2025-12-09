@@ -864,6 +864,12 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     caret-color: #333 !important;
 }
 
+/* 讓TextArea和FileUploader對齊Tab按鈕 */
+[data-testid="stMain"] .stTextArea,
+[data-testid="stMain"] .stFileUploader > div {
+    width: calc(100% + 0.5rem) !important;
+}
+
 .stTextArea textarea:focus {
     outline: none !important;
     border-color: #ccc !important;
@@ -2042,7 +2048,7 @@ elif st.session_state.current_mode == 'embed':
                 saved_type = st.session_state.get('embed_secret_type_saved', '文字')
                 
                 # Tab 按鈕切換
-                tab_col1, tab_col2 = st.columns(2, gap="small")
+                tab_col1, tab_col2 = st.columns([1, 1], gap="small")
                 with tab_col1:
                     if st.button("文字", key="tab_text_btn", use_container_width=True, type="primary" if saved_type == "文字" else "secondary"):
                         if saved_type != "文字":
