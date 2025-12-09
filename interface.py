@@ -2210,60 +2210,60 @@ elif st.session_state.current_mode == 'embed':
             
             try:
                 start = time.time()
-                    image_id = st.session_state.get('embed_image_id')
-                    image_size = st.session_state.get('embed_image_size')
-                    style_num = st.session_state.get('embed_style_num', 1)
-                    _, img_process = download_image_by_id(image_id, image_size)
-                    capacity = calculate_image_capacity(image_size)
-                    
-                    # 取得對象密鑰
-                    selected_contact = st.session_state.get('selected_contact_saved', None)
-                    contact_key = get_contact_key(st.session_state.contacts, selected_contact) if selected_contact else None
-                    
-                    # DEBUG: 顯示使用的密鑰
-                    if contact_key:
-                        st.toast(f"🔑 嵌入密鑰: {contact_key[:8]}...")
-                    else:
-                        st.toast(f"⚠️ 嵌入沒有密鑰！對象: {selected_contact}")
-                    
-                    embed_secret_type = st.session_state.get('embed_secret_type_saved', '文字')
-                    embed_text = st.session_state.get('embed_text_saved', None)
-                    
-                    if embed_secret_type == "文字" and embed_text:
-                        secret_content = embed_text
-                        secret_type_flag = 'text'
-                        secret_desc = f'文字: "{embed_text}"'
-                        secret_filename = None
-                    elif embed_secret_type == "圖像":
-                        secret_img_data = st.session_state.get('embed_secret_image_data')
-                        if secret_img_data:
-                            secret_content = Image.open(BytesIO(secret_img_data))
-                            secret_type_flag = 'image'
-                            secret_desc = f"圖像: {secret_content.size[0]}×{secret_content.size[1]} px"
-                            secret_filename = st.session_state.get('embed_secret_image_name', 'image.png')
-                    
-                    # 傳入 contact_key 進行嵌入
-                    z_bits, used_capacity, info = embed_secret(img_process, secret_content, secret_type=secret_type_flag, contact_key=contact_key)
-                    processing_placeholder.empty()
-                    
-                    st.session_state.embed_result = {
-                        'success': True, 'elapsed_time': time.time()-start,
-                        'embed_image_choice': embed_image_choice, 'secret_desc': secret_desc,
-                        'embed_secret_type': embed_secret_type, 'z_bits': z_bits,
-                        'image_name': st.session_state.get('embed_image_name', ''),
-                        'image_size': image_size, 'secret_filename': secret_filename,
-                        'secret_bits': info['bits'], 'capacity': capacity,
-                        'usage_percent': info['bits']*100/capacity,
-                        'style_num': style_num
-                    }
-                    for key in ['selected_contact_saved', 'secret_bits_saved', 'embed_text_saved', 'embed_secret_type_saved', 'embed_secret_image_data', 'embed_secret_image_name']:
-                        if key in st.session_state:
-                            del st.session_state[key]
-                    st.session_state.embed_page = 'result'
-                    st.rerun()
-                except Exception as e:
-                    processing_placeholder.empty()
-                    st.markdown(f'<div class="error-box">❌ 嵌入失敗! {e}</div>', unsafe_allow_html=True)
+                image_id = st.session_state.get('embed_image_id')
+                image_size = st.session_state.get('embed_image_size')
+                style_num = st.session_state.get('embed_style_num', 1)
+                _, img_process = download_image_by_id(image_id, image_size)
+                capacity = calculate_image_capacity(image_size)
+                
+                # 取得對象密鑰
+                selected_contact = st.session_state.get('selected_contact_saved', None)
+                contact_key = get_contact_key(st.session_state.contacts, selected_contact) if selected_contact else None
+                
+                # DEBUG: 顯示使用的密鑰
+                if contact_key:
+                    st.toast(f"🔑 嵌入密鑰: {contact_key[:8]}...")
+                else:
+                    st.toast(f"⚠️ 嵌入沒有密鑰！對象: {selected_contact}")
+                
+                embed_secret_type = st.session_state.get('embed_secret_type_saved', '文字')
+                embed_text = st.session_state.get('embed_text_saved', None)
+                
+                if embed_secret_type == "文字" and embed_text:
+                    secret_content = embed_text
+                    secret_type_flag = 'text'
+                    secret_desc = f'文字: "{embed_text}"'
+                    secret_filename = None
+                elif embed_secret_type == "圖像":
+                    secret_img_data = st.session_state.get('embed_secret_image_data')
+                    if secret_img_data:
+                        secret_content = Image.open(BytesIO(secret_img_data))
+                        secret_type_flag = 'image'
+                        secret_desc = f"圖像: {secret_content.size[0]}×{secret_content.size[1]} px"
+                        secret_filename = st.session_state.get('embed_secret_image_name', 'image.png')
+                
+                # 傳入 contact_key 進行嵌入
+                z_bits, used_capacity, info = embed_secret(img_process, secret_content, secret_type=secret_type_flag, contact_key=contact_key)
+                processing_placeholder.empty()
+                
+                st.session_state.embed_result = {
+                    'success': True, 'elapsed_time': time.time()-start,
+                    'embed_image_choice': embed_image_choice, 'secret_desc': secret_desc,
+                    'embed_secret_type': embed_secret_type, 'z_bits': z_bits,
+                    'image_name': st.session_state.get('embed_image_name', ''),
+                    'image_size': image_size, 'secret_filename': secret_filename,
+                    'secret_bits': info['bits'], 'capacity': capacity,
+                    'usage_percent': info['bits']*100/capacity,
+                    'style_num': style_num
+                }
+                for key in ['selected_contact_saved', 'secret_bits_saved', 'embed_text_saved', 'embed_secret_type_saved', 'embed_secret_image_data', 'embed_secret_image_name']:
+                    if key in st.session_state:
+                        del st.session_state[key]
+                st.session_state.embed_page = 'result'
+                st.rerun()
+            except Exception as e:
+                processing_placeholder.empty()
+                st.markdown(f'<div class="error-box">❌ 嵌入失敗! {e}</div>', unsafe_allow_html=True)
 
 else:
     # ==================== 提取模式 ====================
