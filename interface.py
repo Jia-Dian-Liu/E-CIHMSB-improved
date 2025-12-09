@@ -2400,14 +2400,14 @@ else:
                             btn.style.setProperty('background-color', '#c9b89a', 'important');
                             btn.style.setProperty('border-color', '#c9b89a', 'important');
                             btn.style.setProperty('color', '#443C3C', 'important');
-                            btn.style.setProperty('font-size', '24px', 'important');
+                            btn.style.setProperty('font-size', '16px', 'important');
                             btn.style.setProperty('font-weight', '700', 'important');
-                            btn.style.setProperty('padding', '8px 18px', 'important');
-                            btn.style.setProperty('min-width', '120px', 'important');
+                            btn.style.setProperty('padding', '4px 12px', 'important');
+                            btn.style.setProperty('min-width', '60px', 'important');
                             // 內部文字也設定
                             const span = btn.querySelector('span') || btn.querySelector('p');
                             if (span) {
-                                span.style.setProperty('font-size', '24px', 'important');
+                                span.style.setProperty('font-size', '16px', 'important');
                                 span.style.setProperty('font-weight', '700', 'important');
                             }
                         }
@@ -2474,14 +2474,14 @@ else:
                                 btn.style.setProperty('background-color', '#c9b89a', 'important');
                                 btn.style.setProperty('border-color', '#c9b89a', 'important');
                                 btn.style.setProperty('color', '#443C3C', 'important');
-                                btn.style.setProperty('font-size', '24px', 'important');
+                                btn.style.setProperty('font-size', '16px', 'important');
                                 btn.style.setProperty('font-weight', '700', 'important');
-                                btn.style.setProperty('padding', '8px 18px', 'important');
-                                btn.style.setProperty('min-width', '120px', 'important');
+                                btn.style.setProperty('padding', '4px 12px', 'important');
+                                btn.style.setProperty('min-width', '60px', 'important');
                                 // 內部文字也設定
                                 const span = btn.querySelector('span') || btn.querySelector('p');
                                 if (span) {
-                                    span.style.setProperty('font-size', '24px', 'important');
+                                    span.style.setProperty('font-size', '16px', 'important');
                                     span.style.setProperty('font-weight', '700', 'important');
                                 }
                             }
@@ -2535,10 +2535,10 @@ else:
                     btn.style.setProperty('background-color', '#c9b89a', 'important');
                     btn.style.setProperty('border-color', '#c9b89a', 'important');
                     btn.style.setProperty('color', '#443C3C', 'important');
-                    btn.style.setProperty('font-size', '24px', 'important');
+                    btn.style.setProperty('font-size', '16px', 'important');
                     btn.style.setProperty('font-weight', '700', 'important');
-                    btn.style.setProperty('padding', '8px 18px', 'important');
-                    btn.style.setProperty('min-width', '120px', 'important');
+                    btn.style.setProperty('padding', '4px 12px', 'important');
+                    btn.style.setProperty('min-width', '60px', 'important');
                 }
             }
         }
@@ -2776,7 +2776,7 @@ else:
                         btn.style.setProperty('border-color', '#7D5A6B', 'important');
                         btn.style.setProperty('color', 'white', 'important');
                         btn.style.setProperty('width', 'auto', 'important');
-                        btn.style.setProperty('min-width', '120px', 'important');
+                        btn.style.setProperty('min-width', '60px', 'important');
                         btn.style.setProperty('padding', '0.5rem 1rem', 'important');
                         // 固定定位到底部中央
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
