@@ -2585,11 +2585,22 @@ else:
                             else:
                                 error_msg = f"Z碼: {str(e)}"
                     
-                    # 顯示上傳的圖像和識別結果
-                    st.image(uploaded_img, width=150)
+                    # 顯示上傳的圖像和識別結果（並排）
                     if detected:
-                        st.markdown(f'<p style="font-size: 22px; color: #4f7343; margin-top: 10px; font-weight: bold;">{success_msg}</p>', unsafe_allow_html=True)
+                        img_bytes = uploaded_z.getvalue()
+                        img_b64 = base64.b64encode(img_bytes).decode()
+                        st.markdown(f'''
+                        <div style="display: flex; align-items: center; gap: 20px; margin-top: 10px;">
+                            <div style="flex-shrink: 0;">
+                                <img src="data:image/png;base64,{img_b64}" style="width: 150px; border-radius: 8px;">
+                            </div>
+                            <div style="font-size: 22px; color: #4f7343; font-weight: bold; line-height: 1.6;">
+                                {success_msg}
+                            </div>
+                        </div>
+                        ''', unsafe_allow_html=True)
                     else:
+                        st.image(uploaded_img, width=150)
                         st.markdown(f'<p style="font-size: 22px; color: #C62828; margin-top: 10px;">❌ 無法識別</p>', unsafe_allow_html=True)
                         if error_msg:
                             st.markdown(f'<p style="font-size: 14px; color: #999;">{error_msg}</p>', unsafe_allow_html=True)
