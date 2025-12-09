@@ -1260,7 +1260,7 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
 
 /* 讓第二步的輸入框對齊Tab按鈕（補償gap）*/
 [data-testid="column"]:nth-child(2) .stTextArea {
-    width: calc(100% + 0.5rem) !important;
+    width: calc(100% + 0.7rem) !important;
 }
 [data-testid="column"]:nth-child(2) .stFileUploader > section {
     width: calc(100% + 0.5rem) !important;
