@@ -2209,7 +2209,7 @@ elif st.session_state.current_mode == 'embed':
             """, unsafe_allow_html=True)
             
             try:
-            start = time.time()
+                start = time.time()
                     image_id = st.session_state.get('embed_image_id')
                     image_size = st.session_state.get('embed_image_size')
                     style_num = st.session_state.get('embed_style_num', 1)
