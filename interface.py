@@ -2245,6 +2245,27 @@ elif st.session_state.current_mode == 'embed':
             with btn_col2:
                 if st.button("開始嵌入", type="primary", key="embed_btn_horizontal", use_container_width=True):
                     st.session_state.trigger_embed = True
+            
+            # 固定開始嵌入按鈕到底部中央
+            components.html("""
+            <script>
+            function fixEmbedButton() {
+                const buttons = window.parent.document.querySelectorAll('button');
+                for (let btn of buttons) { 
+                    if (btn.innerText === '開始嵌入') {
+                        btn.style.cssText += 'min-width:120px!important;padding:0.5rem 2rem!important;';
+                        let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                        if (container) {
+                            container.style.cssText = 'position:fixed!important;bottom:85px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                        }
+                    }
+                }
+            }
+            fixEmbedButton();
+            setTimeout(fixEmbedButton, 100);
+            setTimeout(fixEmbedButton, 300);
+            </script>
+            """, height=0)
         
         if all_done and st.session_state.get('trigger_embed'):
             st.session_state.trigger_embed = False
