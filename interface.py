@@ -2358,6 +2358,8 @@ else:
                             st.markdown(f'<p style="color: #2E7D32;">MSE: {mse:.4f} - 完全一致！</p>', unsafe_allow_html=True)
                         else:
                             st.markdown(f'<p style="color: #F57C00;">MSE: {mse:.4f}</p>', unsafe_allow_html=True)
+                    else:
+                        st.markdown(f'<p style="color: #C62828;">⚠️ 尺寸不同，無法比較<br>原始：{orig_img.size[0]}×{orig_img.size[1]} vs 提取：{extracted_img.size[0]}×{extracted_img.size[1]}</p>', unsafe_allow_html=True)
         
         # 返回首頁按鈕 - 固定在底部中央
         _, btn_col, _ = st.columns([1, 1, 1])
