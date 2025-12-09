@@ -704,6 +704,15 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-weight: bold !important;
 }
 
+/* 機密文字顯示 - 中等字體 */
+[data-testid="stMain"] .stMarkdown div.secret-content {
+    font-size: 16px !important;
+    font-weight: normal !important;
+    color: #4f7343 !important;
+    line-height: 1.5 !important;
+    white-space: pre-wrap !important;
+}
+
 /* 驗證對比文字 - 小字體 */
 [data-testid="stMain"] .stMarkdown p.verify-label {
     font-size: 14px !important;
@@ -2388,7 +2397,7 @@ else:
             with col1:
                 st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #4f7343; margin-bottom: 15px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
                 st.markdown('<p style="font-size: 26px; font-weight: bold; color: #4f7343;">機密文字:</p>', unsafe_allow_html=True)
-                st.markdown(f'''<div style="font-size: 16px !important; color: #4f7343 !important; white-space: pre-wrap; line-height: 1.5 !important; font-weight: normal !important;">{r["content"]}</div>''', unsafe_allow_html=True)
+                st.markdown(f'<div class="secret-content">{r["content"]}</div>', unsafe_allow_html=True)
             
             # 區塊2：輸入區
             with col2:
