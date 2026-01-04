@@ -104,3 +104,11 @@ def process_image_multilayer(image):
   all_averages = all_averages_array.tolist()
 
   return all_averages, num_units
+
+def q_mapping_region_sort(block_8x8):
+    """
+    使用區域前 8 個 pixels 的灰階值排序，作為 Q-mapping 的依據
+    """
+    first_8_pixels = block_8x8.flatten()[:8]
+    sorted_indices = np.argsort(first_8_pixels)
+    return sorted_indices
