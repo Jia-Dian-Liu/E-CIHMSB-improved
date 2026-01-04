@@ -55,3 +55,21 @@ def image_to_z(image, original_bit_length=None):
     z_bits = z_bits[:original_bit_length]
   
   return z_bits
+
+def embed_data_multi_msb(image, data, msb_indices=[6, 7]):
+    """
+    將 data 嵌入 image 的指定 MSB 位元中。
+    msb_indices: list of bit positions to use for embedding
+    """
+    # 轉換資料為位元序列
+    bit_stream = convert_data_to_bits(data)
+    
+    # 遍歷像素並嵌入資料
+    for pixel in image:
+        for channel in pixel:  # R, G, B
+            for msb in msb_indices:
+                # 清除指定位元
+                channel &= ~(1 << msb)
+                # 嵌入資料位元
+                channel |= (bit_stream.pop(0) << msb)
+    return image
